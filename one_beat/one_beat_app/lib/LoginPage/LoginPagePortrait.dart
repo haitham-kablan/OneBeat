@@ -2,6 +2,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:one_beat_app/colors/colors.dart';
+import 'package:one_beat_app/reigester/regiesterPortrait.dart';
+import 'package:one_beat_app/tools/text_feild.dart';
+import 'package:one_beat_app/users/current_user.dart';
 
 
 class LoginPagePortrait extends StatefulWidget {
@@ -17,7 +20,7 @@ class _LoginPagePortraitState extends State<LoginPagePortrait> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            main_bg_color,gradient_bg_second_color
+            Colors.black,Colors.black
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -113,3 +116,84 @@ class _LoginPagePortraitState extends State<LoginPagePortrait> {
     );
   }
 }
+
+class LoginPageProtrait2 extends StatefulWidget {
+  @override
+  _LoginPageProtrait2State createState() => _LoginPageProtrait2State();
+}
+
+class _LoginPageProtrait2State extends State<LoginPageProtrait2> {
+
+  final TextEditingController email_Controler = TextEditingController();
+  final TextEditingController pw_Controler = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
+
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Color(0xffFCFCFC),
+        body: Column(
+          children: [
+            SizedBox(height: 30,),
+            Image(image : AssetImage("assets/adham_lgo.png")),
+            SizedBox(height: 20,),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Material(
+                elevation: 10.0,
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),topLeft: Radius.circular(10)),
+                child: Container(
+                  //color: current_color.color.text,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),topLeft: Radius.circular(10)),
+                    color: Color(0xff99C01B),
+                  ),
+                  width: size.width * 0.7,
+                  height: size.height * 0.08,
+                  child:  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(width: 20,),
+                      Icon(Icons.facebook_outlined,color: Colors.white,),
+                      Spacer(flex: 1,),
+                      Text('ברוכים הבאים' , style: TextStyle(color: Colors.white,fontSize: 20,fontStyle: FontStyle.italic),),
+                      SizedBox(width: 20,),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Material(
+                elevation: 10,
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 20,),
+                      Text_Feild(email_Controler,(val) => isEmail(val) ? null : "נא הזן כתובת מייל חוקית",Icon(Icons.email,color: Colors.blue,),"דואר אלקטרוני",false),
+                      SizedBox(height: 20,),
+                      Text_Feild(email_Controler,(val) => isEmail(val) ? null : "נא הזן כתובת מייל חוקית",Icon(Icons.email,color: Colors.blue,),"דואר אלקטרוני",false),
+
+                    ],
+                  ),
+                ),
+
+              ),
+            ),
+
+          ],
+        ),
+      ),
+    );
+  }
+}
+

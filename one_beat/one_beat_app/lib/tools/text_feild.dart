@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:one_beat_app/colors/colors.dart';
 import 'package:one_beat_app/colors/colors_pallete.dart';
 
 class Text_Feild extends StatelessWidget {
@@ -21,11 +22,11 @@ class Text_Feild extends StatelessWidget {
         opacity: 1,
         child: Material(
           elevation: 10.0,
-          color: Colors.transparent,
+          color: backGround,
           borderRadius: BorderRadius.circular(10.0),
           child: TextFormField(
             obscureText: obsecure,
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.grey[800]),
             controller: Controler,
             validator: validator,
             decoration: InputDecoration(
@@ -35,7 +36,7 @@ class Text_Feild extends StatelessWidget {
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: current_color.color.title_heading, width: 1.0),
+                  borderSide: BorderSide(color: greyButtonBg, width: 1.0),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey, width: 1.0),
@@ -43,7 +44,7 @@ class Text_Feild extends StatelessWidget {
                 fillColor: Colors.white,
                 contentPadding: EdgeInsets.symmetric(vertical: 20 , horizontal: 10),
                 hintText: hint_text,
-                hintStyle: TextStyle(color: Colors.grey),
+                hintStyle: TextStyle(color: Colors.grey[700]),
                 hintTextDirection: TextDirection.rtl,
                 suffixIcon: icon
 

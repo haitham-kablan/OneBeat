@@ -69,6 +69,7 @@ flutter:
     - assets/or.png
     - assets/app_bar_bg.png
     - assets/login_page_bg.png
+    - assets/MainLogo.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

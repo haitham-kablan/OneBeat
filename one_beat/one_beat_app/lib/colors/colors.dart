@@ -1,5 +1,9 @@
 
 import 'package:flutter/cupertino.dart';
 
-Color main_bg_color = Color(0xff28313B);
-Color gradient_bg_second_color = Color(0xff485461);
+Color secondHeading = Color(0xff9F9E9E);
+Color greyButtonBg = Color(0xff3A3A3A);
+Color lightGreen = Color(0xff7BF38C);
+Color darkGreen = Color(0xff5CEB71);
+Color backGround = Color(0xffFFFCFC);
+
