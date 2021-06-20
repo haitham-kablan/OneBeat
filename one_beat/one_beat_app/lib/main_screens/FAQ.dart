@@ -70,6 +70,7 @@ class _FAQState extends State<FAQ> {
                   setState(() {
                     answered = true;
                     print(answered);
+
                     return;
                   });
                 },

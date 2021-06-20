@@ -1,4 +1,3 @@
-
 // @dart=2.9
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,34 +18,20 @@ import 'package:provider/provider.dart';
 import 'WelcomePage/WelcomePagePortrait.dart';
 import 'main_screens/FAQ.dart';
 
-
-
-
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await  Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-     // return StreamProvider<User>.value(
-     //   value: wrapper().user,
-     //   initialData: null,
-     //   child: MaterialApp(
-     //       home: wrapper()
-     //   ),
-     // );
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SafeArea(child: FinalReigesterPage()),
+    FirebaseAuth.instance.signOut();
+    return StreamProvider<User>.value(
+      value: wrapper().user,
+      initialData: null,
+      child: MaterialApp(debugShowCheckedModeBanner: false, home: wrapper()),
     );
   }
-
 }
-
-

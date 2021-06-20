@@ -2,6 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:one_beat_app/colors/colors.dart';
+import 'package:one_beat_app/db_service/Authentication.dart';
+import 'package:provider/provider.dart';
 
 class FinalLoginPage extends StatefulWidget {
   @override
@@ -9,24 +11,39 @@ class FinalLoginPage extends StatefulWidget {
 }
 
 class _FinalLoginPageState extends State<FinalLoginPage> {
+
+
+
   @override
   Widget build(BuildContext context) {
-
+    final LoginProvider = Provider.of<Authentication>(context);
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
             color: backGround,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Stack(
               children: [
-                SizedBox(height: 30,),
-                Center(child: MainLogo()),
-                SizedBox(height: 20,),
-                Center(child: Heading()),
-                SizedBox(height: 60,),
-                Center(child: LogInButton()),
-                SizedBox(height: 20,),
-                Center(child: ReigesterButton()),
+                Container(
+                  width: size.width,
+                  height: size.height * 0.3,
+                  color: greyButtonBg,
+                ),
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 30,),
+                      Center(child: MainLogo()),
+                      SizedBox(height: 20,),
+                      Center(child: Heading()),
+                      SizedBox(height: 60,),
+                      Center(child: LogInButton()),
+                      SizedBox(height: 20,),
+                      Center(child: ReigesterButton()),
+                    ],
+                  ),
+                ),
               ],
             ),
         ),
