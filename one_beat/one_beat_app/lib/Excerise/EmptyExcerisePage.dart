@@ -10,11 +10,12 @@ class EmptyExcerisePage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: backGround,
       body: Column(
         children: [
           SizedBox(height: 20,),
           Padding(
-            padding: const EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.only(right: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -23,7 +24,7 @@ class EmptyExcerisePage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.only(right: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -31,7 +32,7 @@ class EmptyExcerisePage extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 30,),
           Center(child: Image.asset('assets/MainLogo.png',width: 270,height: 270,)),
           Center(child: Padding(
             padding: const EdgeInsets.only(left: 20,right: 20),
