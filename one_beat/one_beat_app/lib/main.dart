@@ -27,7 +27,6 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    FirebaseAuth.instance.signOut();
     return StreamProvider<User>.value(
       value: wrapper().user,
       initialData: null,

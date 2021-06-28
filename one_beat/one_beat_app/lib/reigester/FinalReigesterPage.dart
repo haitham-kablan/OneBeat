@@ -1,10 +1,17 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:one_beat_app/HomePage/HomePagePortrait.dart';
+import 'package:one_beat_app/LoginPage/FinalLoginPage.dart';
 import 'package:one_beat_app/colors/colors.dart';
+import 'package:one_beat_app/db_service/Authentication.dart';
 import 'package:one_beat_app/tools/text_feild.dart';
+import 'package:one_beat_app/users/current_user.dart';
+import 'package:provider/provider.dart';
 
 class FinalReigesterPage extends StatefulWidget {
   @override
@@ -76,64 +83,112 @@ class _FinalReigesterPageState extends State<FinalReigesterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final ReigesterProvider = Provider.of<Authentication>(context);
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: backGround,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 60,),
-            Center(
-              child: GestureDetector(
-                onTap: () {
-                  _showPicker(context);
-                },
-                child: CircleAvatar(
-                  radius: 55,
-                  backgroundColor: darkGreen,
-                  child: _image != null
-                      ? Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Container(
-                            width: 200,
-                            height: 200,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: FileImage(File(_image!.path)),
+      body: Form(
+        key: _formkey,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 60,),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    _showPicker(context);
+                  },
+                  child: CircleAvatar(
+                    radius: 55,
+                    backgroundColor: greyButtonBg,
+                    child: _image != null
+                        ? Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Container(
+                              width: 200,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: FileImage(File(_image!.path)),
+                                ),
                               ),
                             ),
+                          )
+                        : Container(
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    lightGreen,darkGreen
+                                  ]
+                                ),
+                                borderRadius: BorderRadius.circular(50)),
+                            child: Icon(
+                              Icons.camera_alt,
+                              color: Colors.white,
+                            ),
                           ),
-                        )
-                      : Container(
-                          width: 100,
-                          height: 100,
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  lightGreen,darkGreen
-                                ]
-                              ),
-                              borderRadius: BorderRadius.circular(50)),
-                          child: Icon(
-                            Icons.camera_alt,
-                            color: Colors.white,
-                          ),
-                        ),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 35,),
-            Name(name_Controler: name_Controler,),
-            SizedBox(height: 20,),
-            Email(email_Controler: email_Controler),
-            SizedBox(height: 20,),
-            Password(controller: pw_Controler),
-            SizedBox(height: 20,),
-            ConfirmPassword(controller: pw_confirm_Controler),
-            SizedBox(height: 50,),
-            SignUp(),
-          ],
+              SizedBox(height: 35,),
+              Center(child: ReigesterProvider.errorMessage.isEmpty ? SizedBox(height: 0,): ErrorMsg(provider: ReigesterProvider,),),
+              SizedBox(height: 5,),
+              Name(name_Controler: name_Controler,),
+              SizedBox(height: 20,),
+              Email(email_Controler: email_Controler),
+              SizedBox(height: 20,),
+              Password(controller: pw_Controler),
+              SizedBox(height: 20,),
+              ConfirmPassword(controller: pw_confirm_Controler, origPw: pw_Controler.text,),
+              SizedBox(height: 50,),
+              Center(
+                child: ReigesterProvider.isLoading ? SpinKitCircle(color: darkGreen) :
+                InkWell(
+                  onTap: () async{
+                    if(_formkey.currentState!.validate()){
+                      current_user = await ReigesterProvider.Regiester(email_Controler.text, pw_Controler.text,name_Controler.text,_image);
+                      if(current_user != null){
+                        User? user = await ReigesterProvider.Login(email_Controler.text, pw_Controler.text);
+                        Navigator.pushAndRemoveUntil<dynamic>(
+                          context,
+                          MaterialPageRoute<dynamic>(
+                            builder: (BuildContext context) => AdminHomePagePortrait(),
+                          ),
+                              (route) => false,//if you want to disable back feature set to false
+                        );
+                      }
+                    }
+                  },
+                  child: Material(
+                    elevation: 10.0,
+                    borderRadius: BorderRadius.circular(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: greyButtonBg,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                        color: greyButtonBg,
+                      ),
+                      width: size.width * 0.85,
+                      height: size.height * 0.07,
+                      child:  Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('הרשמה' ,textDirection: TextDirection.rtl,
+                            style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -174,47 +229,60 @@ class Password extends StatelessWidget {
 class ConfirmPassword extends StatelessWidget {
 
   final TextEditingController controller;
+  final String origPw;
 
-  const ConfirmPassword({Key? key, required this.controller}) : super(key: key);
+  const ConfirmPassword({Key? key, required this.controller,required this.origPw}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return  Text_Feild(controller,(val) => val.isNotEmpty ? null : "סיסמה לא תואמת",Icon(Icons.vpn_key,color:greyButtonBg,),"אימות סיסמה",true);
+    return  Text_Feild(controller,(val) => (val as String) == origPw ? null : "סיסמה לא תואמת",Icon(Icons.vpn_key,color:greyButtonBg,),"אימות סיסמה",true);
   }
 }
-
-class SignUp extends StatefulWidget {
-  @override
-  _SignUpState createState() => _SignUpState();
-}
-
-class _SignUpState extends State<SignUp> {
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Material(
-      elevation: 10.0,
-      borderRadius: BorderRadius.circular(5),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: greyButtonBg,
-          ),
-          borderRadius: BorderRadius.circular(5),
-          color: greyButtonBg,
-        ),
-        width: size.width * 0.85,
-        height: size.height * 0.07,
-        child:  Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('הרשמה' ,textDirection: TextDirection.rtl,
-              style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//
+// class SignUp extends StatefulWidget {
+//   @override
+//   _SignUpState createState() => _SignUpState();
+// }
+//
+// class _SignUpState extends State<SignUp> {
+//   @override
+//   Widget build(BuildContext context) {
+//     Size size = MediaQuery.of(context).size;
+//     return InkWell(
+//       onTap: (){
+//         if(_formkey.currentState!.validate()){
+//           current_user = await ReigesterProvider.Regiester(email_Controler.text, pw_Controler.text,name_Controler.text,_image);
+//           if(current_user != null){
+//             User? user = await ReigesterProvider.Login(email_Controler.text, pw_Controler.text);
+//             //todo : add user to data base
+//             //current_user = await DataBaseService.getUserByEmail(email_Controler.text);
+//           }
+//         }
+//       },
+//       child: Material(
+//         elevation: 10.0,
+//         borderRadius: BorderRadius.circular(5),
+//         child: Container(
+//           decoration: BoxDecoration(
+//             border: Border.all(
+//               color: greyButtonBg,
+//             ),
+//             borderRadius: BorderRadius.circular(5),
+//             color: greyButtonBg,
+//           ),
+//           width: size.width * 0.85,
+//           height: size.height * 0.07,
+//           child:  Row(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               Text('הרשמה' ,textDirection: TextDirection.rtl,
+//                 style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 
 bool isEmail(String string) {

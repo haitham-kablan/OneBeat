@@ -24,6 +24,7 @@ class _FinalLoginPageState extends State<FinalLoginPage> {
     final LoginProvider = Provider.of<Authentication>(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: backGround,
       body: Form(
         key: _formkey,
         child: SingleChildScrollView(
@@ -33,19 +34,19 @@ class _FinalLoginPageState extends State<FinalLoginPage> {
                   children: [
                     Container(
                       width: size.width,
-                      height: size.height * 0.3,
+                      height: size.height * 0.35,
                       color: greyButtonBg,
                     ),
                     Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(height: 5,),
+                          SizedBox(height: 35,),
+                          Text("ONE BEAT",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold , fontStyle: FontStyle.italic,fontSize: 55),),
                           Center(child: MainLogo()),
-                          SizedBox(height: 20,),
                           Center(child: LoginProvider.errorMessage.isEmpty ? SizedBox(height: 0,): ErrorMsg(provider: LoginProvider,),),
                           Center(child: Email(email_Controler: emial_controller,)),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 10,),
                           Center(child: Password(controller: password_controller,)),
                           SizedBox(height: 30,),
                           Center(
@@ -53,6 +54,7 @@ class _FinalLoginPageState extends State<FinalLoginPage> {
                               InkWell(
                                 onTap: (){
                                   if(_formkey.currentState!.validate()){
+                                    //todo : get user from db
                                     LoginProvider.Login(emial_controller.text,password_controller.text);
                                   }
 
@@ -185,6 +187,7 @@ class _ReigesterButtonState extends State<ReigesterButton> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return InkWell(
       onTap: (){
         Navigator.push(

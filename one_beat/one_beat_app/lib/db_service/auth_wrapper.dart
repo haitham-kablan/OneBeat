@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:one_beat_app/HomePage/HomePagePortrait.dart';
+import 'package:one_beat_app/HomePage/UserHomePageFinal.dart';
 import 'package:one_beat_app/LoginPage/FinalLoginPage.dart';
 import 'package:one_beat_app/WelcomePage/WelcomePagePortrait.dart';
 import 'package:one_beat_app/db_service/Authentication.dart';
@@ -24,7 +25,7 @@ class wrapper extends StatelessWidget {
           child: FinalLoginPage()
       );
     } else{
-      return AdminHomePagePortrait();
+      return UserHomePageFinal();
     }
   }
 }
