@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:one_beat_app/Excerise/EmptyExcerisePage.dart';
+import 'package:one_beat_app/Measurments/Mesurments.dart';
 import 'package:one_beat_app/colors/colors.dart';
 
 class UserHomePageFinal extends StatefulWidget {
@@ -18,10 +19,7 @@ class _UserHomePageFinal extends State<UserHomePageFinal> {
       'Index 0: Home',
       style: optionStyle,
     ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
+    Mesurments(),
     EmptyExcerisePage(),
   ];
 
