@@ -50,7 +50,7 @@ class _MesurmentsState extends State<Mesurments> {
             SizedBox(height: 15,),
             SingleMeasure(text: "אחוז שומן (%): "),
             SizedBox(height: 15,),
-            SingleMeasure(text: "היקף בטן (ס\"ם): "),l
+            SingleMeasure(text: "היקף בטן (ס\"ם): "),
             SizedBox(height: 15,),
             SingleMeasure(text: "היקף יד (ס\"ם): "),
             SizedBox(height: 15,),
