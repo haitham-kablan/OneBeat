@@ -51,7 +51,7 @@ class _EmptyMeasureState extends State<EmptyMeasure> {
             ),
           ),
           SizedBox(height: 10,),
-          button(backGroundClr, "עדכון פרטים", Colors.white, BorderRadius.circular(20), size.width * 0.5, size.width * 0.085, EmptyFaq(), context),
+          button(backGroundClr, "עדכון פרטים", Colors.white, BorderRadius.circular(20), size.width * 0.5, size.width * 0.085, (){}),
         ],
       ),
     );

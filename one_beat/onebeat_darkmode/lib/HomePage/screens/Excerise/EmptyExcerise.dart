@@ -39,7 +39,7 @@ class EmptyExcerise extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20,),
-          button(backGroundClr, "בניית תוכנית", Colors.white, BorderRadius.circular(20), size.width * 0.5, size.width * 0.085, EmptyFaq(), context),
+          button(backGroundClr, "בניית תוכנית", Colors.white, BorderRadius.circular(20), size.width * 0.5, size.width * 0.085, (){}),
 
         ],
       ),

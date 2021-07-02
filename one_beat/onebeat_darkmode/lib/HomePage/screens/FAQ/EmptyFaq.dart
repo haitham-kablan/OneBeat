@@ -37,9 +37,9 @@ class EmptyFaq extends StatelessWidget {
             ),
           ),
           SizedBox(height: 60,),
-          button(greenClr, "הוספת שאלה", Colors.white, BorderRadius.circular(20), size.width * 0.5, size.width * 0.085, EmptyFaq(), context),
+          button(greenClr, "הוספת שאלה", Colors.white, BorderRadius.circular(20), size.width * 0.5, size.width * 0.085, (){}),
           SizedBox(height: 20,),
-          button(backGroundClr, "שאלות אחרים", Colors.white, BorderRadius.circular(20), size.width * 0.5, size.width * 0.085, EmptyFaq(), context),
+          button(backGroundClr, "שאלות אחרים", Colors.white, BorderRadius.circular(20), size.width * 0.5, size.width * 0.085, (){}),
         ],
       ),
     );

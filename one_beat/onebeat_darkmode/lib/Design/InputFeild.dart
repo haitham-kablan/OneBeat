@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:onebeat_darkmode/ColorsPallete/ColorsPallete.dart';
 
 Widget InpuTextFeild(String hint,Icon icon,Color bgClr,
-    Color hintClr,Color txtClr,Color borderClr, padding){
+    Color hintClr,Color txtClr,Color borderClr, padding,controller,{obsecure = false}){
 
   return Directionality(
     textDirection: TextDirection.rtl,
@@ -15,6 +15,9 @@ Widget InpuTextFeild(String hint,Icon icon,Color bgClr,
         color: Colors.transparent,
         elevation: 10,
         child: TextFormField(
+          obscureText: obsecure,
+          controller: controller,
+          style: TextStyle(color: txtClr),
           decoration: InputDecoration(
             filled: true,
             fillColor: bgClr,
