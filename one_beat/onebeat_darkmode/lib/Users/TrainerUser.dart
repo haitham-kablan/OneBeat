@@ -1,24 +1,30 @@
 
 
 
-class TrainerUser{
+import 'package:onebeat_darkmode/Users/User.dart';
 
-  late String name;
-  late String email;
+class TrainerUser extends BasicUser{
 
   late bool firstFaq;
   late bool firstMeasure;
   late bool firstExcerise;
 
-  late int kgWeight;
-  late int cmHeight;
-  late int cmStomachSize;
-  late int cmArmSize;
-  late int bodyFatPercentage;
+  late double kgWeight;
+  late double cmHeight;
+  late double cmStomachSize;
+  late double cmArmSize;
+  late double bodyFatPercentage;
 
-  TrainerUser(this.name,this.email,this.firstFaq,this.firstMeasure,
+  late double goalkgWeight;
+  late double goalcmHeight;
+  late double goalcmStomachSize;
+  late double goalcmArmSize;
+  late double goalbodyFatPercentage;
+
+  TrainerUser(name,email,priv,this.firstFaq,this.firstMeasure,
       this.firstExcerise,this.kgWeight,this.cmHeight,this.cmStomachSize,
-      this.cmArmSize,this.bodyFatPercentage){
+      this.cmArmSize,this.bodyFatPercentage,this.goalkgWeight,this.goalcmArmSize,this.goalcmStomachSize,this.goalcmHeight,this.goalbodyFatPercentage) : super(name, email, priv){
+
 
   }
 

@@ -14,14 +14,15 @@ class EmptyFaq extends StatelessWidget {
       backgroundColor: backGroundClr,
       body: Column(
         children: [
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.end,
+          //   children: [
+          //     Image.asset('assets/topLeftLogo.png'),
+          //   ],
+          // ),
+          SizedBox(height: 70,),
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Image.asset('assets/topLeftLogo.png'),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset('assets/pencil.png',height: 120,width: 120,),
               SizedBox(width: 20,)

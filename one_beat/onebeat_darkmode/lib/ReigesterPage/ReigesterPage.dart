@@ -3,10 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onebeat_darkmode/ColorsPallete/ColorsPallete.dart';
 import 'package:onebeat_darkmode/DataBase/Authentication/Authentication.dart';
+import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
 import 'package:onebeat_darkmode/Design/Button.dart';
 import 'package:onebeat_darkmode/Design/InputFeild.dart';
 import 'package:onebeat_darkmode/Design/ShowError.dart';
 import 'package:onebeat_darkmode/HomePage/HomePage.dart';
+import 'package:onebeat_darkmode/Users/CurrentUser.dart';
+import 'package:onebeat_darkmode/Users/TrainerUser.dart';
+import 'package:onebeat_darkmode/Users/User.dart';
 
 class ReigesterPage extends StatefulWidget {
   @override
@@ -19,6 +23,8 @@ class _ReigesterPageState extends State<ReigesterPage> {
   TextEditingController passwordControler = TextEditingController();
   TextEditingController userNameControler = TextEditingController();
   TextEditingController verifeidPassControler = TextEditingController();
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -77,48 +83,117 @@ class _ReigesterPageState extends State<ReigesterPage> {
                   Colors.white,EdgeInsets.only(left: 50,right: 50),verifeidPassControler,obsecure: true),
             ),
             SizedBox(height: 80,),
-            button(greenClr, "הרשמה", Colors.white, BorderRadius.circular(10), size.width * 0.4, size.height * 0.05,
-              ()=>{
-                SignIn(emailControler.text,
-                    passwordControler.text,
-                    userNameControler.text,
-                    verifeidPassControler.text,
-                    context)
-              },),
+            isLoading ? CircularProgressIndicator(
+              backgroundColor: navBarClr,
+              color: greenClr,
+            ):
+        Container(
+          width: size.width * 0.4,
+          height: size.height * 0.05,
+          child: Material(
+            elevation: 10,
+            borderRadius:  BorderRadius.circular(10),
+            color: backGroundClr,
+            child: Center(
+              child: InkWell(
+                onTap: () async{
+
+                  setState(() {
+                    isLoading = true;
+                  });
+                  String email=emailControler.text;
+                  String password = passwordControler.text;
+                  String userName = userNameControler.text;
+                  String verifiedPassword = verifeidPassControler.text;
+
+                  if(email.isEmpty || password.isEmpty || userName.isEmpty || verifiedPassword.isEmpty){
+                    setState(()  {
+                      isLoading = false;
+                    });
+                    await ShowError(context, "אחד או יותר מהשדות שלך הם ריקים , נא מלא אותם");
+
+                    return;
+                  }
+
+                  if(!isEmail(email)){
+                    setState(()  {
+                      isLoading = false;
+                    });
+                    await ShowError(context, "הדואל שלך אינו חוקי");
+                    return;
+                  }
+
+                  String? ans = await AuthenticationService.Reigester(email, password,userName);
+                  if(ans != null){
+                    setState(()  {
+                      isLoading = false;
+                    });
+                    await ShowError(context, ans);
+                    return;
+                  }
+
+                  await AuthenticationService.Login(email, password);
+                  currentUser = TrainerUser(userName, email,Privillage.TRAINER, false, false, false, 20, 100, 25, 10, 3, 20, 10, 25, 100, 3);
+                  await DataBaseService.addTrainerToDb(currentUser as TrainerUser);
+
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                          (Route<dynamic> route) => false);
+
+                  setState(()  {
+                    isLoading = false;
+                  });
+
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius:  BorderRadius.circular(10),
+                    color: greenClr,
+                  ),
+                  width: size.width * 0.4,
+                  height: size.height * 0.05,
+                  child: Center(
+                    child: Text("הרשמה",style: TextStyle(color: Colors.white,fontSize: 18,)),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
           ],
         ),
       ),
     );
   }
 }
-
-Future SignIn(String email,String password,String userName,String verifiedPassword,context) async{
-
-  if(email.isEmpty || password.isEmpty || userName.isEmpty || verifiedPassword.isEmpty){
-    await ShowError(context, "אחד או יותר מהשדות שלך הם ריקים , נא מלא אותם");
-        return;
-  }
-
-  if(!isEmail(email)){
-    await ShowError(context, "הדואל שלך אינו חוקי");
-    return;
-  }
-
-  String? ans = await AuthenticationService.Reigester(email, password,userName);
-  if(ans != null){
-    await ShowError(context, ans);
-    return;
-  }
-
-  await AuthenticationService.Login(email, password);
-
-  //add user to db
-
-  Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => HomePage()),
-          (Route<dynamic> route) => false);
-
-}
+//
+// Future SignIn(String email,String password,String userName,String verifiedPassword,context) async{
+//
+//   if(email.isEmpty || password.isEmpty || userName.isEmpty || verifiedPassword.isEmpty){
+//     await ShowError(context, "אחד או יותר מהשדות שלך הם ריקים , נא מלא אותם");
+//         return;
+//   }
+//
+//   if(!isEmail(email)){
+//     await ShowError(context, "הדואל שלך אינו חוקי");
+//     return;
+//   }
+//
+//   String? ans = await AuthenticationService.Reigester(email, password,userName);
+//   if(ans != null){
+//     await ShowError(context, ans);
+//     return;
+//   }
+//
+//   await AuthenticationService.Login(email, password);
+//
+//  await DataBaseService.addTrainerToDb(TrainerUser(userName, email, false, false, false, 20, 100, 25, 10, 3, 20, 10, 25, 100, 3));
+//
+//   Navigator.of(context).pushAndRemoveUntil(
+//       MaterialPageRoute(builder: (context) => HomePage()),
+//           (Route<dynamic> route) => false);
+//
+// }
 
 bool isEmail(String string) {
   // Null or empty string is invalid
