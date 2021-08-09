@@ -3,11 +3,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onebeat_darkmode/ColorsPallete/ColorsPallete.dart';
+import 'package:onebeat_darkmode/DataBase/FaqClass.dart';
 import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
 import 'package:onebeat_darkmode/Design/Button.dart';
+import 'package:onebeat_darkmode/Design/ShowError.dart';
 import 'package:onebeat_darkmode/Design/WrappedMultipleChip.dart';
 import 'package:onebeat_darkmode/Drawer/LogOut.dart';
-import 'package:onebeat_darkmode/HomePage/screens/FAQ/addQuestDialouge.dart';
 import 'package:onebeat_darkmode/Users/CurrentUser.dart';
 import 'package:onebeat_darkmode/Users/TrainerUser.dart';
 
@@ -21,8 +22,9 @@ class EmptyFaq extends StatefulWidget {
 
 class _EmptyFaqState extends State<EmptyFaq> {
   String expString = "הגעת לעמדת השאלות שלנו , כאן אתה יכול לשאול מה שבא לך או לראות שאלות של אחרים";
-  List<String> categories = ["כללי" , "אירובי" , "תזונה" , "תוכניות אימון" , "תרגילים", "אחר"];
+  List<String> categories = ["כללי" , "אירובי" , "תזונה" , "תוספי תזונה" , "תוכניות אימון" , "תרגילים", "אחר"];
   List<String> selected =[];
+  TextEditingController question = TextEditingController();
   @override
   Widget build(BuildContext context) {
 
@@ -65,7 +67,8 @@ class _EmptyFaqState extends State<EmptyFaq> {
             // });
             //
             // DataBaseService.updateFeild(currentUser!.email, "firstFaq", true);
-            //addQuestDialouge(size.height * 0.8 , size.width * 0.85 ,context);
+
+
             showDialog(
               context: context,
               builder: (BuildContext context) =>
@@ -107,8 +110,9 @@ class _EmptyFaqState extends State<EmptyFaq> {
                               ),
                               SizedBox(height: 30,),
                               Padding(
-                                padding: const EdgeInsets.only(left: 30,right: 30),
+                                padding: const EdgeInsets.only(left: 32,right: 32),
                                 child: TextField(
+                                  controller: question,
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
                                     focusedBorder: InputBorder.none,
@@ -129,8 +133,23 @@ class _EmptyFaqState extends State<EmptyFaq> {
                                   maxLines: 4,
                                 ),
                               ),
-                              SizedBox(height: 50,),
-                              button(greenClr, "פרסם שאלה", Colors.white, BorderRadius.circular(15), size.width * 0.45, size.height * 0.03, (){}),
+                              Spacer(flex: 1,),
+                              button(greenClr, "פרסם שאלה", Colors.white, BorderRadius.circular(15), size.width * 0.45, size.height * 0.03, (){
+                                if (question.text.isEmpty){
+                                  ShowError(context , "נא מלא את שדה השאלה");
+                                  return;
+                                }
+                                if (selected.isEmpty){
+                                  ShowError(context , "נא בחר את הקטגוריה של השאלה");
+                                  return;
+                                }
+                                DataBaseService.addFaqToDb(Faq(currentUser!.email, currentUser!.name, DateTime.now(), question.text, "", selected));
+                                if(Navigator.canPop(context)){
+                                  Navigator.pop(context);
+                                }
+
+                              }),
+                              SizedBox(height: 35,)
                             ],
                           ),
                         ),
@@ -144,10 +163,10 @@ class _EmptyFaqState extends State<EmptyFaq> {
           SizedBox(height: 20,),
           button(backGroundClr, "שאלות אחרים", Colors.white, BorderRadius.circular(20), size.width * 0.5, size.width * 0.085, (){
 
-            setState(() {
-              (currentUser as TrainerUser).firstFaq = true;
-            });
-
+            // setState(() {
+            //   (currentUser as TrainerUser).firstFaq = true;
+            // });
+            //
             // DataBaseService.updateFeild(currentUser!.email, "firstFaq", true);
 
           }),
