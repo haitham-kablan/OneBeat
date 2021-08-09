@@ -65,7 +65,7 @@ class DataBaseService{
 
 BasicUser mapToUser(DocumentSnapshot documentSnapshot){
 
-  Map<String,dynamic> data = documentSnapshot.data()! as Map<String,dynamic>;
+  Map<String,dynamic> data = documentSnapshot.data() as Map<String,dynamic>;
   //todo late add coach
   return TrainerUser(data["name"], data["email"], stringToPriv(data["privillage"]),
       data["firstFaq"], data["firstMeasure"], data["firstExcerise"], data["kgWeight"], data["cmHeight"],

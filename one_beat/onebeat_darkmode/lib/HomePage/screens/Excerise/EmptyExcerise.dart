@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:onebeat_darkmode/ColorsPallete/ColorsPallete.dart';
+import 'package:onebeat_darkmode/Constants.dart';
 import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
 import 'package:onebeat_darkmode/Design/Button.dart';
 import 'package:onebeat_darkmode/Design/DayBox.dart';
+import 'package:onebeat_darkmode/HomePage/screens/Excerise/GeneralPlan.dart';
 import 'package:onebeat_darkmode/HomePage/screens/FAQ/EmptyFaq.dart';
 import 'package:onebeat_darkmode/Users/CurrentUser.dart';
 import 'package:onebeat_darkmode/Users/TrainerUser.dart';
@@ -26,30 +28,46 @@ class _EmptyExceriseState extends State<EmptyExcerise> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 40,),
             Center(child: Image.asset("assets/myworkout.png")),
             SizedBox(height:20,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                DayBox(day: "1",onpress: (){},),DayBox(day: "2",onpress: (){},),DayBox(day: "3",onpress: (){},),
-              ],
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 40),
+                child: RichText(
+                  text: TextSpan(
+                    children:  <TextSpan>[
+                      TextSpan(text: 'המומלצות ', style: TextStyle(color: greenClr)),
+                      TextSpan(text: " של המאמנים",style: TextStyle(color: offWhite),),
+                    ],
+                  ),
+                ),
+              ),
             ),
-            SizedBox(height:20,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                DayBox(day: "4",onpress: (){},),DayBox(day: "5",onpress: (){},),DayBox(day: "6",onpress: (){},),
-              ],
+            SizedBox(height: 20,),
+            Padding(
+              padding: const EdgeInsets.only(left: 40,right: 40),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  DayBox(day: "A",onpress: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => GenralPlan(name: "A",excerises: A,)),);
+                  },isPressed:false),
+                  DayBox(day: "AB",onpress: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => GenralPlan(name: "AB",excerises: ABA1)),);
+                  },isPressed:false),
+                  DayBox(day: "ABC",onpress: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => GenralPlan(name: "ABC",excerises: ABCA)),);
+                  },isPressed:false),
+                ],
+              ),
             ),
-            SizedBox(height:20,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                DayBox(day: "7",onpress: (){},)
-              ],
-            ),
-
           ],
         ),
       ),

@@ -5,21 +5,21 @@ import 'package:onebeat_darkmode/Users/User.dart';
 
 class TrainerUser extends BasicUser{
 
-  late bool firstFaq;
-  late bool firstMeasure;
-  late bool firstExcerise;
+   bool firstFaq;
+   bool firstMeasure;
+   bool firstExcerise;
 
-  late double kgWeight;
-  late double cmHeight;
-  late double cmStomachSize;
-  late double cmArmSize;
-  late double bodyFatPercentage;
+   double kgWeight;
+   double cmHeight;
+   double cmStomachSize;
+   double cmArmSize;
+   double bodyFatPercentage;
 
-  late double goalkgWeight;
-  late double goalcmHeight;
-  late double goalcmStomachSize;
-  late double goalcmArmSize;
-  late double goalbodyFatPercentage;
+   double goalkgWeight;
+   double goalcmHeight;
+   double goalcmStomachSize;
+   double goalcmArmSize;
+   double goalbodyFatPercentage;
 
   TrainerUser(name,email,priv,this.firstFaq,this.firstMeasure,
       this.firstExcerise,this.kgWeight,this.cmHeight,this.cmStomachSize,

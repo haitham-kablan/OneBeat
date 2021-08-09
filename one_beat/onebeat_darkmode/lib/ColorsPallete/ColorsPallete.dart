@@ -7,3 +7,4 @@ const Color offWhite = Color(0xffC7C6C6);
 const Color navBarItemsClr = Color(0xff838383);
 const Color mainHintClr = Color(0xff464646);
 const Color navBarClr = Color(0xff232426);
+const Color listTileColor = Color(0xffBFBFBF);
