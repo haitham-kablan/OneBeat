@@ -7,6 +7,7 @@ import 'package:onebeat_darkmode/Constants.dart';
 import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
 import 'package:onebeat_darkmode/Design/Button.dart';
 import 'package:onebeat_darkmode/Design/DayBox.dart';
+import 'package:onebeat_darkmode/HomePage/screens/Excerise/BuildProgram.dart';
 import 'package:onebeat_darkmode/HomePage/screens/Excerise/GeneralPlan.dart';
 import 'package:onebeat_darkmode/HomePage/screens/FAQ/EmptyFaq.dart';
 import 'package:onebeat_darkmode/Users/CurrentUser.dart';
@@ -37,8 +38,8 @@ class _EmptyExceriseState extends State<EmptyExcerise> {
                 child: RichText(
                   text: TextSpan(
                     children:  <TextSpan>[
-                      TextSpan(text: 'המומלצות ', style: TextStyle(color: greenClr)),
-                      TextSpan(text: " של המאמנים",style: TextStyle(color: offWhite),),
+                      TextSpan(text: 'המומלצות ', style: TextStyle(color: greenClr,fontSize: 16)),
+                      TextSpan(text: " של המאמנים",style: TextStyle(color: offWhite,fontSize: 16),),
                     ],
                   ),
                 ),
@@ -68,10 +69,41 @@ class _EmptyExceriseState extends State<EmptyExcerise> {
                 ],
               ),
             ),
+            SizedBox(height: 20,),
+            Align(
+              alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: Text( "תוכניות שלי",style: TextStyle(color: offWhite,fontSize: 16),textAlign: TextAlign.right,),
+                )),
+            SizedBox(height: 20,),
+            Center(
+              child: Container(
+                width: size.width* 0.6,
+                child: Text("עדיין אין לך תוכניות אישיות , גש למאמן לצור אחת , או צור אחת בעצמך." ,
+                  textDirection: TextDirection.rtl,textAlign: TextAlign.center,
+                  style: TextStyle(color: navBarItemsClr),
+                ),
+              ),
+
+            ),
+
           ],
         ),
       ),
-      
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: greenClr,
+          onPressed: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => BuildProgram()),
+            );
+          },
+          icon: Icon(Icons.add),
+          label: Text(
+            "הוספת תוכנית"
+          )),
 
     ):
     Scaffold(
