@@ -1,6 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:onebeat_darkmode/DataBase/FaqClass.dart';
+import 'package:onebeat_darkmode/DataBase/GenerealExcerise.dart';
 import 'package:onebeat_darkmode/Users/TrainerUser.dart';
 import 'package:onebeat_darkmode/Users/User.dart';
 
@@ -8,9 +9,14 @@ class DataBaseService{
 
   static CollectionReference usersCollection = FirebaseFirestore.instance.collection("USERS");
   static CollectionReference faqCollection = FirebaseFirestore.instance.collection("FAQ");
+  static CollectionReference exceriseCollection = FirebaseFirestore.instance.collection("EXCERISES");
 
   static Future addFaqToDb(Faq faq)async{
     await faqCollection.doc().set(faq.toMap());
+  }
+
+  static Future addGeneralExceriseToDb(GeneralExcerise generalExcerise)async{
+    await exceriseCollection.doc().set(generalExcerise.toMap());
   }
 
   static Future addTrainerToDb(TrainerUser trainerUser)async{

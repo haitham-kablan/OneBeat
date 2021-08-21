@@ -47,7 +47,7 @@ class DayBox extends StatelessWidget {
               children: [
                 Text(
                   day,
-                  style: TextStyle(color: offWhite),
+                  style: TextStyle(color: offWhite),textDirection: TextDirection.rtl,
                 ),
               ],
 
