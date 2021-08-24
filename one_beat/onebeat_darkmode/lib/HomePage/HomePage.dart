@@ -22,7 +22,6 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> screens = [
     EmptyFaq(),Measure(),EmptyExcerise(),
-
   ];
   int selectedIndex = 2;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>(); // ADD THIS LINE
@@ -99,7 +98,10 @@ class _HomePageState extends State<HomePage> {
           elevation: 0,
         ),
         backgroundColor: backGroundClr,
-        body: screens[selectedIndex],
+        body: IndexedStack(
+          children: screens,
+          index: selectedIndex,
+        ),
         bottomNavigationBar: CurvedNavigationBar(
           height: 50,
           color: navBarClr,

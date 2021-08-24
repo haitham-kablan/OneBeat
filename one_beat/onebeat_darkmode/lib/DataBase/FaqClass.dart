@@ -9,7 +9,6 @@ import 'package:onebeat_darkmode/ColorsPallete/ColorsPallete.dart';
 import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
 
 class Faq{
-
   final String publisherEmail;
   final String publisherName;
   final DateTime date;

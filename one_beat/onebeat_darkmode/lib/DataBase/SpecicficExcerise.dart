@@ -10,8 +10,8 @@ import 'Services/DataBaseService.dart';
 class SpecificExcerise{
 
   final GeneralExcerise generalExcerise;
-  final int sets;
-  final int reps;
+   int sets;
+   int reps;
 
   SpecificExcerise(this.generalExcerise, this.sets, this.reps);
 
@@ -23,19 +23,38 @@ class SpecificExcerise{
 
     return map;
   }
+
+  static SpecificExcerise exceriseFromString(String string){
+    String category;
+    String name;
+    int sets;
+    int reps;
+
+    List<String> splited = string.split("-");
+    category = splited[3];
+    name = splited[2];
+    sets = int.parse(splited[0]);
+    reps = int.parse(splited[1]);
+
+    return SpecificExcerise(GeneralExcerise(name, category), sets, reps);
+  }
 }
 
 
 
 class SpecificExceriseList extends StatelessWidget {
 
-  final size;
+
   final List<String> selected;
-  SpecificExceriseList({Key? key, this.size , required this.selected}) : super(key: key);
+  final onPress;
+  final remove;
+  SpecificExceriseList({Key? key, required this.selected, required this.onPress, required this.remove}) : super(key: key);
 
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return StreamBuilder(
       stream: DataBaseService.exceriseCollection.where("category" , whereIn: selected).snapshots(),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -54,12 +73,12 @@ class SpecificExceriseList extends StatelessWidget {
         return Directionality(
           textDirection: TextDirection.rtl,
           child: Container(
-            height: size,
+            height: size.height * 0.45,
             child: ListView(
               children: snapshot.data.docs.map<Widget>((doc) {
                 return Center(
                   child: Container(
-                    child: ExceriseSpecificTile(data: doc.data()),
+                    child: ExceriseSpecificTile(data: doc.data() , onPress: onPress,remove: remove,),
                   ),
                 );
               }).toList(),
@@ -72,25 +91,31 @@ class SpecificExceriseList extends StatelessWidget {
 }
 
 
+
+
 class ExceriseSpecificTile extends StatefulWidget {
 
   final data;
+  final onPress;
+  final remove;
 
 
-  const ExceriseSpecificTile({Key? key, this.data}) : super(key: key);
+  const ExceriseSpecificTile({Key? key, this.data, this.onPress, this.remove}) : super(key: key);
 
   @override
-  _ExceriseSpecificTileState createState() => _ExceriseSpecificTileState(data);
+  _ExceriseSpecificTileState createState() => _ExceriseSpecificTileState(data,onPress,remove);
 }
 
-class _ExceriseSpecificTileState extends State<ExceriseSpecificTile> {
+class _ExceriseSpecificTileState extends State<ExceriseSpecificTile> with AutomaticKeepAliveClientMixin{
 
   final data;
+  final onPress;
+  final remove;
   int sets = 4;
   int reps = 10;
   bool? isChecked = false;
 
-  _ExceriseSpecificTileState(this.data);
+  _ExceriseSpecificTileState(this.data, this.onPress, this.remove);
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +138,12 @@ class _ExceriseSpecificTileState extends State<ExceriseSpecificTile> {
                   checkColor: Colors.white,
                   fillColor: MaterialStateProperty.resolveWith((states) => getColor(states)),
                   onChanged: (bool? value) {
+                    if(value!){
+                      onPress(SpecificExcerise(GeneralExcerise(data["name"], data["category"]), sets, reps));
+                    }else{
+                      remove(SpecificExcerise(GeneralExcerise(data["name"], data["category"]), sets, reps));
+
+                    }
                     setState(() {
                       isChecked = value;
                     });
@@ -156,6 +187,7 @@ class _ExceriseSpecificTileState extends State<ExceriseSpecificTile> {
                               sets--;
                             }
                           });
+                          onPress(SpecificExcerise(GeneralExcerise(data["name"], data["category"]), sets, reps));
 
 
                         },
@@ -165,7 +197,7 @@ class _ExceriseSpecificTileState extends State<ExceriseSpecificTile> {
                           setState(() {
                             sets++;
                           });
-
+                          onPress(SpecificExcerise(GeneralExcerise(data["name"], data["category"]), sets, reps));
                         },
                             icon: Icon(Icons.arrow_upward_sharp , color: navBarItemsClr,size: 15,)),
                       ],
@@ -186,7 +218,7 @@ class _ExceriseSpecificTileState extends State<ExceriseSpecificTile> {
                               reps--;
                             }
                           });
-
+                          onPress(SpecificExcerise(GeneralExcerise(data["name"], data["category"]), sets, reps));
                         },
                             icon: Icon(Icons.arrow_downward_sharp , color:navBarItemsClr,size: 15,)),
                         Text(reps.toString(),style: TextStyle(color: greenClr,fontSize: 13)),
@@ -194,7 +226,7 @@ class _ExceriseSpecificTileState extends State<ExceriseSpecificTile> {
                           setState(() {
                             reps++;
                           });
-
+                          onPress(SpecificExcerise(GeneralExcerise(data["name"], data["category"]), sets, reps));
                         },
                             icon: Icon(Icons.arrow_upward_sharp , color: navBarItemsClr,size: 15,)),
                       ],
@@ -223,6 +255,10 @@ class _ExceriseSpecificTileState extends State<ExceriseSpecificTile> {
     }
     return greenClr;
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 

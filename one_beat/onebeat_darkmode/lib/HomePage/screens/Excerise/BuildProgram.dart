@@ -3,9 +3,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onebeat_darkmode/ColorsPallete/ColorsPallete.dart';
+import 'package:onebeat_darkmode/DataBase/Program.dart';
+import 'package:onebeat_darkmode/DataBase/ProgramDay.dart';
+import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
+import 'package:onebeat_darkmode/DataBase/SpecicficExcerise.dart';
+import 'package:onebeat_darkmode/Design/Button.dart';
 import 'package:onebeat_darkmode/Design/DayBox.dart';
+import 'package:onebeat_darkmode/Design/ShowError.dart';
+import 'package:onebeat_darkmode/Users/CurrentUser.dart';
 
 import 'addTrainDay.dart';
+
+
+Program program = Program();
 
 class BuildProgram extends StatefulWidget {
   const BuildProgram({Key? key}) : super(key: key);
@@ -17,7 +27,9 @@ class BuildProgram extends StatefulWidget {
 class _BuildProgramState extends State<BuildProgram> {
 
   List<Widget> list = [];
+
   int counter = 1;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +80,26 @@ class _BuildProgramState extends State<BuildProgram> {
                 ),
               ),
             ),
-
-
+            SizedBox(height: 20,),
+            counter > 1 ? isLoading ? CircularProgressIndicator(
+              backgroundColor: navBarClr,
+              color: greenClr,
+            ) : button(greenClr,
+                "הוספת תוכנית",
+                Colors.white,
+                BorderRadius.circular(20),
+                size.width * 0.5, size.width * 0.085, ()async{
+                  setState(() {
+                    isLoading = true;
+                  });
+                  await DataBaseService.addProgramToDb(program, currentUser!);
+                  program = Program();
+                  setState(() {
+                    isLoading = false;
+                  });
+                  Navigator.pop(context);
+                }
+                ) : Container(),
           ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat ,
@@ -77,22 +107,28 @@ class _BuildProgramState extends State<BuildProgram> {
           backgroundColor: greenClr,
             icon: Icon(Icons.add , color: Colors.white,),
             onPressed: (){
-            addTrainDay(context, size, counter);
-
-            setState(() {
-              list.add(
-                  Container(
-                    margin: EdgeInsets.all(8),
-                      child: DayBox(
-                          day: "יום  " + counter.toString() , isPressed: false
-                      ),
-                    ),
-                  );
-              counter++;
-
-            });
-            }, label: Text("הוספה")),
+            if(counter > 7){
+              ShowError(context, "יש רק 7 ימים בשבוע!");
+              return;
+            }
+            addTrainDay(context, size, counter,addDay);
+            }, label: Text("הוספת יום אימון")),
       ),
     );
+  }
+
+  void addDay(){
+    setState(() {
+      list.add(
+        Container(
+          margin: EdgeInsets.all(8),
+          child: DayBox(
+              day: "יום  " + counter.toString() , isPressed: false
+          ),
+        ),
+      );
+      counter++;
+
+    });
   }
 }

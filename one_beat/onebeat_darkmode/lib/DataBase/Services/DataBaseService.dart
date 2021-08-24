@@ -5,14 +5,36 @@ import 'package:onebeat_darkmode/DataBase/GenerealExcerise.dart';
 import 'package:onebeat_darkmode/Users/TrainerUser.dart';
 import 'package:onebeat_darkmode/Users/User.dart';
 
+import '../Program.dart';
+
 class DataBaseService{
 
   static CollectionReference usersCollection = FirebaseFirestore.instance.collection("USERS");
   static CollectionReference faqCollection = FirebaseFirestore.instance.collection("FAQ");
   static CollectionReference exceriseCollection = FirebaseFirestore.instance.collection("EXCERISES");
 
+  static String personalPrograms = "PERSONAL_PROGRAMS";
+
+
   static Future addFaqToDb(Faq faq)async{
     await faqCollection.doc().set(faq.toMap());
+  }
+
+  static Future addProgramToDb(Program program , BasicUser basicUser)async{
+
+    int counter = 0;
+
+    await usersCollection.doc(basicUser.email).collection(personalPrograms).doc("SIZE").get().
+    then((value) => counter = value.data()!["size"] + 1);
+    print(counter);
+
+    Map<String,dynamic> map = Map();
+    map["size"] = counter;
+    await usersCollection.doc(basicUser.email).collection(personalPrograms).doc("SIZE").set(map);
+
+
+    await program.toMap(counter);
+
   }
 
   static Future addGeneralExceriseToDb(GeneralExcerise generalExcerise)async{
@@ -20,7 +42,12 @@ class DataBaseService{
   }
 
   static Future addTrainerToDb(TrainerUser trainerUser)async{
+
+    Map<String,dynamic> map = Map();
+    map["size"] = 0;
     await usersCollection.doc(trainerUser.email).set(trainerToMap(trainerUser));
+    await usersCollection.doc(trainerUser.email).collection(personalPrograms)
+    .doc("SIZE").set(map);
   }
 
   static Future<BasicUser> getUser(String email)async{
