@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
+import 'package:onebeat_darkmode/Users/TrainerUser.dart';
 import 'package:onebeat_darkmode/Users/User.dart';
 
 class AuthenticationService{
@@ -51,11 +52,11 @@ class AuthenticationService{
    }
 
 
-   static Future<BasicUser> getCurrentUser() async {
+   static Future<TrainerUser> getCurrentUser() async {
 
      User? usr = await FirebaseAuth.instance.currentUser;
      if(usr == null){
-       return BasicUser("-1", "-1", Privillage.TRAINER);
+       return TrainerUser("-1", "-1", Privillage.COACH, false, false, false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
      }
      return await DataBaseService.getUser(usr.email!);
    }

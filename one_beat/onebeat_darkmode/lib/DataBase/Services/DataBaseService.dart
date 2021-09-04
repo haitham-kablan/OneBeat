@@ -24,13 +24,13 @@ class DataBaseService{
 
     int counter = 0;
 
-    await usersCollection.doc(basicUser.email).collection(personalPrograms).doc("SIZE").get().
-    then((value) => counter = value.data()!["size"] + 1);
+    await usersCollection.doc(basicUser.email).get().
+    then((value) => counter = ((value.data()!) as Map<String,dynamic>)["size"] + 1);
     print(counter);
 
     Map<String,dynamic> map = Map();
     map["size"] = counter;
-    await usersCollection.doc(basicUser.email).collection(personalPrograms).doc("SIZE").set(map);
+    await usersCollection.doc(basicUser.email).update(map);
 
 
     await program.toMap(counter);
@@ -43,14 +43,11 @@ class DataBaseService{
 
   static Future addTrainerToDb(TrainerUser trainerUser)async{
 
-    Map<String,dynamic> map = Map();
-    map["size"] = 0;
     await usersCollection.doc(trainerUser.email).set(trainerToMap(trainerUser));
-    await usersCollection.doc(trainerUser.email).collection(personalPrograms)
-    .doc("SIZE").set(map);
+
   }
 
-  static Future<BasicUser> getUser(String email)async{
+  static Future<TrainerUser> getUser(String email)async{
 
     DocumentSnapshot documentSnapshot= await usersCollection.doc(email).get();
     return mapToUser(documentSnapshot);
@@ -100,14 +97,14 @@ class DataBaseService{
 
 }
 
-BasicUser mapToUser(DocumentSnapshot documentSnapshot){
+TrainerUser mapToUser(DocumentSnapshot documentSnapshot){
 
   Map<String,dynamic> data = documentSnapshot.data() as Map<String,dynamic>;
   //todo late add coach
   return TrainerUser(data["name"], data["email"], stringToPriv(data["privillage"]),
       data["firstFaq"], data["firstMeasure"], data["firstExcerise"], data["kgWeight"], data["cmHeight"],
       data["cmStomachSize"], data["cmArmSize"], data["bodyFatPercentage"], data["goalkgWeight"],
-      data["goalcmArmSize"], data["goalcmStomachSize"], data["goalcmHeight"], data["goalbodyFatPercentage"]);
+      data["goalcmArmSize"], data["goalcmStomachSize"], data["goalcmHeight"], data["goalbodyFatPercentage"],data["size"]);
 
 
 }
@@ -130,6 +127,7 @@ Map<String,dynamic> trainerToMap(TrainerUser trainerUser){
   map["firstExcerise"] = trainerUser.firstExcerise;
   map["firstMeasure"] = trainerUser.firstMeasure;
   map["firstFaq"] = trainerUser.firstFaq;
+  map["size"] = 0;
 
   return map;
 }

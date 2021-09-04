@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:onebeat_darkmode/ColorsPallete/ColorsPallete.dart';
 import 'package:onebeat_darkmode/Constants.dart';
 import 'package:onebeat_darkmode/DataBase/GenerealExcerise.dart';
+import 'package:onebeat_darkmode/DataBase/ProgramDay.dart';
 import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
 import 'package:onebeat_darkmode/Design/Button.dart';
 import 'package:onebeat_darkmode/Design/DayBox.dart';
@@ -77,8 +78,8 @@ class _EmptyExceriseState extends State<EmptyExcerise> {
                   padding: const EdgeInsets.all(40.0),
                   child: Text( "תוכניות שלי",style: TextStyle(color: offWhite,fontSize: 16),textAlign: TextAlign.right,),
                 )),
-            SizedBox(height: 20,),
-            Center(
+            SizedBox(height: 5,),
+            (currentUser as TrainerUser).size == 0?Center(
               child: Container(
                 width: size.width* 0.6,
                 child: Text("עדיין אין לך תוכניות אישיות , גש למאמן לצור אחת , או צור אחת בעצמך." ,
@@ -87,7 +88,7 @@ class _EmptyExceriseState extends State<EmptyExcerise> {
                 ),
               ),
 
-            ),
+            ) : ProgramList(size: size.height * 0.3),
 
           ],
         ),
@@ -98,7 +99,7 @@ class _EmptyExceriseState extends State<EmptyExcerise> {
           onPressed: (){
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => BuildProgram()),
+              MaterialPageRoute(builder: (context) => BuildProgram(onPress: increaseSize,)),
             );
 
 
@@ -160,6 +161,13 @@ class _EmptyExceriseState extends State<EmptyExcerise> {
         ],
       ),
     );
+  }
+
+  void increaseSize(){
+    setState(() {
+      (currentUser as TrainerUser).size++;
+    });
+
   }
 }
 

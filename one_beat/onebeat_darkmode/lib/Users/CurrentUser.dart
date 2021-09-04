@@ -1,4 +1,6 @@
 
 import 'package:onebeat_darkmode/Users/User.dart';
 
-BasicUser? currentUser = null;
+import 'TrainerUser.dart';
+
+TrainerUser? currentUser = null;

@@ -133,7 +133,7 @@ class _ReigesterPageState extends State<ReigesterPage> {
                   }
 
                   await AuthenticationService.Login(email, password);
-                  currentUser = TrainerUser(userName, email,Privillage.TRAINER, false, false, false, 20, 100, 25, 10, 3, 20, 10, 25, 100, 3);
+                  currentUser = TrainerUser(userName, email,Privillage.TRAINER, false, false, false, 20, 100, 25, 10, 3, 20, 10, 25, 100, 3,0);
                   await DataBaseService.addTrainerToDb(currentUser as TrainerUser);
 
                   Navigator.of(context).pushAndRemoveUntil(

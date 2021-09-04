@@ -18,18 +18,24 @@ import 'addTrainDay.dart';
 Program program = Program();
 
 class BuildProgram extends StatefulWidget {
-  const BuildProgram({Key? key}) : super(key: key);
+
+  final onPress;
+  const BuildProgram({Key? key, this.onPress}) : super(key: key);
 
   @override
-  _BuildProgramState createState() => _BuildProgramState();
+  _BuildProgramState createState() => _BuildProgramState(onPress);
 }
 
 class _BuildProgramState extends State<BuildProgram> {
+
+  final onPress;
 
   List<Widget> list = [];
 
   int counter = 1;
   bool isLoading = false;
+
+  _BuildProgramState(this.onPress);
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +98,7 @@ class _BuildProgramState extends State<BuildProgram> {
                   setState(() {
                     isLoading = true;
                   });
+                  onPress();
                   await DataBaseService.addProgramToDb(program, currentUser!);
                   program = Program();
                   setState(() {

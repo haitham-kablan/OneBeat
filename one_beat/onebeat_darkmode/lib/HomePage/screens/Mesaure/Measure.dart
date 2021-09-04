@@ -306,12 +306,6 @@ class _MeasureState extends State<Measure> {
       backgroundColor: backGroundClr,
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Image.asset('assets/topLeftLogo.png'),
-            ],
-          ),
           SizedBox(height: 50,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

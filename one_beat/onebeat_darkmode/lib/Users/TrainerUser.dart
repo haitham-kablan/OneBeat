@@ -20,10 +20,11 @@ class TrainerUser extends BasicUser{
    double goalcmStomachSize;
    double goalcmArmSize;
    double goalbodyFatPercentage;
+   int size;
 
   TrainerUser(name,email,priv,this.firstFaq,this.firstMeasure,
       this.firstExcerise,this.kgWeight,this.cmHeight,this.cmStomachSize,
-      this.cmArmSize,this.bodyFatPercentage,this.goalkgWeight,this.goalcmArmSize,this.goalcmStomachSize,this.goalcmHeight,this.goalbodyFatPercentage) : super(name, email, priv){
+      this.cmArmSize,this.bodyFatPercentage,this.goalkgWeight,this.goalcmArmSize,this.goalcmStomachSize,this.goalcmHeight,this.goalbodyFatPercentage,this.size) : super(name, email, priv){
 
 
   }
