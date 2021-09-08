@@ -9,11 +9,13 @@ import 'package:onebeat_darkmode/Users/TrainerUser.dart';
 import 'package:onebeat_darkmode/Users/User.dart';
 import 'package:onebeat_darkmode/WelcomePages/WelcomePage1.dart';
 
+import 'DataBase/Services/DataBaseService.dart';
 import 'LoadingPage/LoadingPage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await DataBaseService.getSystemExcerises();
   runApp(MyApp());
 }
 

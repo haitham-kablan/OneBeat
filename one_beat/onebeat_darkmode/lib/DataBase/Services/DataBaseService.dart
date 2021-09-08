@@ -4,6 +4,7 @@ import 'package:onebeat_darkmode/DataBase/FaqClass.dart';
 import 'package:onebeat_darkmode/DataBase/GenerealExcerise.dart';
 import 'package:onebeat_darkmode/Users/TrainerUser.dart';
 import 'package:onebeat_darkmode/Users/User.dart';
+import 'package:onebeat_darkmode/utils/GeneralExcerises.dart' as utils;
 
 import '../Program.dart';
 
@@ -15,6 +16,29 @@ class DataBaseService{
 
   static String personalPrograms = "PERSONAL_PROGRAMS";
 
+  static Map<utils.Category , List<utils.GeneralExcerise>> systemExcerises= Map();
+
+
+  static Future getSystemExcerises()async{
+
+    systemExcerises[utils.Category.CHEST] = [];
+    systemExcerises[utils.Category.SHOULDERS] = [];
+    systemExcerises[utils.Category.BACK] = [];
+    systemExcerises[utils.Category.BICEPS] = [];
+    systemExcerises[utils.Category.TRICEPS] = [];
+    systemExcerises[utils.Category.ABS] = [];
+    systemExcerises[utils.Category.LEGS] = [];
+
+    await exceriseCollection.get().then(
+            (value) {
+              value.docs.forEach((element) {
+                systemExcerises[stringCategoryToCategory(((element.data()!) as Map<String,dynamic>)["category"])]!
+                    .add(utils.GeneralExcerise(
+                    stringCategoryToCategory(((element.data()!) as Map<String,dynamic>)["category"]),
+                    ((element.data()!) as Map<String,dynamic>)["name"]));
+              });
+            });
+  }
 
   static Future addFaqToDb(Faq faq)async{
     await faqCollection.doc().set(faq.toMap());
@@ -95,6 +119,34 @@ class DataBaseService{
 
 
 
+}
+
+utils.Category stringCategoryToCategory(String category){
+
+  if(category == "רגליים"){
+    return utils.Category.LEGS;
+  }
+
+  if(category == "בטן"){
+    return utils.Category.ABS;
+  }
+  if(category == "כתפיים"){
+    return utils.Category.SHOULDERS;
+  }
+  if(category == "חזה"){
+    return utils.Category.CHEST;
+  }
+  if(category == "גב"){
+    return utils.Category.BACK;
+  }
+  if(category == "יד קדמית"){
+    return utils.Category.BICEPS;
+  }
+  if(category == "יד אחורית"){
+    return utils.Category.TRICEPS;
+  }
+
+  return utils.Category.TRICEPS;
 }
 
 TrainerUser mapToUser(DocumentSnapshot documentSnapshot){

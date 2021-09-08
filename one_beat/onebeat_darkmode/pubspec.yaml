@@ -29,6 +29,9 @@ dependencies:
   firebase_auth: ^2.0.0
   flutter_switch: ^0.3.2
   google_fonts: ^2.1.0
+  carousel_slider: ^4.0.0
+
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -67,6 +70,34 @@ flutter:
     - myworkout.png
     - schedule.png
     - welcomePage1.png
+    - female.png
+    - male.png
+    - chart-bars.png
+    - list_2_.png
+    - weight-scale.png
+    - stretching.png
+    - homeBg.png
+    - black_scale.png
+    - grey_scale.png
+    - grey_fat.png
+    - black_fat.png
+    - black_arm.png
+    - grey_arm.png
+    - black_stomach.png
+    - grey_stomach.png
+    - clock.png
+    - profile.png
+    - support.png
+    - chest.png
+    - legs.png
+    - biceps.png
+    - triceps.png
+    - back.png
+    - abs.png
+    - shoulders.png
+    - plansBg.png
+    - measureBg.png
+    - goalsBg.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
