@@ -16,7 +16,7 @@ class DayBox extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Material(
-      color: backGroundClr,
+      color: Color(0xff272727),
       borderRadius: BorderRadius.circular(10),
       elevation: 3,
       child: InkWell(
@@ -37,7 +37,7 @@ class DayBox extends StatelessWidget {
               left: BorderSide(width: 0,color: backGroundClr),
               right: BorderSide(width: 0,color: backGroundClr),
             ),
-            color: backGroundClr,
+            color: Color(0xff272727),
           ),
 
           child: Padding(

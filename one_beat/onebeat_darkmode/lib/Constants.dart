@@ -1,5 +1,7 @@
 
-import 'HomePage/screens/Excerise/ExceriseTile.dart';
+
+
+import 'package:onebeat_darkmode/utils/ExceriseTile.dart';
 
 final List<ExceriseTile> A = List.of(
     {

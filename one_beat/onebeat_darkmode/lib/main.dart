@@ -27,7 +27,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SafeArea(child: WelcomePage1()));
+        home: SafeArea(
+            child: LogInPage()
+        )
+    );
   }
 }
 

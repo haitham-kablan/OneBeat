@@ -19,7 +19,7 @@ Widget HomeButton(Size size , String imagePath, String text , {onClick = null}){
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: backGroundClr,
+          color: Color(0xff272727),
         ),
         width: size.width * 0.27,
         height:  size.height * 0.13,
@@ -29,7 +29,7 @@ Widget HomeButton(Size size , String imagePath, String text , {onClick = null}){
             Image.asset(imagePath ,width :40 , height: 40,),
             SizedBox(height: 10,),
             Text(text , style: GoogleFonts.rubik(
-              color: Color(0xff707070),
+              color: Colors.white,
               fontSize: 17,
             ),),
           ],

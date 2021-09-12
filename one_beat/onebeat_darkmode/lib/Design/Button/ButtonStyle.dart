@@ -12,7 +12,7 @@ Widget button(Color bgClr,String txt,Color txtClr,raduis,width,height,onTap){
     width: width,
     height: height,
     child: Material(
-      elevation: 10,
+      elevation: 0,
       borderRadius: raduis,
       color: backGroundClr,
       child: Center(

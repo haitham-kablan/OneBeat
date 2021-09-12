@@ -1,7 +1,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onebeat_darkmode/ColorsPallete/ColorsPallete.dart';
+import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
+
 
 
 Future ShowError(context,String err) async{
@@ -11,7 +12,7 @@ Future ShowError(context,String err) async{
       builder: (context){
         return Container(
             height: 65,
-            color: navBarClr,
+            color: backGroundClr,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Row(
@@ -22,7 +23,7 @@ Future ShowError(context,String err) async{
                   // }, icon: Icon(Icons.refresh,color: Colors.grey,)),
                   Container(
                     width: size.width * 0.85,
-                    child:SingleChildScrollView(child: Text(err,style: TextStyle(color: Colors.grey),textDirection: TextDirection.rtl,)),),
+                    child:SingleChildScrollView(child: Text(err,style: TextStyle(color: emptyDotClr),textDirection: TextDirection.rtl,)),),
                   SizedBox(width: 10,),
                   Icon(Icons.warning , color: greenClr,),
                 ],

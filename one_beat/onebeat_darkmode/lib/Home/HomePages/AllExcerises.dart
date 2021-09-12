@@ -18,6 +18,7 @@ class AllExcerises extends StatefulWidget {
 }
 
 class _AllExcerisesState extends State<AllExcerises> {
+
   List<String> muscles = ["חזה","גב","יד קדמית","יד אחורית","כתפיים","בטן","רגליים"];
   Category current = Category.CHEST;
   CarouselController carouselController = CarouselController();
@@ -69,7 +70,7 @@ class _AllExcerisesState extends State<AllExcerises> {
                     return Builder(
                       builder: (BuildContext context) {
                         return Material(
-                          color: Color(0xfff0f0f0),
+                          color: Color(0xff272727),
                           borderRadius: BorderRadius.circular(10),
                           child: InkWell(
                             onTap: (){
@@ -90,7 +91,7 @@ class _AllExcerisesState extends State<AllExcerises> {
                               width: MediaQuery.of(context).size.width,
                               margin: EdgeInsets.symmetric(horizontal: 5.0),
                               decoration: BoxDecoration(
-                                  color: Color(0xfff0f0f0),
+                                  color: Color(0xff272727),
                                   borderRadius: BorderRadius.circular(10)
                               ),
                               child: Column(
@@ -115,7 +116,6 @@ class _AllExcerisesState extends State<AllExcerises> {
                   color: backGroundClr,
                   child: Container(
                     height: size.height * 0.47,
-                    width: size.width * 0.8,
                     decoration: BoxDecoration(
                       color: backGroundClr,
                       borderRadius: BorderRadius.circular(15),

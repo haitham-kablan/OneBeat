@@ -1,15 +1,20 @@
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onebeat_darkmode/ColorsPallete/ColorsPallete.dart';
 import 'package:onebeat_darkmode/DataBase/GenerealExcerise.dart';
 import 'package:onebeat_darkmode/DataBase/ProgramDay.dart';
+import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
 import 'package:onebeat_darkmode/DataBase/SpecicficExcerise.dart';
 import 'package:onebeat_darkmode/Design/Button.dart';
 import 'package:onebeat_darkmode/Design/ShowError.dart';
+import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
 import 'package:onebeat_darkmode/Design/WrappedMultipleChip.dart';
 import 'package:onebeat_darkmode/Design/WrappedSingleChip.dart';
 import 'package:onebeat_darkmode/HomePage/screens/Excerise/BuildProgram.dart';
+import 'package:onebeat_darkmode/utils/GeneralExcerises.dart' as utils;
+
 
 addTrainDay(context , Size size , int day , onDone){
 return showDialog(
@@ -94,6 +99,19 @@ class _CategoriesExceriseListState extends State<CategoriesExceriseList> {
 
   _CategoriesExceriseListState(this.onDone);
 
+  List<String> muscles = ["חזה","גב","יד קדמית","יד אחורית","כתפיים","בטן","רגליים"];
+  utils.Category current = utils.Category.CHEST;
+  CarouselController carouselController = CarouselController();
+
+  void changeIndex(int index, CarouselPageChangedReason reason){
+
+    setState(() {
+      index = index;
+      print(index);
+    });
+
+  }
+
 
 
   @override
@@ -111,30 +129,53 @@ class _CategoriesExceriseListState extends State<CategoriesExceriseList> {
     Size size = MediaQuery.of(context).size;
     return  Column(
       children: [
-        SingleSelectChip(categories,
-          onSelectionChanged: (selectedList) {
-            setState(() {
-              print(selectedList);
-              if(selectedList.isEmpty){
-                index = 0;
-              }else{
-                for ( int i=0 ; i< excList.length ; i++){
-                  if(excList[i].selected[0] == selectedList[0]){
-                    index = i;
-                  }
-                }
-
-              }
-            });
-
-          },
+        Row(
+          mainAxisAlignment:MainAxisAlignment.spaceBetween,
+          children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IconButton(onPressed: (){
+                  Navigator.pop(context);
+                }, icon: Icon(Icons.clear,color: Colors.white,)),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right:15),
+              child: Image.asset(utils.GeneralExcerise(stringCategoryToCategory(muscles[index]),"").getCategoryPic() , width: 80,height: 70,),
+            )
+          ],
         ),
-        SizedBox(height: 10,),
+
+        Padding(
+          padding: const EdgeInsets.only(left: 10,right: 10 , top: 15),
+          child: SingleSelectChip(categories,
+            onSelectionChanged: (selectedList) {
+              setState(() {
+                print(selectedList);
+                if(selectedList.isEmpty){
+                  index = 0;
+                }else{
+                  for ( int i=0 ; i< excList.length ; i++){
+                    if(excList[i].selected[0] == selectedList[0]){
+                      index = i;
+                    }
+                  }
+
+                }
+              });
+
+            },
+          ),
+        ),
+
+        SizedBox(height: 25,),
         IndexedStack(
           children: excList,
           index: index,
         ),
-        SizedBox(height: 30,),
+        SizedBox(height: 45,),
         button(greenClr, "סיום", Colors.white, BorderRadius.circular(20), size.width * 0.3, size.height * 0.03, (){
           if(answer.isEmpty){
             ShowError(context, "תוכנית אימון ריקה");

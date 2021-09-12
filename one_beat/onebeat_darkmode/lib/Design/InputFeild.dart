@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onebeat_darkmode/ColorsPallete/ColorsPallete.dart';
+import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 
 Widget InpuTextFeild(String hint,Icon icon,Color bgClr,
     Color hintClr,Color txtClr,Color borderClr, padding,controller,{obsecure = false}){
@@ -13,7 +13,7 @@ Widget InpuTextFeild(String hint,Icon icon,Color bgClr,
       padding: padding,
       child: Material(
         color: Colors.transparent,
-        elevation: 10,
+        elevation: 5,
         child: TextFormField(
           obscureText: obsecure,
           controller: controller,

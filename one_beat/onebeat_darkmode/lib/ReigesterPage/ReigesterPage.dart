@@ -1,16 +1,22 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onebeat_darkmode/ColorsPallete/ColorsPallete.dart';
+
 import 'package:onebeat_darkmode/DataBase/Authentication/Authentication.dart';
 import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
+import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
+import 'package:onebeat_darkmode/Design/Animation/PageTransition.dart';
 import 'package:onebeat_darkmode/Design/Button.dart';
+import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/InputFeild.dart';
 import 'package:onebeat_darkmode/Design/ShowError.dart';
+import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
+import 'package:onebeat_darkmode/Home/Home.dart';
 import 'package:onebeat_darkmode/HomePage/HomePage.dart';
 import 'package:onebeat_darkmode/Users/CurrentUser.dart';
 import 'package:onebeat_darkmode/Users/TrainerUser.dart';
 import 'package:onebeat_darkmode/Users/User.dart';
+import 'package:onebeat_darkmode/WelcomePages/WelcomePage1.dart';
 
 class ReigesterPage extends StatefulWidget {
   @override
@@ -36,11 +42,10 @@ class _ReigesterPageState extends State<ReigesterPage> {
         backgroundColor: backGroundClr,
         body: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Image.asset('assets/topLeftLogo.png'),
-              ],
+            SizedBox(height: 50,),
+            Center(
+              child: Text("הרשמה" , style: pageHeader(40),),
+
             ),
             SizedBox(height: 50,),
             Center(
@@ -82,7 +87,9 @@ class _ReigesterPageState extends State<ReigesterPage> {
                   Colors.white,
                   Colors.white,EdgeInsets.only(left: 50,right: 50),verifeidPassControler,obsecure: true),
             ),
-            SizedBox(height: 80,),
+            Spacer(flex: 1,),
+            Image.asset("assets/measureBg.png",width: 70,height: 80,),
+            SizedBox(height: 20,),
             isLoading ? CircularProgressIndicator(
               backgroundColor: navBarClr,
               color: greenClr,
@@ -91,7 +98,7 @@ class _ReigesterPageState extends State<ReigesterPage> {
           width: size.width * 0.4,
           height: size.height * 0.05,
           child: Material(
-            elevation: 10,
+            elevation: 5,
             borderRadius:  BorderRadius.circular(10),
             color: backGroundClr,
             child: Center(
@@ -101,6 +108,7 @@ class _ReigesterPageState extends State<ReigesterPage> {
                   setState(() {
                     isLoading = true;
                   });
+
                   String email=emailControler.text;
                   String password = passwordControler.text;
                   String userName = userNameControler.text;
@@ -124,6 +132,7 @@ class _ReigesterPageState extends State<ReigesterPage> {
                   }
 
                   String? ans = await AuthenticationService.Reigester(email, password,userName);
+
                   if(ans != null){
                     setState(()  {
                       isLoading = false;
@@ -132,13 +141,22 @@ class _ReigesterPageState extends State<ReigesterPage> {
                     return;
                   }
 
-                  await AuthenticationService.Login(email, password);
-                  currentUser = TrainerUser(userName, email,Privillage.TRAINER, false, false, false, 20, 100, 25, 10, 3, 20, 10, 25, 100, 3,0);
-                  await DataBaseService.addTrainerToDb(currentUser as TrainerUser);
+                  gymHeroUser = GymHeroUser.emptyUser(userName, email);
 
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                          (Route<dynamic> route) => false);
+                  await AuthenticationService.Login(email, password);
+
+                  if(gymHeroUser.fristTime){
+                    Navigator.of(context).pushAndRemoveUntil(
+                        CustomPageRoute(child:WelcomePage1()),
+                            (Route<dynamic> route) => false);
+                  }else{
+                    Navigator.of(context).pushAndRemoveUntil(
+                        CustomPageRoute(child:Home()),
+                            (Route<dynamic> route) => false);
+                  }
+
+
+                  await DataBaseService.addTrainerToDb(gymHeroUser);
 
                   setState(()  {
                     isLoading = false;
@@ -160,6 +178,7 @@ class _ReigesterPageState extends State<ReigesterPage> {
             ),
           ),
         ),
+            SizedBox(height: 50,),
           ],
         ),
       ),

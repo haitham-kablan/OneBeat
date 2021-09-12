@@ -73,7 +73,7 @@ class SpecificExceriseList extends StatelessWidget {
         return Directionality(
           textDirection: TextDirection.rtl,
           child: Container(
-            height: size.height * 0.45,
+            height: size.height * 0.38,
             child: ListView(
               children: snapshot.data.docs.map<Widget>((doc) {
                 return Center(

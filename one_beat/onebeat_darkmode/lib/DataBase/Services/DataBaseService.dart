@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:onebeat_darkmode/DataBase/FaqClass.dart';
 import 'package:onebeat_darkmode/DataBase/GenerealExcerise.dart';
+import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
 import 'package:onebeat_darkmode/Users/TrainerUser.dart';
 import 'package:onebeat_darkmode/Users/User.dart';
 import 'package:onebeat_darkmode/utils/GeneralExcerises.dart' as utils;
@@ -65,16 +66,22 @@ class DataBaseService{
     await exceriseCollection.doc().set(generalExcerise.toMap());
   }
 
-  static Future addTrainerToDb(TrainerUser trainerUser)async{
+  static Future addTrainerToDb(GymHeroUser gymHeroUser)async{
 
-    await usersCollection.doc(trainerUser.email).set(trainerToMap(trainerUser));
+    await usersCollection.doc(gymHeroUser.email).set(gymHeroUser.toMap());
 
   }
 
-  static Future<TrainerUser> getUser(String email)async{
+  static Future updateUser(Map<String,dynamic> map) async{
+
+    await usersCollection.doc(gymHeroUser.email).update(map);
+
+  }
+
+  static Future<GymHeroUser> getUser(String email)async{
 
     DocumentSnapshot documentSnapshot= await usersCollection.doc(email).get();
-    return mapToUser(documentSnapshot);
+    return GymHeroUser.mapToUser(documentSnapshot);
 
   }
 

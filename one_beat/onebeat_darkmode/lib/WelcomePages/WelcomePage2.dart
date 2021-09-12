@@ -2,11 +2,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:onebeat_darkmode/Design/Accesories/Dots.dart';
 import 'package:onebeat_darkmode/Design/Animation/PageTransition.dart';
 import 'package:onebeat_darkmode/Design/Button/ButtonStyle.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
+import 'package:onebeat_darkmode/Design/ShowError.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
 
 import 'WelcomePage3.dart';
@@ -49,7 +51,11 @@ class _WelcomePage2State extends State<WelcomePage2> {
                       padding: const EdgeInsets.only(right: 30),
                       child: Align(
                           alignment: Alignment.centerRight,
-                          child: Text("מתחיל" , style: index == 0 ? pageHeader(20): pageSecondHeader(20),)),
+                          child: Text("מתחיל" , style: index == 0 ? pageHeader(20): GoogleFonts.assistant(
+                            color: emptyDotClr,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),)),
                     ),
                     SizedBox(height: size.height * 0.02,),
                     Padding(
@@ -61,7 +67,11 @@ class _WelcomePage2State extends State<WelcomePage2> {
                             children: [
                               index == 0 ? Icon(Icons.check , color: greenClr,) : Container(),
                               index == 0 ? Text("אתה חדש לתחום האימונים" , style: greenText(17),) :
-                              Text("אתה חדש לתחום האימונים" , style: explaintion(17),),
+                              Text("אתה חדש לתחום האימונים" , style: GoogleFonts.assistant(
+                                color: emptyDotClr,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
+                              ),),
                             ],
                           )),
                     ),
@@ -73,7 +83,7 @@ class _WelcomePage2State extends State<WelcomePage2> {
                 padding: const EdgeInsets.only(left: 30 , right: 30),
                 child: Container(
                   height: 1,
-                  color: SeperatorClr,
+                  color: emptyDotClr,
                 ),
               ),
               SizedBox(height: size.height * 0.05,),
@@ -89,7 +99,11 @@ class _WelcomePage2State extends State<WelcomePage2> {
                       padding: const EdgeInsets.only(right: 30),
                       child: Align(
                           alignment: Alignment.centerRight,
-                          child: Text("בינוני" , style: index == 1 ? pageHeader(20): pageSecondHeader(20),)),
+                          child: Text("בינוני" , style: index == 1 ? pageHeader(20): GoogleFonts.assistant(
+                            color: emptyDotClr,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),)),
                     ),
                     SizedBox(height: size.height * 0.02,),
                     Padding(
@@ -101,7 +115,11 @@ class _WelcomePage2State extends State<WelcomePage2> {
                             children: [
                               index == 1 ? Icon(Icons.check, color: greenClr,) : Container(),
                               index == 1? Text("אתה מתאמן באופן קבוע" , style: greenText(17),) :
-                              Text("אתה מתאמן באופן קבוע" , style: explaintion(17),),
+                              Text("אתה מתאמן באופן קבוע" , style: GoogleFonts.assistant(
+                                color: emptyDotClr,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
+                              ),),
                             ],
                           )),
                     ),
@@ -113,7 +131,7 @@ class _WelcomePage2State extends State<WelcomePage2> {
                 padding: const EdgeInsets.only(left: 30 , right: 30),
                 child: Container(
                   height: 1,
-                  color: SeperatorClr,
+                  color: emptyDotClr,
                 ),
               ),
               SizedBox(height: size.height * 0.05,),
@@ -129,7 +147,11 @@ class _WelcomePage2State extends State<WelcomePage2> {
                       padding: const EdgeInsets.only(right: 30),
                       child: Align(
                           alignment: Alignment.centerRight,
-                          child: Text("מתקדם" , style: index == 2 ? pageHeader(20): pageSecondHeader(20),)),
+                          child: Text("מתקדם" , style: index == 2 ? pageHeader(20): GoogleFonts.assistant(
+                            color: emptyDotClr,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),)),
                     ),
                     SizedBox(height: size.height * 0.02,),
                     Padding(
@@ -145,7 +167,11 @@ class _WelcomePage2State extends State<WelcomePage2> {
                                   child: Text("אתה נמצא הכושר שיא ומוכן לתוכנית אימון אינטנסיבית" , style: greenText(17),textDirection: TextDirection.rtl,)) :
                               Container(
                                 width: size.width * 0.7,
-                                  child: Text("אתה נמצא הכושר שיא ומוכן לתוכנית אימון אינטנסיבית" , style: explaintion(17),textDirection: TextDirection.rtl,)),
+                                  child: Text("אתה נמצא הכושר שיא ומוכן לתוכנית אימון אינטנסיבית" , style: GoogleFonts.assistant(
+                                    color: emptyDotClr,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17,
+                                  ),textDirection: TextDirection.rtl,)),
                             ],
                           )),
                     ),
@@ -157,11 +183,16 @@ class _WelcomePage2State extends State<WelcomePage2> {
                 padding: const EdgeInsets.only(left: 30 , right: 30),
                 child: Container(
                   height: 1,
-                  color: SeperatorClr,
+                  color: emptyDotClr,
                 ),
               ),
               Spacer(flex: 1,),
               button(greenClr , "הבא" , Colors.white , BorderRadius.circular(30),size.width * 0.8,size.height * 0.06,(){
+
+                if(index == -1){
+                  ShowError(context, "נא בחר את רמת הכושר המתאימה עבורך");
+                  return;
+                }
                 Navigator.push(
                   context,
                   CustomPageRoute(child: WelcomePage3()),

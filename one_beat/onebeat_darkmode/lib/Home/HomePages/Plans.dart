@@ -2,8 +2,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:onebeat_darkmode/Design/Animation/PageTransition.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
+import 'package:onebeat_darkmode/Home/HomePages/BuildPlan.dart';
+import 'package:onebeat_darkmode/Home/HomePages/SpecificPlan.dart';
+import 'package:onebeat_darkmode/utils/Porgram.dart';
+import 'package:onebeat_darkmode/utils/ProgramDay.dart';
+
+import '../../Constants.dart';
 
 class Plans extends StatefulWidget {
   const Plans({Key? key}) : super(key: key);
@@ -29,8 +36,14 @@ class _PlansState extends State<Plans> {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+          backgroundColor: backGroundClr,
         floatingActionButton: FloatingActionButton.extended(
-            onPressed: (){},
+            onPressed: (){
+              Navigator.push(
+                context,
+                CustomPageRoute( child: BuildPlan(),),
+              );
+            },
             label: Text("בניית תוכנית אימון" , style: whiteText(16),),
           icon: Icon(Icons.add , color: Colors.white , size: 16,),
           backgroundColor: greenClr,
@@ -81,7 +94,7 @@ class _PlansState extends State<Plans> {
                     return Builder(
                       builder: (BuildContext context) {
                         return Material(
-                          color: Color(0xfff0f0f0),
+                          color: Color(0xff272727),
                           borderRadius: BorderRadius.circular(10),
                           child: InkWell(
                             onTap: (){
@@ -90,7 +103,11 @@ class _PlansState extends State<Plans> {
                                 if(index > currentIndex){
                                   carouselController.nextPage(duration: Duration(milliseconds: 300));
                                 }else if(index == currentIndex){
-                                  return;
+                                  Navigator.push(
+                                    context,
+                                    CustomPageRoute( child: SpecificPlan(name: plans[currentIndex], program: Program("AB" ,
+                                        List.of({ProgramDay(ABA1) , ProgramDay(ABB1) , ProgramDay(ABA2),ProgramDay(ABB2)})),),),
+                                  );
                                 }else{
                                   carouselController.previousPage(duration: Duration(milliseconds: 300));
                                 }
@@ -100,7 +117,7 @@ class _PlansState extends State<Plans> {
                               width: MediaQuery.of(context).size.width,
                               margin: EdgeInsets.symmetric(horizontal: 5.0),
                               decoration: BoxDecoration(
-                                  color: Color(0xfff0f0f0),
+                                  color: Color(0xff272727),
                                   borderRadius: BorderRadius.circular(10)
                               ),
                               child: Column(
@@ -126,16 +143,25 @@ class _PlansState extends State<Plans> {
                   }).toList(),
                 ),
                 SizedBox(height: 14,),
-                Row(
-                  children: [
-                    Spacer(flex:1),
-                    Container(
-                      margin: EdgeInsets.only(top: 2),
-                        child: Icon(Icons.arrow_left , color: Color(0xff707070),size: 20,)),
-                    Text("צפייה בתוכנית", style: explaintion(17),textAlign: TextAlign.center,),
+                InkWell(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      CustomPageRoute( child: SpecificPlan(name: plans[currentIndex], program: Program("AB" ,
+                      List.of({ProgramDay(ABA1) , ProgramDay(ABB1) , ProgramDay(ABA2),ProgramDay(ABB2)})),),),
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Spacer(flex:1),
+                      Container(
+                        margin: EdgeInsets.only(top: 2),
+                          child: Icon(Icons.arrow_left , color: Color(0xff707070),size: 20,)),
+                      Text("צפייה בתוכנית", style: explaintion(17),textAlign: TextAlign.center,),
 
-                    Spacer(flex:1),
-                  ],
+                      Spacer(flex:1),
+                    ],
+                  ),
                 ),
               ],
             ),

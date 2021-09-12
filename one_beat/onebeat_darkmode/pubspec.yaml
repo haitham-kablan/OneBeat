@@ -98,6 +98,10 @@ flutter:
     - plansBg.png
     - measureBg.png
     - goalsBg.png
+    - maleBg.png
+    - femaleBg.png
+    - HomeBgNew.png
+    - measureBgOpacity.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

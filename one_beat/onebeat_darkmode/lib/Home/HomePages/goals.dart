@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
+import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
 import 'package:onebeat_darkmode/Design/Button/ButtonStyle.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
@@ -23,11 +25,16 @@ class _goalsState extends State<goals> {
   String sizeElm = "ק\"ג";
   double min = 25;
   double max = 170;
+  bool isLoading = false;
+
+  int counter = 0;
+  List<String> program = ["משקל" , "אחוז שומן", "היקף ידיים","היקף בטן"];
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+
         appBar: AppBar(
           elevation: 10,
           backgroundColor: greenClr,
@@ -43,98 +50,104 @@ class _goalsState extends State<goals> {
         body: Column(
           children: [
             SizedBox(height: size.height * 0.05,),
-            Padding(
-              padding: const EdgeInsets.only(left: 35,right: 35),
-              child: Container(
-                color: Color(0xfff0f0f0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    InkWell(
-                      onTap :(){
-                        setState(() {
-                          category = "ידיים";
-                          sizeElm = "ס\"מ";
-                          max = 60;
-                          min = 5;
-                          value = 5;
-                        });
-                      },
-                      child: category == "ידיים" ? Image.asset("assets/black_arm.png" , width: 30,height: 30,)
-                          : Image.asset("assets/grey_arm.png", width: 25,height: 25,) ,
-                    ),
-                    Container(
-                      width: 2,
-                      height: 40,
-                      color: Colors.grey[200],
-                    ),
-                    InkWell(
-                      onTap :(){
-                        setState(() {
-                          category = "בטן";
-                          sizeElm = "ס\"מ";
-                          max = 100;
-                          min = 15;
-                          value = 15;
-                        });
-                      },
-                      child: category == "בטן" ? Image.asset("assets/black_stomach.png" , width: 30,height: 30,)
-                          : Image.asset("assets/grey_stomach.png", width: 25,height: 25,) ,
-                    ),
-                    Container(
-                      width: 2,
-                      height: 40,
-                      color: Colors.grey[200],
-                    ),
-                    InkWell(
-                      onTap: (){
-                        setState(() {
-                          category = "משקל";
-                          sizeElm = "ק\"ג";
-                          max = 170;
-                          min = 25;
-                          value = 25;
-                        });
-                      },
-                      child: category == "משקל" ? Image.asset("assets/black_scale.png" , width: 30,height: 30,)
-                          : Image.asset("assets/grey_scale.png", width: 25,height: 25,) ,
-                    ),
-                    Container(
-                      width: 2,
-                      height: 40,
-                      color: Colors.grey[200],
-                    ),
-                    InkWell(
-                      onTap: (){
-                        setState(() {
-                          category = "שומן";
-                          sizeElm = "%";
-                          max = 50;
-                          min = 3;
-                          value = 3;
-                        });
-                      },
-                      child: category == "שומן" ? Image.asset("assets/black_fat.png" , width: 30,height: 30,)
-                          : Image.asset("assets/grey_fat.png", width: 25,height: 25,) ,
-                    ),
-                  ],
+            Row(
+              children: [
+                Spacer(flex: 1,),
+                counter != 0 ? IconButton(
+                  icon: Icon(Icons.arrow_left , color: emptyDotClr,size: 33,),
+                  onPressed: (){
+                    setState(() {
+                      counter--;
+                      if(counter == 0){
+                        min = 25;
+                        max = 170;
+
+                        category = "משקל";
+                        sizeElm = "ק\"ג";
+                      }
+                      if(counter == 1){
+                        min = 3;
+
+                        max = 45;
+                        category = program[counter];
+                        sizeElm = "%";
+                      }
+                      if(counter == 2){
+                        min = 10;
+
+                        max = 60;
+                        category = program[counter];
+                        sizeElm = "ס\"מ";
+                      }
+                      if(counter == 3){
+                        min = 15;
+
+                        max = 120;
+                        category = program[counter];
+                        sizeElm = "ס\"מ";
+                      }
+                    });
+                  },
+                ) : Container(width: 25,height: 25,),
+                SizedBox(width: 25,),
+                Text(program[counter], style: GoogleFonts.assistant(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 35,
+                ),),
+                SizedBox(width: 25,),
+                counter == program.length - 1 ? Container(width: 25,height: 25,) : IconButton(
+                  icon: Icon(Icons.arrow_right , color: emptyDotClr , size: 33,),
+                  onPressed: (){
+                    setState(() {
+                      counter++;
+                      if(counter == 0){
+                        min = 25;
+                        max = 170;
+
+                        category = "משקל";
+                        sizeElm = "ק\"ג";
+                      }
+                      if(counter == 1){
+                        min = 3;
+
+                        max = 45;
+                        category = program[counter];
+                        sizeElm = "%";
+                      }
+                      if(counter == 2){
+                        min = 10;
+
+                        max = 60;
+                        category = program[counter];
+                        sizeElm = "ס\"מ";
+                      }
+                      if(counter == 3){
+                        min = 15;
+
+                        max = 120;
+                        category = program[counter];
+                        sizeElm = "ס\"מ";
+                      }
+                    });
+                  },
                 ),
-              ),
+                Spacer(flex: 1,),
+              ],
             ),
             SizedBox(height: 20,),
-            Text(category , style: explaintion(30),),
-            SizedBox(height: 20,),
+            SizedBox(height: 40,),
             Container(
 
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(value.toStringAsFixed(1) , style: GoogleFonts.rubik(
-                      color: Colors.black,
+                    Text((counter == 0 ? gymHeroUser.goalweight : (counter == 1 ? gymHeroUser.goalbodyfat : (counter == 2? gymHeroUser.goalarmSize:gymHeroUser.goalstomachSize))).toStringAsFixed(1) , style: GoogleFonts.rubik(
+                      color: greenClr,
                       fontSize: 90,
                     ),),
                     Text(sizeElm , style: GoogleFonts.rubik(
-                      color: Colors.black,
+                      color: greenClr,
                       fontSize: 30,
                     ),)
                   ],
@@ -185,18 +198,49 @@ class _goalsState extends State<goals> {
                     inactiveColor: Colors.grey[300],
                     min: min,
                     max: max,
-                    value: value,
+                    value: (counter == 0 ? gymHeroUser.goalweight : (counter == 1 ? gymHeroUser.goalbodyfat : (counter == 2? gymHeroUser.goalarmSize:gymHeroUser.goalstomachSize))).toDouble(),
                     onChanged: (val){
                       setState(() {
-                        value = val;
+                        if(counter == 0){
+                          gymHeroUser.goalweight = int.parse(val.toStringAsFixed(0));
+                        }
+                        if(counter == 1){
+                          gymHeroUser.goalbodyfat = int.parse(val.toStringAsFixed(0));
+                        }
+                        if(counter == 2){
+                          gymHeroUser.goalarmSize = int.parse(val.toStringAsFixed(0));
+                        }
+                        if(counter == 3){
+                          gymHeroUser.goalstomachSize = int.parse(val.toStringAsFixed(0));
+                        }
+
                       });
                     }),
               ),
             ),
             Spacer(flex: 1,),
-            Image.asset("assets/goalsBg.png" ,height: 85,),
-            SizedBox(height: 20,),
-            button(greenClr , "עדכן" , Colors.white , BorderRadius.circular(5),size.width * 0.5,size.height * 0.05,(){}),
+            Image.asset("assets/measureBg.png" , width: 100,height: 100,),
+            Spacer(flex: 1,),
+            isLoading ? CircularProgressIndicator(
+              backgroundColor: navBarClr,
+              color: greenClr,
+            ): button(greenClr , "עדכן" , Colors.white , BorderRadius.circular(5),size.width * 0.5,size.height * 0.05,() async {
+              setState(() {
+                isLoading = true;
+              });
+
+
+              Map<String,dynamic> map = Map();
+              map["goalweight"] = gymHeroUser.goalweight;
+              map["goalbodyfat"] = gymHeroUser.goalbodyfat;
+              map["goalarmSize"] = gymHeroUser.goalarmSize;
+              map["goalstomachSize"] = gymHeroUser.goalstomachSize;
+
+              await DataBaseService.updateUser(map);
+              setState(() {
+                isLoading = false;
+              });
+            }),
             SizedBox(height: size.height * 0.06,)
           ],
         ),

@@ -3,10 +3,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 
 TextStyle pageHeader(double? size){
-  return GoogleFonts.rubik(
-    color: Colors.black,
+  return GoogleFonts.assistant(
+    color: greenClr,
     fontWeight: FontWeight.bold,
     fontSize: size,
   );
@@ -14,8 +15,8 @@ TextStyle pageHeader(double? size){
 }
 
 TextStyle pageSecondHeader(double? size){
-  return GoogleFonts.rubik(
-    color: Color(0xff707070),
+  return GoogleFonts.assistant(
+    color: Colors.white,
     fontWeight: FontWeight.bold,
     fontSize: size,
   );
@@ -23,7 +24,7 @@ TextStyle pageSecondHeader(double? size){
 
 TextStyle explaintion(double? size){
   return GoogleFonts.assistant(
-    color: Color(0xff707070),
+    color: Colors.white,
     fontSize: size,
   );
 }
@@ -38,7 +39,7 @@ TextStyle whiteText(double? size){
 
 TextStyle greenText(double? size){
   return GoogleFonts.assistant(
-    color: Color(0xff00A270),
+    color: greenClr,
     fontSize: size,
   );
 }

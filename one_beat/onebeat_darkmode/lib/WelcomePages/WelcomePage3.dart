@@ -2,9 +2,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
+import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
 import 'package:onebeat_darkmode/Design/Accesories/Dots.dart';
 import 'package:onebeat_darkmode/Design/Button/ButtonStyle.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
+import 'package:onebeat_darkmode/Design/ShowError.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
 import 'package:onebeat_darkmode/Home/Home.dart';
 
@@ -18,6 +22,11 @@ class WelcomePage3 extends StatefulWidget {
 class _WelcomePage3State extends State<WelcomePage3> {
 
   bool male = true;
+  bool isLoading = false;
+  TextEditingController age = TextEditingController();
+  TextEditingController weight = TextEditingController();
+  TextEditingController height = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -36,7 +45,10 @@ class _WelcomePage3State extends State<WelcomePage3> {
               Center(
                   child: Container(
                       width: size.width * 0.8,
-                      child: Text("עדכן את הנתונים האישיים שלך כדי שתוכל לעקוב אחריהם ולהשיג את התוצאות שחלמת עליהן", style: explaintion(20) , textAlign: TextAlign.center,))),
+                      child: Text("עדכן את הנתונים האישיים שלך כדי שתוכל לעקוב אחריהם ולהשיג את התוצאות שחלמת עליהן", style: GoogleFonts.assistant(
+                        color: emptyDotClr,
+                        fontSize: 20,
+                      ) , textAlign: TextAlign.center,))),
               SizedBox(height: size.height * 0.05,),
               Padding(
                 padding: const EdgeInsets.only(left: 40,right: 40),
@@ -46,6 +58,7 @@ class _WelcomePage3State extends State<WelcomePage3> {
                     Container(
                       width: 40,
                       child: TextField(
+                        controller: height,
                         style: greenText(17),
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
@@ -55,7 +68,10 @@ class _WelcomePage3State extends State<WelcomePage3> {
                           errorBorder: InputBorder.none,
                           disabledBorder: InputBorder.none,
                           hintText: "160",
-                          hintStyle: explaintion(17),
+                          hintStyle: GoogleFonts.assistant(
+                            color: emptyDotClr,
+                            fontSize: 17,
+                          ),
                         ),
                       ),
                     ),
@@ -68,7 +84,7 @@ class _WelcomePage3State extends State<WelcomePage3> {
                 padding: const EdgeInsets.only(left: 30 , right: 30),
                 child: Container(
                   height: 1,
-                  color: SeperatorClr,
+                  color: emptyDotClr,
                 ),
               ),
               SizedBox(height: size.height * 0.02,),
@@ -80,8 +96,9 @@ class _WelcomePage3State extends State<WelcomePage3> {
                     Container(
                       width: 40,
                       child: TextField(
+                        controller: weight,
                         style: greenText(17),
-                        keyboardType: TextInputType.datetime,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           focusedBorder: InputBorder.none,
@@ -89,7 +106,10 @@ class _WelcomePage3State extends State<WelcomePage3> {
                           errorBorder: InputBorder.none,
                           disabledBorder: InputBorder.none,
                           hintText: "70",
-                          hintStyle: explaintion(17),
+                          hintStyle:  GoogleFonts.assistant(
+                            color: emptyDotClr,
+                            fontSize: 17,
+                          ),
                         ),
                       ),
                     ),
@@ -102,7 +122,7 @@ class _WelcomePage3State extends State<WelcomePage3> {
                 padding: const EdgeInsets.only(left: 30 , right: 30),
                 child: Container(
                   height: 1,
-                  color: SeperatorClr,
+                  color: emptyDotClr,
                 ),
               ),
               SizedBox(height: size.height * 0.02,),
@@ -114,8 +134,9 @@ class _WelcomePage3State extends State<WelcomePage3> {
                     Container(
                       width: 40,
                       child: TextField(
+                        controller: age,
                         style: greenText(17),
-                        keyboardType: TextInputType.datetime,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           focusedBorder: InputBorder.none,
@@ -123,7 +144,10 @@ class _WelcomePage3State extends State<WelcomePage3> {
                           errorBorder: InputBorder.none,
                           disabledBorder: InputBorder.none,
                           hintText: "20",
-                          hintStyle: explaintion(17),
+                          hintStyle:  GoogleFonts.assistant(
+                            color: emptyDotClr,
+                            fontSize: 17,
+                          ),
                         ),
                       ),
                     ),
@@ -136,7 +160,7 @@ class _WelcomePage3State extends State<WelcomePage3> {
                 padding: const EdgeInsets.only(left: 30 , right: 30),
                 child: Container(
                   height: 1,
-                  color: SeperatorClr,
+                  color: emptyDotClr,
                 ),
               ),
               SizedBox(height: size.height * 0.03,),
@@ -159,7 +183,7 @@ class _WelcomePage3State extends State<WelcomePage3> {
                                 topLeft: Radius.circular(5),
                                 bottomLeft: Radius.circular(5),
                               ),
-                              color: male ? greenClr : Colors.white,
+                              color: male ? greenClr : Colors.transparent,
                               border: Border.all(
                                 color: greenClr,
                                 width: 2,
@@ -185,7 +209,7 @@ class _WelcomePage3State extends State<WelcomePage3> {
                                 topRight: Radius.circular(5),
                                 bottomRight: Radius.circular(5),
                               ),
-                              color: !male ? greenClr : Colors.white,
+                              color: !male ? greenClr : Colors.transparent,
                               border: Border.all(
                                 color: greenClr,
                                 width: 2,
@@ -206,7 +230,54 @@ class _WelcomePage3State extends State<WelcomePage3> {
                 ),
               ),
               Spacer(flex: 1,),
-              button(greenClr , "התחל" , Colors.white , BorderRadius.circular(30),size.width * 0.8,size.height * 0.06,(){
+              isLoading ? CircularProgressIndicator(
+                backgroundColor: navBarClr,
+                color: greenClr,
+              )
+                  :button(greenClr , "התחל" , Colors.white , BorderRadius.circular(30),size.width * 0.8,size.height * 0.06,() async {
+
+                if(age.text.isEmpty || weight.text.isEmpty || height.text.isEmpty){
+                  ShowError(context, "נא מלא את כל השדות");
+                  return;
+                }
+
+                if(age.text.length > 2){
+                  ShowError(context, "גיל לא נכון");
+                  return;
+                }
+
+                if(weight.text.length > 3){
+                  ShowError(context, "משקל לא נכון");
+                  return;
+                }
+
+                if(height.text.length >4){
+                  ShowError(context, "גובה לא נכון");
+                  return;
+                }
+
+                gymHeroUser.age = int.parse(age.text);
+                gymHeroUser.weight = int.parse(weight.text);
+                gymHeroUser.height = int.parse(height.text);
+                gymHeroUser.fristTime = false;
+
+                Map<String,dynamic> map =  Map();
+
+                map["age"] = gymHeroUser.age;
+                map["weight"] = gymHeroUser.weight;
+                map["height"] = gymHeroUser.height;
+                map["fristTime"] = gymHeroUser.fristTime;
+
+                setState(() {
+                  isLoading = true;
+                });
+
+                await DataBaseService.updateUser(map);
+
+                setState(() {
+                  isLoading = false;
+                });
+
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
