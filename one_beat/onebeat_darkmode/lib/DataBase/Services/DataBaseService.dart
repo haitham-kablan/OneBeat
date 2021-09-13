@@ -1,13 +1,14 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:onebeat_darkmode/DataBase/FaqClass.dart';
-import 'package:onebeat_darkmode/DataBase/GenerealExcerise.dart';
 import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
 import 'package:onebeat_darkmode/Users/TrainerUser.dart';
 import 'package:onebeat_darkmode/Users/User.dart';
 import 'package:onebeat_darkmode/utils/GeneralExcerises.dart' as utils;
+import 'package:onebeat_darkmode/utils/Porgram.dart';
+import 'package:onebeat_darkmode/utils/ProgramDay.dart';
 
-import '../Program.dart';
+import '../../Constants.dart';
+
 
 class DataBaseService{
 
@@ -41,30 +42,28 @@ class DataBaseService{
             });
   }
 
-  static Future addFaqToDb(Faq faq)async{
-    await faqCollection.doc().set(faq.toMap());
-  }
 
-  static Future addProgramToDb(Program program , BasicUser basicUser)async{
+  //
+  // static Future addProgramToDb(Program program , BasicUser basicUser)async{
+  //
+  //   int counter = 0;
+  //
+  //   await usersCollection.doc(basicUser.email).get().
+  //   then((value) => counter = ((value.data()!) as Map<String,dynamic>)["size"] + 1);
+  //   print(counter);
+  //
+  //   Map<String,dynamic> map = Map();
+  //   map["size"] = counter;
+  //   await usersCollection.doc(basicUser.email).update(map);
+  //
+  //
+  //   await program.toMap(counter);
+  //
+  // }
 
-    int counter = 0;
-
-    await usersCollection.doc(basicUser.email).get().
-    then((value) => counter = ((value.data()!) as Map<String,dynamic>)["size"] + 1);
-    print(counter);
-
-    Map<String,dynamic> map = Map();
-    map["size"] = counter;
-    await usersCollection.doc(basicUser.email).update(map);
-
-
-    await program.toMap(counter);
-
-  }
-
-  static Future addGeneralExceriseToDb(GeneralExcerise generalExcerise)async{
-    await exceriseCollection.doc().set(generalExcerise.toMap());
-  }
+  // static Future addGeneralExceriseToDb(GeneralExcerise generalExcerise)async{
+  //   await exceriseCollection.doc().set(generalExcerise.toMap());
+  // }
 
   static Future addTrainerToDb(GymHeroUser gymHeroUser)async{
 
@@ -81,47 +80,58 @@ class DataBaseService{
   static Future<GymHeroUser> getUser(String email)async{
 
     DocumentSnapshot documentSnapshot= await usersCollection.doc(email).get();
-    return GymHeroUser.mapToUser(documentSnapshot);
+    GymHeroUser gymHeroUser = GymHeroUser.mapToUser(documentSnapshot);
+
+    gymHeroUser.programs.add(Program("A" ,
+        List.of({ProgramDay(A)})));
+
+    gymHeroUser.programs.add(Program("AB" ,
+        List.of({ProgramDay(ABA1) , ProgramDay(ABB1) , ProgramDay(ABA2),ProgramDay(ABB2)})));
+
+    gymHeroUser.programs.add(Program("ABC" ,
+        List.of({ProgramDay(ABCA) , ProgramDay(ABCB) , ProgramDay(ABCC)})));
+
+    return gymHeroUser;
 
   }
 
-  static Future updateFeild(String email,String fname,dynamic fvalue)async{
+  // static Future updateFeild(String email,String fname,dynamic fvalue)async{
+  //
+  //   Map<String,dynamic> map = Map();
+  //   map[fname] = fvalue;
+  //   await usersCollection.doc(email).update(map);
+  //
+  // }
 
-    Map<String,dynamic> map = Map();
-    map[fname] = fvalue;
-    await usersCollection.doc(email).update(map);
+  // static Future updateCurrentMeasures(double weight,double bf,double stomach,double hand,TrainerUser trainerUser)async{
+  //   Map<String,dynamic> map = Map();
+  //   map["bodyFatPercentage"] = bf;
+  //   map["cmStomachSize"] = stomach;
+  //   map["kgWeight"] = weight;
+  //   map["cmArmSize"] = hand;
+  //
+  //   trainerUser.bodyFatPercentage = bf;
+  //   trainerUser.cmStomachSize = stomach;
+  //   trainerUser.kgWeight = weight;
+  //   trainerUser.cmArmSize = hand;
+  //
+  //   await usersCollection.doc(trainerUser.email).update(map);
+  // }
 
-  }
-
-  static Future updateCurrentMeasures(double weight,double bf,double stomach,double hand,TrainerUser trainerUser)async{
-    Map<String,dynamic> map = Map();
-    map["bodyFatPercentage"] = bf;
-    map["cmStomachSize"] = stomach;
-    map["kgWeight"] = weight;
-    map["cmArmSize"] = hand;
-
-    trainerUser.bodyFatPercentage = bf;
-    trainerUser.cmStomachSize = stomach;
-    trainerUser.kgWeight = weight;
-    trainerUser.cmArmSize = hand;
-
-    await usersCollection.doc(trainerUser.email).update(map);
-  }
-
-  static Future updateGoalMeasures(double weight,double bf,double stomach,double hand,TrainerUser trainerUser)async{
-    Map<String,dynamic> map = Map();
-    map["goalbodyFatPercentage"] = bf;
-    map["goalcmStomachSize"] = stomach;
-    map["goalkgWeight"] = weight;
-    map["goalcmArmSize"] = hand;
-
-    trainerUser.goalbodyFatPercentage = bf;
-    trainerUser.goalcmStomachSize = stomach;
-    trainerUser.goalkgWeight = weight;
-    trainerUser.goalcmArmSize = hand;
-
-    await usersCollection.doc(trainerUser.email).update(map);
-  }
+  // static Future updateGoalMeasures(double weight,double bf,double stomach,double hand,TrainerUser trainerUser)async{
+  //   Map<String,dynamic> map = Map();
+  //   map["goalbodyFatPercentage"] = bf;
+  //   map["goalcmStomachSize"] = stomach;
+  //   map["goalkgWeight"] = weight;
+  //   map["goalcmArmSize"] = hand;
+  //
+  //   trainerUser.goalbodyFatPercentage = bf;
+  //   trainerUser.goalcmStomachSize = stomach;
+  //   trainerUser.goalkgWeight = weight;
+  //   trainerUser.goalcmArmSize = hand;
+  //
+  //   await usersCollection.doc(trainerUser.email).update(map);
+  // }
 
 
 

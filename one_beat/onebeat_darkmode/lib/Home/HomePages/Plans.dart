@@ -2,6 +2,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
 import 'package:onebeat_darkmode/Design/Animation/PageTransition.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
@@ -21,7 +22,7 @@ class Plans extends StatefulWidget {
 
 class _PlansState extends State<Plans> {
 
-  List<String> plans = ["A","AB","PUSH AND PULL"];
+
   int currentIndex = 0;
   CarouselController carouselController = CarouselController();
 
@@ -90,7 +91,7 @@ class _PlansState extends State<Plans> {
                     enlargeCenterPage: true,
                     scrollDirection: Axis.horizontal,
                   ),
-                  items: plans.map((i) {
+                  items: gymHeroUser.programs.map((i) {
                     return Builder(
                       builder: (BuildContext context) {
                         return Material(
@@ -99,14 +100,14 @@ class _PlansState extends State<Plans> {
                           child: InkWell(
                             onTap: (){
                               setState(() {
-                                int index = plans.indexWhere((element) => element == i);
+                                int index = gymHeroUser.programs.indexWhere((element) => element.name == i.name);
                                 if(index > currentIndex){
                                   carouselController.nextPage(duration: Duration(milliseconds: 300));
                                 }else if(index == currentIndex){
                                   Navigator.push(
                                     context,
-                                    CustomPageRoute( child: SpecificPlan(name: plans[currentIndex], program: Program("AB" ,
-                                        List.of({ProgramDay(ABA1) , ProgramDay(ABB1) , ProgramDay(ABA2),ProgramDay(ABB2)})),),),
+                                    CustomPageRoute( child: SpecificPlan(name: gymHeroUser.programs[currentIndex].name,
+                                      program: gymHeroUser.programs[currentIndex],),),
                                   );
                                 }else{
                                   carouselController.previousPage(duration: Duration(milliseconds: 300));
@@ -125,7 +126,7 @@ class _PlansState extends State<Plans> {
                                 children: [
                                   Text("תוכנית", style: explaintion(17),),
                                   Container(
-                                      child: Text(i, style: greenText(25),textAlign: TextAlign.center,),
+                                      child: Text(gymHeroUser.programs[currentIndex].name, style: greenText(25),textAlign: TextAlign.center,),
                                     width: size.width * 0.4,
                                   ),
                                   SizedBox(height: 20,),
@@ -147,7 +148,7 @@ class _PlansState extends State<Plans> {
                   onTap: (){
                     Navigator.push(
                       context,
-                      CustomPageRoute( child: SpecificPlan(name: plans[currentIndex], program: Program("AB" ,
+                      CustomPageRoute( child: SpecificPlan(name: gymHeroUser.programs[currentIndex].name, program: Program("AB" ,
                       List.of({ProgramDay(ABA1) , ProgramDay(ABB1) , ProgramDay(ABA2),ProgramDay(ABB2)})),),),
                     );
                   },

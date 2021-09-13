@@ -3,9 +3,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
 import 'package:onebeat_darkmode/Design/Animation/PageTransition.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
+import 'package:onebeat_darkmode/utils/GeneralExcerises.dart';
 import 'package:onebeat_darkmode/utils/Porgram.dart';
 
 
@@ -27,6 +29,19 @@ class _SpecificPlanState extends State<SpecificPlan> {
   final String name;
 
   _SpecificPlanState(this.name, this.program);
+
+  List<String> muscles = ["חזה","גב","יד קדמית","יד אחורית","כתפיים","בטן","רגליים"];
+  Category current = Category.CHEST;
+  CarouselController carouselController = CarouselController();
+
+  void changeIndex(int index, CarouselPageChangedReason reason){
+
+    setState(() {
+      current = stringCategoryToCategory(muscles[index]);
+    });
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -81,11 +96,32 @@ class _SpecificPlanState extends State<SpecificPlan> {
             SizedBox(height: 30,),
             Container(
               height: size.height * 0.65,
-              width: size.width * 0.8,
+              width: size.width * 0.95,
               child: ListView(
                 children: program.days[counter-1].excerises,
               ),
             ),
+            // CarouselSlider(
+            //   carouselController: carouselController,
+            //   options:  CarouselOptions(
+            //     height: size.height * 0.4,
+            //     //aspectRatio: 16/9,
+            //     viewportFraction: 0.7,
+            //     initialPage: 0,
+            //     enableInfiniteScroll: false,
+            //     reverse: false,
+            //     enlargeCenterPage: true,
+            //     onPageChanged: changeIndex,
+            //     scrollDirection: Axis.vertical,
+            //   ),
+            //   items: program.days[counter-1].excerises.map((i) {
+            //     return Builder(
+            //       builder: (BuildContext context) {
+            //         return i;
+            //       },
+            //     );
+            //   }).toList(),
+            // ),
           ],
         ),
 
