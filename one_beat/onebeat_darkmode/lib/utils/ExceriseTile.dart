@@ -35,6 +35,9 @@ class ExceriseTile extends StatelessWidget {
           SizedBox(height: 15,),
           Row(
             children: [
+              SizedBox(width: 25,),
+              Image.asset(GeneralExcerise(stringCategoryToCategory(category),name).getCategoryPic(),height: 60,width: 60,),
+
               Spacer(flex: 1,),
 
               Column(
@@ -54,8 +57,7 @@ class ExceriseTile extends StatelessWidget {
               ),
               SizedBox(width: 25,),
 
-              Image.asset(GeneralExcerise(stringCategoryToCategory(category),name).getCategoryPic(),height: 70,width: 70,),
-              SizedBox(width: 25,),
+
 
             ],
           ),

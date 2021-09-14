@@ -1,6 +1,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:onebeat_darkmode/utils/Porgram.dart';
+import 'package:onebeat_darkmode/utils/ProgramDay.dart';
+
+import '../../Constants.dart';
 
 
 
@@ -11,20 +14,20 @@ class GymHeroUser{
 
   final String name;
   final String email;
-  int age;
+  double age;
   bool gender;
-  int height;
+  double height;
 
-  int weight;
-  int bodyfat;
-  int stomachSize;
-  int armSize;
+  double weight;
+  double bodyfat;
+  double stomachSize;
+  double armSize;
   bool fristTime;
 
-  int goalweight;
-  int goalbodyfat;
-  int goalstomachSize;
-  int goalarmSize;
+  double goalweight;
+  double goalbodyfat;
+  double goalstomachSize;
+  double goalarmSize;
 
   List<Program> programs = [];
 
@@ -41,9 +44,20 @@ class GymHeroUser{
   }
 
   static GymHeroUser emptyUser(String name , String email){
-    return GymHeroUser(name, email,20, true, 170, 25,
+
+    GymHeroUser gymHeroUser =  GymHeroUser(name, email,20, true, 170, 25,
         3, 15, 10, 25, 3,
         15, 10,true);
+
+    gymHeroUser.programs.add(Program("A" ,
+        List.of({ProgramDay(A)})));
+
+    gymHeroUser.programs.add(Program("AB" ,
+        List.of({ProgramDay(ABA1) , ProgramDay(ABB1) , ProgramDay(ABA2),ProgramDay(ABB2)})));
+
+    gymHeroUser.programs.add(Program("ABC" ,
+        List.of({ProgramDay(ABCA) , ProgramDay(ABCB) , ProgramDay(ABCC)})));
+    return gymHeroUser;
   }
 
   Map<String,dynamic> toMap(){

@@ -202,16 +202,16 @@ class _goalsState extends State<goals> {
                     onChanged: (val){
                       setState(() {
                         if(counter == 0){
-                          gymHeroUser.goalweight = int.parse(val.toStringAsFixed(0));
+                          gymHeroUser.goalweight = val;
                         }
                         if(counter == 1){
-                          gymHeroUser.goalbodyfat = int.parse(val.toStringAsFixed(0));
+                          gymHeroUser.goalbodyfat = val;
                         }
                         if(counter == 2){
-                          gymHeroUser.goalarmSize = int.parse(val.toStringAsFixed(0));
+                          gymHeroUser.goalarmSize = val;
                         }
                         if(counter == 3){
-                          gymHeroUser.goalstomachSize = int.parse(val.toStringAsFixed(0));
+                          gymHeroUser.goalstomachSize = val;
                         }
 
                       });

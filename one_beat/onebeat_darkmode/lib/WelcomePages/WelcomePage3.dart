@@ -241,24 +241,45 @@ class _WelcomePage3State extends State<WelcomePage3> {
                   return;
                 }
 
-                if(age.text.length > 2){
-                  ShowError(context, "גיל לא נכון");
-                  return;
-                }
 
-                if(weight.text.length > 3){
-                  ShowError(context, "משקל לא נכון");
-                  return;
-                }
+                  try{
+                    gymHeroUser.weight = double.parse(weight.text);
+                    if(gymHeroUser.weight < 25 || gymHeroUser.weight > 170){
+                      ShowError(context, "משקל לא מתאים");
+                      return;
+                    }
+                  }catch(e){
+                    ShowError(context, "משקל לא מתאים");
+                    return;
+                  }
 
-                if(height.text.length >4){
-                  ShowError(context, "גובה לא נכון");
-                  return;
-                }
 
-                gymHeroUser.age = int.parse(age.text);
-                gymHeroUser.weight = int.parse(weight.text);
-                gymHeroUser.height = int.parse(height.text);
+                  try{
+                    gymHeroUser.height = double.parse(height.text);
+                    if(gymHeroUser.height < 50 || gymHeroUser.height > 250){
+                      ShowError(context, "גובה לא מתאים");
+                      return;
+                    }
+                  }catch(e){
+                    ShowError(context, "גובה לא מתאים");
+                    return;
+                  }
+
+
+
+                  try{
+                    gymHeroUser.age = double.parse(age.text);
+                    if(gymHeroUser.age < 5 || gymHeroUser.age > 100){
+                      ShowError(context, "גיל לא מתאים");
+                      return;
+                    }
+                  }catch(e){
+                    ShowError(context, "גיל לא מתאים");
+                    return;
+                  }
+
+
+
                 gymHeroUser.fristTime = false;
 
                 Map<String,dynamic> map =  Map();
@@ -266,6 +287,7 @@ class _WelcomePage3State extends State<WelcomePage3> {
                 map["age"] = gymHeroUser.age;
                 map["weight"] = gymHeroUser.weight;
                 map["height"] = gymHeroUser.height;
+                map["gender"] = male;
                 map["fristTime"] = gymHeroUser.fristTime;
 
                 setState(() {

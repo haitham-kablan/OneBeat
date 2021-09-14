@@ -200,16 +200,16 @@ class _MeasureState extends State<Measure> {
                     onChanged: (val){
                       setState(() {
                         if(counter == 0){
-                          gymHeroUser.weight = int.parse(val.toStringAsFixed(0));
+                          gymHeroUser.weight = val;
                         }
                         if(counter == 1){
-                          gymHeroUser.bodyfat = int.parse(val.toStringAsFixed(0));
+                          gymHeroUser.bodyfat = val;
                         }
                         if(counter == 2){
-                          gymHeroUser.armSize = int.parse(val.toStringAsFixed(0));
+                          gymHeroUser.armSize = val;
                         }
                         if(counter == 3){
-                          gymHeroUser.stomachSize = int.parse(val.toStringAsFixed(0));
+                          gymHeroUser.stomachSize = val;
                         }
 
                       });

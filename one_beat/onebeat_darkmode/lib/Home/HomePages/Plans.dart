@@ -32,6 +32,11 @@ class _PlansState extends State<Plans> {
     });
   }
 
+  void refresh(){
+    setState(() {
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -42,7 +47,7 @@ class _PlansState extends State<Plans> {
             onPressed: (){
               Navigator.push(
                 context,
-                CustomPageRoute( child: BuildPlan(),),
+                CustomPageRoute( child: BuildPlan(refresh: refresh,),),
               );
             },
             label: Text("בניית תוכנית אימון" , style: whiteText(16),),
@@ -131,7 +136,7 @@ class _PlansState extends State<Plans> {
                                   ),
                                   SizedBox(height: 20,),
                                   Text("מספר ימים בשבוע", style: explaintion(17),),
-                                  Text("4", style: explaintion(17),),
+                                  Text(gymHeroUser.programs[currentIndex].days.length.toString(), style: explaintion(17),),
                                   SizedBox(height: 10,),
 
                                 ],

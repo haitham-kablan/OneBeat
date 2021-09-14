@@ -99,7 +99,7 @@ class _BuildProgramState extends State<BuildProgram> {
                     isLoading = true;
                   });
                   onPress();
-                  await DataBaseService.addProgramToDb(program, currentUser!);
+                  //await DataBaseService.addProgramToDb(program, currentUser!);
                   program = Program();
                   setState(() {
                     isLoading = false;
