@@ -52,12 +52,12 @@ class _PlansState extends State<Plans> {
             },
             label: Text("בניית תוכנית אימון" , style: whiteText(16),),
           icon: Icon(Icons.add , color: Colors.white , size: 16,),
-          backgroundColor: greenClr,
+          backgroundColor: greyClr,
         ),
 
         appBar: AppBar(
-          elevation: 10,
-          backgroundColor: greenClr,
+          elevation: 3,
+          backgroundColor: greyClr,
           title: Text(
             "תוכניות אימון" , style: whiteText(20),
           ),
@@ -77,7 +77,7 @@ class _PlansState extends State<Plans> {
                     child: Text(
                       "כאן אתה יכול לצפות בתוכניות המומלצות של המאמנין , או ליצור תוכנית חדשה בעצמך",
                       textDirection: TextDirection.rtl,
-                      style: explaintion(20),
+                      style: assistantStyle(Colors.white,20),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -100,12 +100,14 @@ class _PlansState extends State<Plans> {
                     return Builder(
                       builder: (BuildContext context) {
                         return Material(
-                          color: Color(0xff272727),
+                          color: greyClr,
                           borderRadius: BorderRadius.circular(10),
                           child: InkWell(
                             onTap: (){
                               setState(() {
                                 int index = gymHeroUser.programs.indexWhere((element) => element.name == i.name);
+                                print(index);
+                                print(currentIndex);
                                 if(index > currentIndex){
                                   carouselController.nextPage(duration: Duration(milliseconds: 300));
                                 }else if(index == currentIndex){
@@ -123,7 +125,7 @@ class _PlansState extends State<Plans> {
                               width: MediaQuery.of(context).size.width,
                               margin: EdgeInsets.symmetric(horizontal: 5.0),
                               decoration: BoxDecoration(
-                                  color: Color(0xff272727),
+                                  color: greyClr,
                                   borderRadius: BorderRadius.circular(10)
                               ),
                               child: Column(
@@ -131,12 +133,12 @@ class _PlansState extends State<Plans> {
                                 children: [
                                   Text("תוכנית", style: explaintion(17),),
                                   Container(
-                                      child: Text(gymHeroUser.programs[currentIndex].name, style: greenText(25),textAlign: TextAlign.center,),
+                                    child: Text(i.name, style: greenText(25),textAlign: TextAlign.center,),
                                     width: size.width * 0.4,
                                   ),
                                   SizedBox(height: 20,),
-                                  Text("מספר ימים בשבוע", style: explaintion(17),),
-                                  Text(gymHeroUser.programs[currentIndex].days.length.toString(), style: explaintion(17),),
+                                  Text("מספר ימים בשבוע", style: assistantStyle(Colors.grey[600]!, 17),),
+                                  Text(i.days.length.toString(), style: assistantStyle(Colors.grey[600]!, 17),),
                                   SizedBox(height: 10,),
 
                                 ],
@@ -153,8 +155,7 @@ class _PlansState extends State<Plans> {
                   onTap: (){
                     Navigator.push(
                       context,
-                      CustomPageRoute( child: SpecificPlan(name: gymHeroUser.programs[currentIndex].name, program: Program("AB" ,
-                      List.of({ProgramDay(ABA1) , ProgramDay(ABB1) , ProgramDay(ABA2),ProgramDay(ABB2)})),),),
+                      CustomPageRoute( child: SpecificPlan(name: gymHeroUser.programs[currentIndex].name, program: gymHeroUser.programs[currentIndex],),),
                     );
                   },
                   child: Row(
@@ -175,7 +176,7 @@ class _PlansState extends State<Plans> {
               alignment: Alignment.bottomLeft,
                 child: Container(
                   margin: EdgeInsets.only(bottom: 20),
-                    child: Image.asset("assets/plansBg.png" , width: 150,height: 150,)))
+                    child: Image.asset("assets/plansBg.png" , width: 80,height: 80,)))
           ],
         )
       ),

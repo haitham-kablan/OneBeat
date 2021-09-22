@@ -23,19 +23,19 @@ class GeneralExcerise{
       decoration: BoxDecoration(
         color: backGroundClr,
         border: Border(
-          bottom: BorderSide(
-            color: SeperatorClr,
-            width: 2
-          )
+          // bottom: BorderSide(
+          //   //color: Color(0xff2A2A2A),
+          //   //width: 1
+          // )
         ),
       ),
       child: Column(
         children: [
-          SizedBox(height: 13,),
+          SizedBox(height: 16,),
           Align(
-            alignment: Alignment.topRight,
-            child: Text( name , style: explaintion(20),textDirection: TextDirection.rtl,),),
-          SizedBox(height: 13,),
+            alignment: Alignment.center,
+            child: Text( name , style: assistantStyle(Colors.grey[600]!,20),textDirection: TextDirection.rtl,textAlign: TextAlign.center,),),
+          SizedBox(height: 16,),
         ],
       ),
     );
@@ -43,14 +43,14 @@ class GeneralExcerise{
 
   Widget getPicTile(onTap){
     return Material(
-      color: Color(0xff272727),
+      color: greyClr,
       borderRadius: BorderRadius.circular(10),
       child: InkWell(
         onTap: onTap,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 5.0),
           decoration: BoxDecoration(
-              color: Color(0xff272727),
+              color: greyClr,
               borderRadius: BorderRadius.circular(10)
           ),
           child: Column(

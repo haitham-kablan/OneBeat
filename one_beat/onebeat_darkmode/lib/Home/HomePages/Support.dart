@@ -32,27 +32,27 @@ class Support extends StatelessWidget {
               SizedBox(height: size.height * 0.05,),
               Center(child: Text("מאמנים" , style: pageHeader(50),)),
               SizedBox(height: 30,),
-              Text("קרים חמוד" , style: GoogleFonts.assistant(
+              Text("קרים חמוד" , style: explaintion(30),),
+              Text("054-5522973" , style: GoogleFonts.assistant(
                 color: Color(0xff707070),
                 fontWeight: FontWeight.bold,
-                fontSize: 30,
+                fontSize: 25,
               ),),
-              Text("054-5522973" , style: explaintion(25),),
               SizedBox(height: 30,),
-              Text("אדהם סויד" , style: GoogleFonts.assistant(
+              Text("אדהם סויד" , style: explaintion(30),),
+              Text("054-5522973" , style: GoogleFonts.assistant(
                 color: Color(0xff707070),
                 fontWeight: FontWeight.bold,
-                fontSize: 30,
+                fontSize: 25,
               ),),
-              Text("054-5522973" , style: explaintion(25),),
               SizedBox(height: 30,),
               Center(child: Text("תמיכה טכנית" , style: pageHeader(50),)),
-              Text("הייתם קבלאן" , style: GoogleFonts.assistant(
+              Text("הייתם קבלאן" , style: explaintion(30),),
+              Text("054-5522973" , style: GoogleFonts.assistant(
                 color: Color(0xff707070),
                 fontWeight: FontWeight.bold,
-                fontSize: 30,
+                fontSize: 25,
               ),),
-              Text("054-5522973" , style: explaintion(25),),
               Spacer(flex: 1,),
               Image.asset("assets/measureBg.png" , width: 100,height: 100,),
               SizedBox(height: 40,),

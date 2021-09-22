@@ -289,6 +289,7 @@ class _WelcomePage3State extends State<WelcomePage3> {
                 map["height"] = gymHeroUser.height;
                 map["gender"] = male;
                 map["fristTime"] = gymHeroUser.fristTime;
+                gymHeroUser.gender = male;
 
                 setState(() {
                   isLoading = true;

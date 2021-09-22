@@ -2,7 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onebeat_darkmode/ColorsPallete/ColorsPallete.dart';
+
+import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 
 class DayBox extends StatelessWidget {
 
@@ -16,7 +17,7 @@ class DayBox extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Material(
-      color: Color(0xff272727),
+      color: greyClr,
       borderRadius: BorderRadius.circular(10),
       elevation: 3,
       child: InkWell(
@@ -37,7 +38,7 @@ class DayBox extends StatelessWidget {
               left: BorderSide(width: 0,color: backGroundClr),
               right: BorderSide(width: 0,color: backGroundClr),
             ),
-            color: Color(0xff272727),
+            color: greyClr,
           ),
 
           child: Padding(

@@ -50,8 +50,8 @@ class _SpecificPlanState extends State<SpecificPlan> {
       child: Scaffold(
         backgroundColor: backGroundClr,
         appBar: AppBar(
-          elevation: 10,
-          backgroundColor: greenClr,
+          elevation: 3,
+          backgroundColor: greyClr,
           title: Text(
              name +  "  "+"תוכנית"  , style: whiteText(20),
           ),
@@ -60,69 +60,74 @@ class _SpecificPlanState extends State<SpecificPlan> {
             Navigator.pop(context);
           }, icon: Icon(Icons.chevron_left , color: Colors.white, size: 35,)),
         ),
-        body: Column(
-          children: [
-            SizedBox(height: 20,),
-            Row(
+        body: SingleChildScrollView(
+          child: Container(
+            height: size.height,
+            child: Column(
               children: [
-                Spacer(flex: 1,),
-                counter != 1 ? IconButton(
-                  icon: Icon(Icons.arrow_left , color: emptyDotClr,size: 27,),
-                  onPressed: (){
-                    setState(() {
-                      counter--;
-                    });
+                SizedBox(height: 20,),
+                Row(
+                  children: [
+                    Spacer(flex: 1,),
+                    counter != 1 ? IconButton(
+                      icon: Icon(Icons.arrow_left , color: emptyDotClr,size: 27,),
+                      onPressed: (){
+                        setState(() {
+                          counter--;
+                        });
 
-                  },
-                ) : Container(width: 25,height: 25,),
-                SizedBox(width: 25,),
-                Text(counter.toString()+"   " + "אימון" , style: GoogleFonts.assistant(
-                  color: greenClr,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                ),),
-                SizedBox(width: 25,),
-                counter == program.days.length ? Container(width: 25,height: 25,) : IconButton(
-                  icon: Icon(Icons.arrow_right , color: emptyDotClr,size: 27,),
-                  onPressed: (){
-                    setState(() {
-                      counter++;
-                    });
-                  },
+                      },
+                    ) : Container(width: 25,height: 25,),
+                    SizedBox(width: 25,),
+                    Text(counter.toString()+"   " + "אימון" , style: GoogleFonts.assistant(
+                      color: greenClr,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                    ),),
+                    SizedBox(width: 25,),
+                    counter == program.days.length ? Container(width: 25,height: 25,) : IconButton(
+                      icon: Icon(Icons.arrow_right , color: emptyDotClr,size: 27,),
+                      onPressed: (){
+                        setState(() {
+                          counter++;
+                        });
+                      },
+                    ),
+                    Spacer(flex: 1,),
+                  ],
                 ),
-                Spacer(flex: 1,),
+                SizedBox(height: 30,),
+                Container(
+                  height: size.height * 0.65,
+                  width: size.width * 0.95,
+                  child: ListView(
+                    children: program.days[counter-1].excerises,
+                  ),
+                ),
+                // CarouselSlider(
+                //   carouselController: carouselController,
+                //   options:  CarouselOptions(
+                //     height: size.height * 0.4,
+                //     //aspectRatio: 16/9,
+                //     viewportFraction: 0.7,
+                //     initialPage: 0,
+                //     enableInfiniteScroll: false,
+                //     reverse: false,
+                //     enlargeCenterPage: true,
+                //     onPageChanged: changeIndex,
+                //     scrollDirection: Axis.vertical,
+                //   ),
+                //   items: program.days[counter-1].excerises.map((i) {
+                //     return Builder(
+                //       builder: (BuildContext context) {
+                //         return i;
+                //       },
+                //     );
+                //   }).toList(),
+                // ),
               ],
             ),
-            SizedBox(height: 30,),
-            Container(
-              height: size.height * 0.65,
-              width: size.width * 0.95,
-              child: ListView(
-                children: program.days[counter-1].excerises,
-              ),
-            ),
-            // CarouselSlider(
-            //   carouselController: carouselController,
-            //   options:  CarouselOptions(
-            //     height: size.height * 0.4,
-            //     //aspectRatio: 16/9,
-            //     viewportFraction: 0.7,
-            //     initialPage: 0,
-            //     enableInfiniteScroll: false,
-            //     reverse: false,
-            //     enlargeCenterPage: true,
-            //     onPageChanged: changeIndex,
-            //     scrollDirection: Axis.vertical,
-            //   ),
-            //   items: program.days[counter-1].excerises.map((i) {
-            //     return Builder(
-            //       builder: (BuildContext context) {
-            //         return i;
-            //       },
-            //     );
-            //   }).toList(),
-            // ),
-          ],
+          ),
         ),
 
       ),

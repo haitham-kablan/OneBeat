@@ -2,11 +2,20 @@
 
 import 'package:flutter/material.dart';
 
-const Color backGroundClr = Color(0xff232323);
-const Color greenClr = Color(0xff4B9900);
-const Color emptyDotClr = Color(0xff949397);
+// const Color backGroundClr = Color(0xff232323);
+// const Color greenClr = Color(0xff4B9900);
+// const Color emptyDotClr = Color(0xff949397);
+// const Color SeperatorClr = Color(0xffE6E6E6);
+// const Color greyClr = Color(0xff949397);
+
+const Color backGroundClr = Color(0xff0B0B12);
+//const Color greenClr = Color(0xff2F80ED);
+const Color greenClr = Color(0xff2F80ED);
+const Color emptyDotClr = Color(0xff42424D);
 const Color SeperatorClr = Color(0xffE6E6E6);
-const Color greyClr = Color(0xff949397);
+const Color greyClr = Color(0xff141423);
+//const Color tileClr = Color(0xff5D5FEF);
+const Color tileClr = Color(0xff2F80ED);
 
 
 

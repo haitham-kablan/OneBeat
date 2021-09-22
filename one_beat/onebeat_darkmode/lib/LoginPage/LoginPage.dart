@@ -32,125 +32,131 @@ class _LogInPageState extends State<LogInPage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: backGroundClr,
-        body: Column(
-          children: [
-            SizedBox(height: size.height * 0.07,),
-            Center(child: Container(
-                margin: EdgeInsets.only(left: 20),child: Image.asset("assets/welcomePage1.png",width: 200,height: 200,))),
-            SizedBox(height: 35,),
-            Center(
-              child: InpuTextFeild(
-                  "דואל",
-                  Icon(Icons.mail,color: greenClr,),
-                  Color(0xff272727),
-                  emptyDotClr,
-                  Colors.white,
-                  Colors.white,EdgeInsets.only(left: 50,right: 50),emailControler),
-            ),
-            SizedBox(height: 20,),
-            Center(
-              child: InpuTextFeild(
-                  "סיסמה",
-                  Icon(Icons.vpn_key,color: greenClr,),
-                  Color(0xff272727),
-                  emptyDotClr,
-                  Colors.white,
-                  Colors.white,EdgeInsets.only(left: 50,right: 50),passwordControler,obsecure: true),
-            ),
-            Spacer(flex: 1,),
-            isLoading ? CircularProgressIndicator(
-              backgroundColor: navBarClr,
-              color: greenClr,
-            ) :
-            Container(
-              width: size.width * 0.4,
-              height: size.height * 0.05,
-              child: Material(
-                elevation: 10,
-                borderRadius:  BorderRadius.circular(10),
-                color: backGroundClr,
-                child: Center(
-                  child: InkWell(
-                    onTap: () async{
+        body: SingleChildScrollView(
+          child: Container(
+            height: size.height,
+            child: Column(
+              children: [
+                SizedBox(height: size.height * 0.07,),
+                Center(child: Container(
+                    margin: EdgeInsets.only(left: 20),child: Image.asset("assets/welcomePage1.png",width: 200,height: 200,))),
+                SizedBox(height: 35,),
+                Center(
+                  child: InpuTextFeild(
+                      "דואל",
+                      Icon(Icons.mail,color: Colors.grey[600]!,),
+                      greyClr,
+                      emptyDotClr,
+                      Colors.white,
+                      Colors.white,EdgeInsets.only(left: 50,right: 50),emailControler),
+                ),
+                SizedBox(height: 20,),
+                Center(
+                  child: InpuTextFeild(
+                      "סיסמה",
+                      Icon(Icons.vpn_key,color: Colors.grey[600]!,),
+                      greyClr,
+                      emptyDotClr,
+                      Colors.white,
+                      Colors.white,EdgeInsets.only(left: 50,right: 50),passwordControler,obsecure: true),
+                ),
+                //Spacer(flex: 1,),
+                SizedBox(height: 170,),
+                isLoading ? CircularProgressIndicator(
+                  backgroundColor: navBarClr,
+                  color: greenClr,
+                ) :
+                Container(
+                  width: size.width * 0.4,
+                  height: size.height * 0.05,
+                  child: Material(
+                    elevation: 10,
+                    borderRadius:  BorderRadius.circular(10),
+                    color: backGroundClr,
+                    child: Center(
+                      child: InkWell(
+                        onTap: () async{
 
-                      setState(() {
-                        isLoading = true;
-                      });
+                          setState(() {
+                            isLoading = true;
+                          });
 
-                      if (emailControler.text.isEmpty || passwordControler.text.isEmpty){
-                        setState(()  {
-                          isLoading = false;
-                        });
-                        await ShowError(context, "אחד או יותר מהשדות שלך הם ריקים , נא מלא אותם");
-                        return;
-                      }
+                          if (emailControler.text.isEmpty || passwordControler.text.isEmpty){
+                            setState(()  {
+                              isLoading = false;
+                            });
+                            await ShowError(context, "אחד או יותר מהשדות שלך הם ריקים , נא מלא אותם");
+                            return;
+                          }
 
-                      if (!isEmail(emailControler.text)){
-                        setState(()  {
-                          isLoading = false;
-                        });
-                        await ShowError(context, "הדואל שלך אינו חוקי");
-                        return;
-                      }
+                          if (!isEmail(emailControler.text)){
+                            setState(()  {
+                              isLoading = false;
+                            });
+                            await ShowError(context, "הדואל שלך אינו חוקי");
+                            return;
+                          }
 
-                      String? res = await AuthenticationService.Login(emailControler.text, passwordControler.text);
+                          String? res = await AuthenticationService.Login(emailControler.text, passwordControler.text);
 
-                      if(res != null){
-                        setState(()  {
-                          isLoading = false;
-                        });
-                        await ShowError(context, res);
-                        return;
-                      }
+                          if(res != null){
+                            setState(()  {
+                              isLoading = false;
+                            });
+                            await ShowError(context, res);
+                            return;
+                          }
 
-                      gymHeroUser = await AuthenticationService.getCurrentUser();
+                          gymHeroUser = await AuthenticationService.getCurrentUser();
 
-                      if(gymHeroUser.fristTime){
-                        Navigator.of(context).pushAndRemoveUntil(CustomPageRoute(
-                            child: WelcomePage1()
-                        ), (Route<dynamic> route) => false);
-                      }else{
-                        Navigator.of(context).pushAndRemoveUntil(CustomPageRoute( child:Home()), (Route<dynamic> route) => false);
-                      }
+                          if(gymHeroUser.fristTime){
+                            Navigator.of(context).pushAndRemoveUntil(CustomPageRoute(
+                                child: WelcomePage1()
+                            ), (Route<dynamic> route) => false);
+                          }else{
+                            Navigator.of(context).pushAndRemoveUntil(CustomPageRoute( child:Home()), (Route<dynamic> route) => false);
+                          }
 
-                      setState(()  {
-                        isLoading = false;
-                      });
+                          setState(()  {
+                            isLoading = false;
+                          });
 
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius:  BorderRadius.circular(10),
-                        color: greenClr,
-                      ),
-                      width: size.width * 0.4,
-                      height: size.height * 0.05,
-                      child: Center(
-                        child: Text("כניסה",style: TextStyle(color: Colors.white,fontSize: 18,)),
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius:  BorderRadius.circular(10),
+                            color: greenClr,
+                          ),
+                          width: size.width * 0.4,
+                          height: size.height * 0.05,
+                          child: Center(
+                            child: Text("כניסה",style: TextStyle(color: Colors.white,fontSize: 18,)),
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ),
-            SizedBox(height: 10,),
-            RichText(
-              text: TextSpan(
-                children:  <TextSpan>[
-                  TextSpan(text: 'עדיין אין לך משתמש? ', style: TextStyle(color: offWhite)),
-                  TextSpan(text: "לחץ כאן להרשמה",style: TextStyle(color: greenClr),
-                      recognizer: TapGestureRecognizer()..onTap = () => {
-                        Navigator.push(
-                          context,
-                          CustomPageRoute(child: ReigesterPage()),
-                        )}
+                SizedBox(height: 10,),
+                RichText(
+                  text: TextSpan(
+                    children:  <TextSpan>[
+                      TextSpan(text: 'עדיין אין לך משתמש? ', style: TextStyle(color: offWhite)),
+                      TextSpan(text: "לחץ כאן להרשמה",style: TextStyle(color: greenClr),
+                          recognizer: TapGestureRecognizer()..onTap = () => {
+                            Navigator.push(
+                              context,
+                              CustomPageRoute(child: ReigesterPage()),
+                            )}
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            SizedBox(height: size.height * 0.08,)
+                ),
+                SizedBox(height: size.height * 0.08,)
 
-          ],
+              ],
+            ),
+          ),
         ),
 
       ),

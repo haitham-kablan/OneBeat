@@ -54,8 +54,8 @@ class _BuildPlanState extends State<BuildPlan> {
         resizeToAvoidBottomInset: false,
         backgroundColor: backGroundClr,
         appBar: AppBar(
-          elevation: 10,
-          backgroundColor: greenClr,
+          elevation: 3,
+          backgroundColor: greyClr,
           title: Text(
             "בניית תוכנית אימון" , style: whiteText(20),
           ),
@@ -65,159 +65,166 @@ class _BuildPlanState extends State<BuildPlan> {
            Navigator.pop(context);
           }, icon: Icon(Icons.chevron_left , color: Colors.white, size: 35,)),
         ),
-        body: Stack(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: 30,),
-                Center(child: Text("שם תוכנית" , style: pageHeader(25),)),
-                SizedBox(height: 10,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        body:
+            SingleChildScrollView(
+              child: Container(
+                height: size.height,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    SizedBox(height: 30,),
                     Container(
-                      width: size.width * 0.8,
-                      child: Center(
-                        child: TextField(
-                          textAlign: TextAlign.center,
-                          controller: name,
-                          style: GoogleFonts.assistant(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            errorBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            hintText: "שם תוכנית",
-                            hintStyle:  GoogleFonts.assistant(
-                              color: emptyDotClr,
-                              fontSize: 20,
+                        child: Image.asset("assets/plans.png",height: 100,width: 100,),
+                    margin: EdgeInsets.only(left: 15)),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          width: size.width * 0.8,
+                          child: Center(
+                            child: TextField(
+                              textAlign: TextAlign.center,
+                              controller: name,
+                              style: GoogleFonts.assistant(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                hintText: "שם תוכנית",
+                                hintStyle:  GoogleFonts.assistant(
+                                  color: Colors.grey[600]!,
+                                  fontSize: 20,
+                                ),
+                              ),
                             ),
                           ),
                         ),
+                      ],
+                    ),
+                    SizedBox(height: 30,),
+                    Center(child: Text("מספר ימים בשבוע" , style: assistantStyle(Colors.grey[600]!,25),)),
+                    SizedBox(height: 15,),
+                    Center(child: Text(value.toStringAsFixed(0) , style: assistantStyle(Colors.white,40),)),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 35 , right: 35),
+                      child: Container(
+                        child: SliderTheme(
+                          data: SliderThemeData(
+                              valueIndicatorColor: greenClr),
+                          child: Slider(
+                              activeColor: greyClr,
+                              divisions: 7,
+                              label: "$value",
+                              inactiveColor: Colors.grey[600]!,
+                              min: 0,
+                              max: 7,
+                              value: value,
+                              onChanged: (val){
+                                setState(() {
+                                  value = val;
+                                  print("$value");
+                                  list.clear();
+                                  if(value.toInt() == 0){
+                                    addTrainDay.clear();
+                                  }
+                                  for(int i =0 ; i<value.toInt() ; i++){
+                                    list.add(
+                                      Container(
+                                        margin: EdgeInsets.all(8),
+                                        child: DayBox(
+                                            day: "יום  " + (i+1).toStringAsFixed(0) , isPressed: false , onpress: (){
+                                          Navigator.push(
+                                            context,
+                                            CustomPageRoute( child: daysList[i]),
+                                          );
+                                        },
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                });
+                              }),
+                        ),
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 40,right: 40),
+                      child: Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: Wrap(
+                          children: list,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 40,),
+                    value != 0 ? (isLoading ? CircularProgressIndicator(
+                      backgroundColor: navBarClr,
+                      color: greenClr,
+                    ) : button(greyClr , "הוספת תוכנית האימון" , Colors.white , BorderRadius.circular(5),size.width * 0.5,size.height * 0.05,()
+                    async{
+                      if(name.text.isEmpty){
+                        ShowError(context, "נא בחר שם לתוכנית");
+                        return;
+                      }
+
+                      if(name.text.length > 25){
+                        ShowError(context, "שם התוכנית ארוך יותר מדי , נא שנה אותו");
+                        return;
+                      }
+
+                      if(gymHeroUser.programs.any((element) => element.name == name.text)){
+                        ShowError(context, "יש לך כבר תוכנית עם שם כזה");
+                        return;
+                      }
+
+                      if(addTrainDay.isEmpty(list.length)){
+                        ShowError(context, "אחד הימים של התוכנית  הוא ריק , נא מלא אותו");
+                        return;
+                      }
+
+                      setState(() {
+                        isLoading = true;
+                      });
+
+
+                      Program program = Program(name.text , addTrainDay.getProgram(list.length));
+
+                      await DataBaseService.addProgramToDb(
+                          program
+                      );
+                      addTrainDay.clear();
+                      gymHeroUser.programs.insert(0, program);
+
+                      refresh();
+                      Navigator.pop(context);
+
+                      setState(() {
+                        isLoading = false;
+                      });
+
+
+
+
+                    })) : Container(),
+
+
                   ],
                 ),
-                SizedBox(height: 30,),
-                Center(child: Text("מספר ימים בשבוע" , style: pageHeader(25),)),
-                SizedBox(height: 15,),
-                Center(child: Text(value.toStringAsFixed(0) , style: explaintion(40),)),
-                Padding(
-                  padding: const EdgeInsets.only(left: 35 , right: 35),
-                  child: Container(
-                    child: Slider(
-                        activeColor: greenClr,
-                        divisions: 7,
-                        label: "$value",
-                        inactiveColor: Colors.grey[300],
-                        min: 0,
-                        max: 7,
-                        value: value,
-                        onChanged: (val){
-                          setState(() {
-                            value = val;
-                            print("$value");
-                            list.clear();
-                            if(value.toInt() == 0){
-                              addTrainDay.clear();
-                            }
-                            for(int i =0 ; i<value.toInt() ; i++){
-                              list.add(
-                                Container(
-                                  margin: EdgeInsets.all(8),
-                                  child: DayBox(
-                                      day: "יום  " + (i+1).toStringAsFixed(0) , isPressed: false , onpress: (){
-                                    Navigator.push(
-                                      context,
-                                      CustomPageRoute( child: daysList[i]),
-                                    );
-                                  },
-                                  ),
-                                ),
-                              );
-                            }
-                          });
-                        }),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 40,right: 40),
-                  child: Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: Wrap(
-                      children: list,
-                    ),
-                  ),
-                ),
-                Spacer(flex: 1,),
-                value != 0 ? (isLoading ? CircularProgressIndicator(
-                  backgroundColor: navBarClr,
-                  color: greenClr,
-                ) : button(greenClr , "הוספת תוכנית האימון" , Colors.white , BorderRadius.circular(5),size.width * 0.5,size.height * 0.05,()
-                async{
-                  if(name.text.isEmpty){
-                    ShowError(context, "נא בחר שם לתוכנית");
-                    return;
-                  }
-
-                  if(name.text.length > 25){
-                    ShowError(context, "שם התוכנית ארוך יותר מדי , נא שנה אותו");
-                    return;
-                  }
-
-                  if(gymHeroUser.programs.any((element) => element.name == name.text)){
-                    ShowError(context, "יש לך כבר תוכנית עם שם כזה");
-                    return;
-                  }
-
-                  if(addTrainDay.isEmpty(list.length)){
-                    ShowError(context, "אחד הימים של התוכנית  הוא ריק , נא מלא אותו");
-                    return;
-                  }
-
-                  setState(() {
-                    isLoading = true;
-                  });
-
-
-                  Program program = Program(name.text , addTrainDay.getProgram(list.length));
-
-                  await DataBaseService.addProgramToDb(
-                      program
-                  );
-                  addTrainDay.clear();
-                  gymHeroUser.programs.insert(0, program);
-
-                  refresh();
-                  Navigator.pop(context);
-
-                  setState(() {
-                    isLoading = false;
-                  });
-
-
-
-
-                })) : Container(),
-                SizedBox(height: 50,)
-
-              ],
+              ),
             ),
-            Align(
-              alignment: Alignment.bottomLeft,
-                child: Container(
-                  margin: EdgeInsets.only(bottom: 20),
-                    child: Image.asset("assets/measureBgOpacity.png" , width: 100,height: 100,))),
-          ],
-        ),
-
-      ),
-    );
+            // Align(
+            //   alignment: Alignment.bottomLeft,
+            //     child: Container(
+            //       margin: EdgeInsets.only(bottom: 20),
+            //         child: Image.asset("assets/measureBgOpacity.png" , width: 100,height: 100,))),
+      ),);
+    
   }
 
   void addDay(){

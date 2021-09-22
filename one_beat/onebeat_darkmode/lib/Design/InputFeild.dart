@@ -13,7 +13,7 @@ Widget InpuTextFeild(String hint,Icon icon,Color bgClr,
       padding: padding,
       child: Material(
         color: Colors.transparent,
-        elevation: 5,
+        elevation: 1,
         child: TextFormField(
           obscureText: obsecure,
           controller: controller,

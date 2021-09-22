@@ -27,7 +27,7 @@ class ExceriseTile extends StatelessWidget {
     //  margin: EdgeInsets.only(left: 10,right: 10),
       margin: EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: Color(0xff272727),
+        color: greyClr,
         borderRadius: BorderRadius.circular(5),
         ),
       child: Column(
@@ -45,12 +45,12 @@ class ExceriseTile extends StatelessWidget {
                 children: [
                   SizedBox(height: 7,),
                   Text(
-                      category , style: TextStyle(color: greenClr,fontSize: 20,fontWeight: FontWeight.bold)
+                      category , style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold)
                   ),
                   Container(
                     width: 200,
                     child: Text(
-                        name , style: TextStyle(color: emptyDotClr,fontSize: 20),textAlign: TextAlign.right,
+                        name , style: TextStyle(color: Colors.grey[600]!,fontSize: 20),textAlign: TextAlign.right,
                     ),
                   ),
                 ],
@@ -66,7 +66,7 @@ class ExceriseTile extends StatelessWidget {
             children: [
               Spacer(flex: 1,),
               Text("סטים: " + sets.toString(),style: GoogleFonts.assistant(
-                  color: emptyDotClr,
+                  color: Colors.grey[600]!,
                   fontSize: 17,
               ),textDirection: TextDirection.rtl,),
               SizedBox(width: 30,),
@@ -78,12 +78,12 @@ class ExceriseTile extends StatelessWidget {
             children: [
               SizedBox(width: 30,),
               machineNumber == "-1" ? Container() : Text("מכונה מספר: " + machineNumber,style: GoogleFonts.assistant(
-                color: emptyDotClr,
+                color: Colors.grey[600]!,
                 fontSize: 17,
               ), textDirection: TextDirection.rtl,),
               Spacer(flex: 1,),
               Text("חזרות: " + reps.toString(),style: GoogleFonts.assistant(
-                color: emptyDotClr,
+                color: Colors.grey[600]!,
                 fontSize: 17,
               ),textDirection: TextDirection.rtl,),
 

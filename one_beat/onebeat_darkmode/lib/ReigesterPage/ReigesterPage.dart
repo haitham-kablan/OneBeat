@@ -40,146 +40,151 @@ class _ReigesterPageState extends State<ReigesterPage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: backGroundClr,
-        body: Column(
-          children: [
-            SizedBox(height: 50,),
-            Center(
-              child: Text("הרשמה" , style: pageHeader(40),),
+        body: SingleChildScrollView(
+          child: Container(
+            height: size.height,
+            child: Column(
+              children: [
+                SizedBox(height: 50,),
+                Center(
+                  child: Text("הרשמה" , style: assistantStyle(Colors.white, 40),),
 
-            ),
-            SizedBox(height: 50,),
-            Center(
-              child: InpuTextFeild(
-                  "דואל",
-                  Icon(Icons.email,color: greenClr,),
-                  backGroundClr,
-                  Colors.grey,
-                  Colors.white,
-                  Colors.white,EdgeInsets.only(left: 50,right: 50),emailControler),
-            ),
-            SizedBox(height: 20,),
-            Center(
-              child: InpuTextFeild(
-                  "שם משתמש",
-                  Icon(Icons.account_box,color: greenClr,),
-                  backGroundClr,
-                  Colors.grey,
-                  Colors.white,
-                  Colors.white,EdgeInsets.only(left: 50,right: 50),userNameControler),
-            ),
-            SizedBox(height: 20,),
-            Center(
-              child: InpuTextFeild(
-                  "סיסמה",
-                  Icon(Icons.vpn_key,color: greenClr,),
-                  backGroundClr,
-                  Colors.grey,
-                  Colors.white,
-                  Colors.white,EdgeInsets.only(left: 50,right: 50),passwordControler,obsecure: true),
-            ),
-            SizedBox(height: 20,),
-            Center(
-              child: InpuTextFeild(
-                  "אימות סיסמה",
-                  Icon(Icons.vpn_key,color: greenClr,),
-                  backGroundClr,
-                  Colors.grey,
-                  Colors.white,
-                  Colors.white,EdgeInsets.only(left: 50,right: 50),verifeidPassControler,obsecure: true),
-            ),
-            Spacer(flex: 1,),
-            Image.asset("assets/measureBg.png",width: 70,height: 80,),
-            SizedBox(height: 20,),
-            isLoading ? CircularProgressIndicator(
-              backgroundColor: navBarClr,
-              color: greenClr,
-            ):
-        Container(
-          width: size.width * 0.4,
-          height: size.height * 0.05,
-          child: Material(
-            elevation: 5,
-            borderRadius:  BorderRadius.circular(10),
-            color: backGroundClr,
-            child: Center(
-              child: InkWell(
-                onTap: () async{
+                ),
+                SizedBox(height: 50,),
+                Center(
+                  child: InpuTextFeild(
+                      "דואל",
+                      Icon(Icons.email,color: Colors.grey[600]!,),
+                      greyClr,
+                      Colors.grey,
+                      Colors.white,
+                      Colors.white,EdgeInsets.only(left: 50,right: 50),emailControler),
+                ),
+                SizedBox(height: 20,),
+                Center(
+                  child: InpuTextFeild(
+                      "שם משתמש",
+                      Icon(Icons.account_box,color: Colors.grey[600]!,),
+                      greyClr,
+                      Colors.grey,
+                      Colors.white,
+                      Colors.white,EdgeInsets.only(left: 50,right: 50),userNameControler),
+                ),
+                SizedBox(height: 20,),
+                Center(
+                  child: InpuTextFeild(
+                      "סיסמה",
+                      Icon(Icons.vpn_key,color: Colors.grey[600]!,),
+                      greyClr,
+                      Colors.grey,
+                      Colors.white,
+                      Colors.white,EdgeInsets.only(left: 50,right: 50),passwordControler,obsecure: true),
+                ),
+                SizedBox(height: 20,),
+                Center(
+                  child: InpuTextFeild(
+                      "אימות סיסמה",
+                      Icon(Icons.vpn_key,color: Colors.grey[600]!,),
+                      greyClr,
+                      Colors.grey,
+                      Colors.white,
+                      Colors.white,EdgeInsets.only(left: 50,right: 50),verifeidPassControler,obsecure: true),
+                ),
+                //Spacer(flex: 1,),
+                //Image.asset("assets/measureBg.png",width: 70,height: 80,),
+                SizedBox(height: 150,),
+                isLoading ? CircularProgressIndicator(
+                  backgroundColor: navBarClr,
+                  color: greenClr,
+                ):
+            Container(
+              width: size.width * 0.4,
+              height: size.height * 0.05,
+              child: Material(
+                elevation: 5,
+                borderRadius:  BorderRadius.circular(10),
+                color: backGroundClr,
+                child: Center(
+                  child: InkWell(
+                    onTap: () async{
 
-                  setState(() {
-                    isLoading = true;
-                  });
+                      setState(() {
+                        isLoading = true;
+                      });
 
-                  String email=emailControler.text;
-                  String password = passwordControler.text;
-                  String userName = userNameControler.text;
-                  String verifiedPassword = verifeidPassControler.text;
+                      String email=emailControler.text;
+                      String password = passwordControler.text;
+                      String userName = userNameControler.text;
+                      String verifiedPassword = verifeidPassControler.text;
 
-                  if(email.isEmpty || password.isEmpty || userName.isEmpty || verifiedPassword.isEmpty){
-                    setState(()  {
-                      isLoading = false;
-                    });
-                    await ShowError(context, "אחד או יותר מהשדות שלך הם ריקים , נא מלא אותם");
+                      if(email.isEmpty || password.isEmpty || userName.isEmpty || verifiedPassword.isEmpty){
+                        setState(()  {
+                          isLoading = false;
+                        });
+                        await ShowError(context, "אחד או יותר מהשדות שלך הם ריקים , נא מלא אותם");
 
-                    return;
-                  }
+                        return;
+                      }
 
-                  if(!isEmail(email)){
-                    setState(()  {
-                      isLoading = false;
-                    });
-                    await ShowError(context, "הדואל שלך אינו חוקי");
-                    return;
-                  }
+                      if(!isEmail(email)){
+                        setState(()  {
+                          isLoading = false;
+                        });
+                        await ShowError(context, "הדואל שלך אינו חוקי");
+                        return;
+                      }
 
-                  String? ans = await AuthenticationService.Reigester(email, password,userName);
+                      String? ans = await AuthenticationService.Reigester(email, password,userName);
 
-                  if(ans != null){
-                    setState(()  {
-                      isLoading = false;
-                    });
-                    await ShowError(context, ans);
-                    return;
-                  }
+                      if(ans != null){
+                        setState(()  {
+                          isLoading = false;
+                        });
+                        await ShowError(context, ans);
+                        return;
+                      }
 
-                  gymHeroUser = GymHeroUser.emptyUser(userName, email);
+                      gymHeroUser = GymHeroUser.emptyUser(userName, email);
 
-                  await AuthenticationService.Login(email, password);
+                      await AuthenticationService.Login(email, password);
 
-                  if(gymHeroUser.fristTime){
-                    Navigator.of(context).pushAndRemoveUntil(
-                        CustomPageRoute(child:WelcomePage1()),
-                            (Route<dynamic> route) => false);
-                  }else{
-                    Navigator.of(context).pushAndRemoveUntil(
-                        CustomPageRoute(child:Home()),
-                            (Route<dynamic> route) => false);
-                  }
+                      if(gymHeroUser.fristTime){
+                        Navigator.of(context).pushAndRemoveUntil(
+                            CustomPageRoute(child:WelcomePage1()),
+                                (Route<dynamic> route) => false);
+                      }else{
+                        Navigator.of(context).pushAndRemoveUntil(
+                            CustomPageRoute(child:Home()),
+                                (Route<dynamic> route) => false);
+                      }
 
 
-                  await DataBaseService.addTrainerToDb(gymHeroUser);
+                      await DataBaseService.addTrainerToDb(gymHeroUser);
 
-                  setState(()  {
-                    isLoading = false;
-                  });
+                      setState(()  {
+                        isLoading = false;
+                      });
 
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius:  BorderRadius.circular(10),
-                    color: greenClr,
-                  ),
-                  width: size.width * 0.4,
-                  height: size.height * 0.05,
-                  child: Center(
-                    child: Text("הרשמה",style: TextStyle(color: Colors.white,fontSize: 18,)),
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius:  BorderRadius.circular(10),
+                        color: greenClr,
+                      ),
+                      width: size.width * 0.4,
+                      height: size.height * 0.05,
+                      child: Center(
+                        child: Text("הרשמה",style: TextStyle(color: Colors.white,fontSize: 18,)),
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
+                SizedBox(height: 50,),
+              ],
+            ),
           ),
-        ),
-            SizedBox(height: 50,),
-          ],
         ),
       ),
     );

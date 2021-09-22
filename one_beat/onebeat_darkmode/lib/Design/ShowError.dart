@@ -23,7 +23,7 @@ Future ShowError(context,String err) async{
                   // }, icon: Icon(Icons.refresh,color: Colors.grey,)),
                   Container(
                     width: size.width * 0.85,
-                    child:SingleChildScrollView(child: Text(err,style: TextStyle(color: emptyDotClr),textDirection: TextDirection.rtl,)),),
+                    child:SingleChildScrollView(child: Text(err,style: TextStyle(color: Colors.white),textDirection: TextDirection.rtl,)),),
                   SizedBox(width: 10,),
                   Icon(Icons.warning , color: greenClr,),
                 ],

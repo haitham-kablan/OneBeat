@@ -43,3 +43,10 @@ TextStyle greenText(double? size){
     fontSize: size,
   );
 }
+
+TextStyle assistantStyle(Color clr , double? size){
+  return GoogleFonts.assistant(
+    color: clr,
+    fontSize: size,
+  );
+}

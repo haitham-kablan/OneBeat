@@ -37,8 +37,8 @@ class _AllExcerisesState extends State<AllExcerises> {
       child: Scaffold(
         backgroundColor: backGroundClr,
         appBar: AppBar(
-          elevation: 10,
-          backgroundColor: greenClr,
+          elevation: 3,
+          backgroundColor: greyClr,
           title: Text(
             "תרגילים" , style: whiteText(20),
           ),
@@ -70,7 +70,7 @@ class _AllExcerisesState extends State<AllExcerises> {
                     return Builder(
                       builder: (BuildContext context) {
                         return Material(
-                          color: Color(0xff272727),
+                          color: greyClr,
                           borderRadius: BorderRadius.circular(10),
                           child: InkWell(
                             onTap: (){
@@ -91,7 +91,7 @@ class _AllExcerisesState extends State<AllExcerises> {
                               width: MediaQuery.of(context).size.width,
                               margin: EdgeInsets.symmetric(horizontal: 5.0),
                               decoration: BoxDecoration(
-                                  color: Color(0xff272727),
+                                  color: greyClr,
                                   borderRadius: BorderRadius.circular(10)
                               ),
                               child: Column(
@@ -140,11 +140,11 @@ class _AllExcerisesState extends State<AllExcerises> {
                 ),
               ],
             ),
-            Center(child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Container(
-                  margin: EdgeInsets.only(bottom: 20,left: 20),
-                    child: Image.asset("assets/homeBg.png",width: 100,height: 100,)))),
+            // Center(child: Align(
+            //     alignment: Alignment.bottomLeft,
+            //     child: Container(
+            //       margin: EdgeInsets.only(bottom: 20,left: 20),
+            //         child: Image.asset("assets/homeBg.png",width: 100,height: 100,)))),
           ],
         ),
       ),

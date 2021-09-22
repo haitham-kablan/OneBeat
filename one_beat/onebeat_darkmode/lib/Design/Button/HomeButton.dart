@@ -19,7 +19,7 @@ Widget HomeButton(Size size , String imagePath, String text , {onClick = null}){
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Color(0xff272727),
+          color: greyClr,
         ),
         width: size.width * 0.27,
         height:  size.height * 0.13,

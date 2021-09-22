@@ -86,8 +86,8 @@ class _addTrainDayState extends State<addTrainDay> {
       child: Scaffold(
         backgroundColor: backGroundClr,
         appBar: AppBar(
-          elevation: 10,
-          backgroundColor: greenClr,
+          elevation: 3,
+          backgroundColor: greyClr,
           title: Text(
             "בניית תוכנית" , style: whiteText(20),
           ),
@@ -101,7 +101,7 @@ class _addTrainDayState extends State<addTrainDay> {
             Column(
               children: [
                 SizedBox(height: 20,),
-                Center(child: Text(day.toString() + "  " +"אימון " , style: pageHeader(25),)),
+                Center(child: Text(day.toString() + "  " +"אימון " , style: assistantStyle(Colors.white, 25),)),
                 SizedBox(height: size.height * 0.05,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -199,7 +199,7 @@ class _ExceriseTileState extends State<ExceriseTile> {
                   Container(
                     width: size.width * 0.5,
                     child: Text(name,style: GoogleFonts.assistant(
-                      color: Colors.white,
+                      color: Colors.grey[600]!,
                       fontSize: 17,
                     ),textAlign: TextAlign.right,),
                   ),
