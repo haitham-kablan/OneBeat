@@ -39,11 +39,12 @@ class _goalsState extends State<goals> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+
           backgroundColor: greyClr,
           elevation: 3,
           centerTitle: true,
           title: Text(
-            "מדידות" , style: whiteText(20),
+            "יעדים" , style: whiteText(20),
           ),
         ),
         backgroundColor: backGroundClr,

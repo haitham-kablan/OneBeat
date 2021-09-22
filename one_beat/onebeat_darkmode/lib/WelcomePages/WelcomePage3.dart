@@ -38,7 +38,24 @@ class _WelcomePage3State extends State<WelcomePage3> {
           body: Column(
             children: [
               SizedBox(height: size.height * 0.05,),
-              Text("שלב 3 מתוך 3" , style: pageHeader(20),),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.chevron_left,color: Colors.white,),
+                  ),
+                  Text("שלב 3 מתוך 3" , style: pageHeader(20),),
+                  IconButton(
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.chevron_left,color: Colors.transparent,),
+                  ),
+                ],
+              ),
               SizedBox(height: size.height * 0.02,),
               Text("נתונים אישיים" , style: pageSecondHeader(20),),
               SizedBox(height: size.height * 0.03,),

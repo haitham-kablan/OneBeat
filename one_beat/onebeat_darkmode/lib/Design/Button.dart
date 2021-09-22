@@ -9,6 +9,7 @@ Widget button(Color bgClr,String txt,Color txtClr,raduis,width,height,onTap){
   return Container(
     width: width,
     height: height,
+
     child: Material(
       elevation: 3,
       borderRadius: raduis,
@@ -19,6 +20,7 @@ Widget button(Color bgClr,String txt,Color txtClr,raduis,width,height,onTap){
           child: Container(
             decoration: BoxDecoration(
               borderRadius: raduis,
+              border: Border.all(color:Colors.grey[800]! , width: 0.25),
               color: bgClr,
             ),
             width: width,

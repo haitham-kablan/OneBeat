@@ -32,12 +32,29 @@ class _WelcomePage2State extends State<WelcomePage2> {
           body: Column(
             children: [
               SizedBox(height: size.height * 0.05,),
-              Text("שלב 2 מתוך 3" , style: pageHeader(20),),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.chevron_left,color: Colors.white,),
+                  ),
+                  Text("שלב 2 מתוך 3" , style: pageHeader(20),),
+                  IconButton(
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.chevron_left,color: Colors.transparent,),
+                  ),
+                ],
+              ),
               SizedBox(height: size.height * 0.03,),
               Center(
                   child: Container(
                     width: size.width * 0.8,
-                      child: Text("בחר את רמת הכושר המתאימה לך", style: pageHeader(20) , textAlign: TextAlign.center,))),
+                      child: Text("בחר את רמת הכושר המתאימה לך", style: assistantStyle(Colors.white, 20) , textAlign: TextAlign.center,))),
               SizedBox(height: size.height * 0.04,),
               InkWell(
                 onTap: (){

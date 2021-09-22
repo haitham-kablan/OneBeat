@@ -21,6 +21,7 @@ Widget InpuTextFeild(String hint,Icon icon,Color bgClr,
           decoration: InputDecoration(
             filled: true,
             fillColor: bgClr,
+
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
@@ -28,9 +29,9 @@ Widget InpuTextFeild(String hint,Icon icon,Color bgClr,
               ),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide(
-                color: backGroundClr,
+                color: Colors.grey[800]!,width: 0.34,
               ),
             ),
             labelText: hint,

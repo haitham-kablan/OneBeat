@@ -54,6 +54,7 @@ class _BuildPlanState extends State<BuildPlan> {
         resizeToAvoidBottomInset: false,
         backgroundColor: backGroundClr,
         appBar: AppBar(
+
           elevation: 3,
           backgroundColor: greyClr,
           title: Text(
@@ -110,46 +111,54 @@ class _BuildPlanState extends State<BuildPlan> {
                     SizedBox(height: 30,),
                     Center(child: Text("מספר ימים בשבוע" , style: assistantStyle(Colors.grey[600]!,25),)),
                     SizedBox(height: 15,),
-                    Center(child: Text(value.toStringAsFixed(0) , style: assistantStyle(Colors.white,40),)),
+                    Center(child: Text(value.toStringAsFixed(0) , style: assistantStyle(greenClr,40),)),
                     Padding(
                       padding: const EdgeInsets.only(left: 35 , right: 35),
                       child: Container(
                         child: SliderTheme(
                           data: SliderThemeData(
                               valueIndicatorColor: greenClr),
-                          child: Slider(
-                              activeColor: greyClr,
-                              divisions: 7,
-                              label: "$value",
-                              inactiveColor: Colors.grey[600]!,
-                              min: 0,
-                              max: 7,
-                              value: value,
-                              onChanged: (val){
-                                setState(() {
-                                  value = val;
-                                  print("$value");
-                                  list.clear();
-                                  if(value.toInt() == 0){
-                                    addTrainDay.clear();
-                                  }
-                                  for(int i =0 ; i<value.toInt() ; i++){
-                                    list.add(
-                                      Container(
-                                        margin: EdgeInsets.all(8),
-                                        child: DayBox(
-                                            day: "יום  " + (i+1).toStringAsFixed(0) , isPressed: false , onpress: (){
-                                          Navigator.push(
-                                            context,
-                                            CustomPageRoute( child: daysList[i]),
-                                          );
-                                        },
+                          child: SliderTheme(
+                            data: SliderThemeData(
+                              activeTrackColor: greenClr,
+                              thumbColor: greenClr,
+                              valueIndicatorColor: greyClr,
+                              valueIndicatorTextStyle: TextStyle(color: greenClr),
+                            ),
+                            child: Slider(
+                               // activeColor: greenClr,
+                                divisions: 7,
+                                label: "$value",
+                                inactiveColor: Colors.grey[600]!,
+                                min: 0,
+                                max: 7,
+                                value: value,
+                                onChanged: (val){
+                                  setState(() {
+                                    value = val;
+                                    print("$value");
+                                    list.clear();
+                                    if(value.toInt() == 0){
+                                      addTrainDay.clear();
+                                    }
+                                    for(int i =0 ; i<value.toInt() ; i++){
+                                      list.add(
+                                        Container(
+                                          margin: EdgeInsets.all(8),
+                                          child: DayBox(
+                                              day: "יום  " + (i+1).toStringAsFixed(0) , isPressed: false , onpress: (){
+                                            Navigator.push(
+                                              context,
+                                              CustomPageRoute( child: daysList[i]),
+                                            );
+                                          },
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  }
-                                });
-                              }),
+                                      );
+                                    }
+                                  });
+                                }),
+                          ),
                         ),
                       ),
                     ),
@@ -166,7 +175,7 @@ class _BuildPlanState extends State<BuildPlan> {
                     value != 0 ? (isLoading ? CircularProgressIndicator(
                       backgroundColor: navBarClr,
                       color: greenClr,
-                    ) : button(greyClr , "הוספת תוכנית האימון" , Colors.white , BorderRadius.circular(5),size.width * 0.5,size.height * 0.05,()
+                    ) : button(greenClr , "הוספת תוכנית האימון" , Colors.white , BorderRadius.circular(5),size.width * 0.5,size.height * 0.05,()
                     async{
                       if(name.text.isEmpty){
                         ShowError(context, "נא בחר שם לתוכנית");

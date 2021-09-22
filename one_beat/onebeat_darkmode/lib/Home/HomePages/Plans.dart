@@ -44,6 +44,7 @@ class _PlansState extends State<Plans> {
       child: Scaffold(
           backgroundColor: backGroundClr,
         floatingActionButton: FloatingActionButton.extended(
+          elevation: 10,
             onPressed: (){
               Navigator.push(
                 context,
@@ -52,10 +53,11 @@ class _PlansState extends State<Plans> {
             },
             label: Text("בניית תוכנית אימון" , style: whiteText(16),),
           icon: Icon(Icons.add , color: Colors.white , size: 16,),
-          backgroundColor: greyClr,
+          backgroundColor: greenClr,
         ),
 
         appBar: AppBar(
+
           elevation: 3,
           backgroundColor: greyClr,
           title: Text(
@@ -125,6 +127,7 @@ class _PlansState extends State<Plans> {
                               width: MediaQuery.of(context).size.width,
                               margin: EdgeInsets.symmetric(horizontal: 5.0),
                               decoration: BoxDecoration(
+                                  border: Border.all(color:Colors.grey[800]! , width: 0.25),
                                   color: greyClr,
                                   borderRadius: BorderRadius.circular(10)
                               ),

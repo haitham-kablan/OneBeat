@@ -67,11 +67,11 @@ class _LogInPageState extends State<LogInPage> {
                   color: greenClr,
                 ) :
                 Container(
-                  width: size.width * 0.4,
+                  width: size.width * 0.8,
                   height: size.height * 0.05,
                   child: Material(
                     elevation: 10,
-                    borderRadius:  BorderRadius.circular(10),
+                    borderRadius:  BorderRadius.circular(15),
                     color: backGroundClr,
                     child: Center(
                       child: InkWell(
@@ -124,10 +124,11 @@ class _LogInPageState extends State<LogInPage> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius:  BorderRadius.circular(10),
+                            borderRadius:  BorderRadius.circular(15),
                             color: greenClr,
+                            border: Border.all(color: Colors.grey[800]! , width: 0.6),
                           ),
-                          width: size.width * 0.4,
+                          width: size.width * 0.56,
                           height: size.height * 0.05,
                           child: Center(
                             child: Text("כניסה",style: TextStyle(color: Colors.white,fontSize: 18,)),

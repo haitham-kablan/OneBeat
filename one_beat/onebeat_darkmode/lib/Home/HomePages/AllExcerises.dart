@@ -37,6 +37,7 @@ class _AllExcerisesState extends State<AllExcerises> {
       child: Scaffold(
         backgroundColor: backGroundClr,
         appBar: AppBar(
+
           elevation: 3,
           backgroundColor: greyClr,
           title: Text(
@@ -91,6 +92,7 @@ class _AllExcerisesState extends State<AllExcerises> {
                               width: MediaQuery.of(context).size.width,
                               margin: EdgeInsets.symmetric(horizontal: 5.0),
                               decoration: BoxDecoration(
+                                  border: Border.all(color:Colors.grey[800]! , width: 0.25),
                                   color: greyClr,
                                   borderRadius: BorderRadius.circular(10)
                               ),

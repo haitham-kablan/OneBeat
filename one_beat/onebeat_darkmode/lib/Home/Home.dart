@@ -55,6 +55,7 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         //endDrawer: Drawer(),
         appBar: AppBar(
+
           backgroundColor: backGroundClr,
           elevation: 3,
           centerTitle: true,
@@ -127,6 +128,7 @@ class _HomeState extends State<Home> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color:Colors.grey[800]! , width: 0.25),
                             color: greyClr,
                           ),
                           width: size.width * 0.42,
@@ -140,7 +142,7 @@ class _HomeState extends State<Home> {
                                   Image.asset("assets/chart-bars.png" ,width :20 , height: 20,),
                                   Spacer(flex: 1,),
                                   Text("יעדים" , style: GoogleFonts.assistant(
-                                    color: Colors.white,
+                                    color: greenClr,
                                     fontSize: 14,
                                   )),
                                   SizedBox(width: 10,),
@@ -200,6 +202,7 @@ class _HomeState extends State<Home> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color:Colors.grey[800]! , width: 0.25),
                             color: greyClr,
                           ),
                           width: size.width * 0.42,
@@ -213,7 +216,7 @@ class _HomeState extends State<Home> {
                                   Image.asset("assets/stretching.png" ,width :20 , height: 20,),
                                   Spacer(flex: 1,),
                                   Text("תרגילים" , style: GoogleFonts.assistant(
-                                    color:Colors.white,
+                                    color:greenClr,
                                     fontSize: 14,
                                   )),
                                   SizedBox(width: 10,),
@@ -280,6 +283,7 @@ class _HomeState extends State<Home> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color:Colors.grey[800]! , width: 0.25),
                             color: greyClr,
                           ),
                           width: size.width * 0.42,
@@ -293,7 +297,7 @@ class _HomeState extends State<Home> {
                                   Image.asset("assets/list_2_.png" ,width :20 , height: 20,),
                                   Spacer(flex: 1,),
                                   Text("תוכניות אימון" , style: GoogleFonts.assistant(
-                                    color: Colors.white,
+                                    color: greenClr,
                                     fontSize: 14,
                                   )),
                                   SizedBox(width: 10,),
@@ -372,6 +376,7 @@ class _HomeState extends State<Home> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color:Colors.grey[800]! , width: 0.25),
                             color: greyClr,
                           ),
                           width: size.width * 0.42,
@@ -385,7 +390,7 @@ class _HomeState extends State<Home> {
                                   Image.asset("assets/weight-scale.png" ,width :20 , height: 20,),
                                   Spacer(flex: 1,),
                                   Text("מדידות" , style: GoogleFonts.assistant(
-                                    color: Colors.white,
+                                    color: greenClr,
                                     fontSize: 14,
                                   )),
                                   SizedBox(width: 10,),
@@ -457,6 +462,7 @@ class _HomeState extends State<Home> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color:Colors.grey[800]! , width: 0.25),
                             color: greyClr,
                           ),
                           width: size.width * 0.42,
@@ -465,7 +471,7 @@ class _HomeState extends State<Home> {
                             children: [
                               SizedBox(height: 10,),
                               Center(
-                                child: Text("שעות פתיחה" , style: assistantStyle(Colors.white, 14),),
+                                child: Text("שעות פתיחה" , style: assistantStyle(greenClr, 14),),
                               ),
                               SizedBox(height: 30,),
                               Image.asset("assets/watch.png",width: 70,height: 70,),

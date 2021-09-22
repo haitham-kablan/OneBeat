@@ -40,17 +40,25 @@ class _ReigesterPageState extends State<ReigesterPage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: backGroundClr,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            icon:Icon(Icons.chevron_left , color: Colors.white,size: 35,),
+            onPressed: (){
+              Navigator.pop(context);
+            },
+          ),
+        ),
         body: SingleChildScrollView(
           child: Container(
             height: size.height,
             child: Column(
               children: [
-                SizedBox(height: 50,),
                 Center(
                   child: Text("הרשמה" , style: assistantStyle(Colors.white, 40),),
 
                 ),
-                SizedBox(height: 50,),
+                SizedBox(height: 40,),
                 Center(
                   child: InpuTextFeild(
                       "דואל",
@@ -92,17 +100,17 @@ class _ReigesterPageState extends State<ReigesterPage> {
                 ),
                 //Spacer(flex: 1,),
                 //Image.asset("assets/measureBg.png",width: 70,height: 80,),
-                SizedBox(height: 150,),
+                SizedBox(height: 120,),
                 isLoading ? CircularProgressIndicator(
                   backgroundColor: navBarClr,
                   color: greenClr,
                 ):
             Container(
-              width: size.width * 0.4,
+              width: size.width * 0.6,
               height: size.height * 0.05,
               child: Material(
                 elevation: 5,
-                borderRadius:  BorderRadius.circular(10),
+                borderRadius:  BorderRadius.circular(15),
                 color: backGroundClr,
                 child: Center(
                   child: InkWell(
@@ -169,9 +177,10 @@ class _ReigesterPageState extends State<ReigesterPage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius:  BorderRadius.circular(10),
+                        border: Border.all(color: Colors.grey[800]! , width: 0.6),
                         color: greenClr,
                       ),
-                      width: size.width * 0.4,
+                      width: size.width * 0.6,
                       height: size.height * 0.05,
                       child: Center(
                         child: Text("הרשמה",style: TextStyle(color: Colors.white,fontSize: 18,)),
@@ -181,7 +190,6 @@ class _ReigesterPageState extends State<ReigesterPage> {
                 ),
               ),
             ),
-                SizedBox(height: 50,),
               ],
             ),
           ),

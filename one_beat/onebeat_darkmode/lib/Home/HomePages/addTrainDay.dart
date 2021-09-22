@@ -86,6 +86,7 @@ class _addTrainDayState extends State<addTrainDay> {
       child: Scaffold(
         backgroundColor: backGroundClr,
         appBar: AppBar(
+
           elevation: 3,
           backgroundColor: greyClr,
           title: Text(

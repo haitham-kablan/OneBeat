@@ -50,6 +50,7 @@ class _SpecificPlanState extends State<SpecificPlan> {
       child: Scaffold(
         backgroundColor: backGroundClr,
         appBar: AppBar(
+
           elevation: 3,
           backgroundColor: greyClr,
           title: Text(

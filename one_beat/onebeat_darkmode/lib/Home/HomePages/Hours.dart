@@ -26,6 +26,7 @@ class _HoursState extends State<Hours> {
         child: Scaffold(
           backgroundColor: backGroundClr,
           appBar: AppBar(
+
             elevation: 3,
             backgroundColor: greyClr,
             title: Text(

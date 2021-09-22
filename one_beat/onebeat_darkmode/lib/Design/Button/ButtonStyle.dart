@@ -22,11 +22,12 @@ Widget button(Color bgClr,String txt,Color txtClr,raduis,width,height,onTap){
             decoration: BoxDecoration(
               borderRadius: raduis,
               color: bgClr,
+              border: Border.all(color:Colors.grey[800]! , width: 0.7),
             ),
             width: width,
             height: height,
             child: Center(
-              child: Text(txt,style: whiteText(18)),
+              child: Text(txt,style: assistantStyle(txtClr, 18)),
             ),
           ),
         ),

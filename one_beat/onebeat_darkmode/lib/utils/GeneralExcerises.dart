@@ -22,12 +22,8 @@ class GeneralExcerise{
     return Container(
       decoration: BoxDecoration(
         color: backGroundClr,
-        border: Border(
-          // bottom: BorderSide(
-          //   //color: Color(0xff2A2A2A),
-          //   //width: 1
-          // )
-        ),
+       // border: Border.all(color:Colors.grey[800]! , width: 0.25),
+
       ),
       child: Column(
         children: [
@@ -50,6 +46,7 @@ class GeneralExcerise{
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 5.0),
           decoration: BoxDecoration(
+              border: Border.all(color:Colors.grey[800]! , width: 0.25),
               color: greyClr,
               borderRadius: BorderRadius.circular(10)
           ),

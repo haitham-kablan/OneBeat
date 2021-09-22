@@ -34,7 +34,7 @@ ExitDialouge(context,Size size){
                         children: <Widget>[
                           RaisedButton(onPressed: (){
                             return Navigator.of(context).pop(true);
-                          }, child: Text('לא'), color: Colors.white, textColor: greenClr,),
+                          }, child: Text('לא'), color: greyClr, textColor: greenClr,),
                           FlatButton(onPressed: ()async{
                             await AuthenticationService.Logout();
                             Navigator.pushAndRemoveUntil<dynamic>(

@@ -23,21 +23,23 @@ class DayBox extends StatelessWidget {
       child: InkWell(
         onTap: onpress,
         child: Container(
+
           width: size.width * 0.17,
           height: size.height * 0.07,
           decoration: BoxDecoration(
+            border: Border.all(color:Colors.grey[800]! , width: 0.25),
             borderRadius: BorderRadius.circular(10),
-            border: isPressed ? Border(
-              top: BorderSide(width: 0.8,color: greenClr),
-              bottom: BorderSide(width: 0.8,color: greenClr),
-              left: BorderSide(width: 0.8,color: greenClr),
-              right: BorderSide(width: 0.8,color: greenClr),
-            ) : Border(
-              top: BorderSide(width: 0,color: backGroundClr),
-              bottom: BorderSide(width: 0,color: backGroundClr),
-              left: BorderSide(width: 0,color: backGroundClr),
-              right: BorderSide(width: 0,color: backGroundClr),
-            ),
+            // border: isPressed ? Border(
+            //   top: BorderSide(width: 0.8,color: greenClr),
+            //   bottom: BorderSide(width: 0.8,color: greenClr),
+            //   left: BorderSide(width: 0.8,color: greenClr),
+            //   right: BorderSide(width: 0.8,color: greenClr),
+            // ) : Border(
+            //   top: BorderSide(width: 0,color: backGroundClr),
+            //   bottom: BorderSide(width: 0,color: backGroundClr),
+            //   left: BorderSide(width: 0,color: backGroundClr),
+            //   right: BorderSide(width: 0,color: backGroundClr),
+            // ),
             color: greyClr,
           ),
 
@@ -48,7 +50,7 @@ class DayBox extends StatelessWidget {
               children: [
                 Text(
                   day,
-                  style: TextStyle(color: offWhite),textDirection: TextDirection.rtl,
+                  style: TextStyle(color: Colors.white),textDirection: TextDirection.rtl,
                 ),
               ],
 
