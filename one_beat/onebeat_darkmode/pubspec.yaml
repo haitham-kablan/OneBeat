@@ -110,6 +110,7 @@ flutter:
     - plans.png
     - maleFemale.png
     - sign_out.png
+    - work_calendar.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

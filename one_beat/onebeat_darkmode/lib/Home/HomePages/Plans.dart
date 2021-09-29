@@ -43,18 +43,18 @@ class _PlansState extends State<Plans> {
     return SafeArea(
       child: Scaffold(
           backgroundColor: backGroundClr,
-        floatingActionButton: FloatingActionButton.extended(
-          elevation: 10,
-            onPressed: (){
-              Navigator.push(
-                context,
-                CustomPageRoute( child: BuildPlan(refresh: refresh,),),
-              );
-            },
-            label: Text("בניית תוכנית אימון" , style: whiteText(16),),
-          icon: Icon(Icons.add , color: Colors.white , size: 16,),
-          backgroundColor: greenClr,
-        ),
+        // floatingActionButton: FloatingActionButton.extended(
+        //   elevation: 10,
+        //     onPressed: (){
+        //       Navigator.push(
+        //         context,
+        //         CustomPageRoute( child: BuildPlan(refresh: refresh,),),
+        //       );
+        //     },
+        //     label: Text("בניית תוכנית אימון" , style: whiteText(16),),
+        //   icon: Icon(Icons.add , color: Colors.white , size: 16,),
+        //   backgroundColor: greenClr,
+        // ),
 
         appBar: AppBar(
 

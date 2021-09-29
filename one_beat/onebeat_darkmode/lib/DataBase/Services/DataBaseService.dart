@@ -22,7 +22,24 @@ class DataBaseService{
   static String personalPrograms = "PERSONAL_PROGRAMS";
 
   static Map<utils.Category , List<utils.GeneralExcerise>> systemExcerises= Map();
+  static List<GymHeroUser> allUsers = [];
 
+
+  static Future initDb()async{
+
+    await getSystemUsers();
+    await getSystemExcerises();
+  }
+  static Future getSystemUsers() async{
+    await usersCollection.get().then(
+            (value) {
+          value.docs.forEach((element) {
+            GymHeroUser gymHeroUser = GymHeroUser.mapToUser(element);
+            //TODO : MIGHT CHANGE THIS
+            allUsers.add(gymHeroUser);
+          });
+        });
+  }
 
   static Future getSystemExcerises()async{
 
