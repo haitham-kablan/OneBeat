@@ -30,7 +30,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: FutureBuilder(
+        home:
+
+        FutureBuilder(
           future: AuthenticationService.getCurrentUser(),
           builder: (BuildContext context, AsyncSnapshot<GymHeroUser> snapshot) {
             if (snapshot.hasError) {
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
 
             if (snapshot.connectionState == ConnectionState.done) {
               gymHeroUser = snapshot.data!;
-              return (gymHeroUser.email.isEmpty ? LogInPage() : Home());
+              return (gymHeroUser.email.isEmpty ? LogInPage() : (gymHeroUser.fristTime ? WelcomePage1() : Home()));
             }
 
             return Scaffold(
@@ -69,34 +71,42 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// class MyApp extends StatelessWidget {
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: SafeArea(
-//           child: FutureBuilder<TrainerUser>(
-//                   future: AuthenticationService.getCurrentUser(),
-//                   builder: (BuildContext context, AsyncSnapshot<TrainerUser> snapshot) {
-//                     if(snapshot.hasData){
-//                       if (snapshot.data!.email == "-1"){
-//                         return LogInPage();
-//                       }else{
-//                         currentUser = snapshot.data;
-//                         return  HomePage();
-//                       }
-//                     }else if (snapshot.hasError){
-//                       return  LogInPage();
-//                     }else{
-//                       return LoadingPage();
-//                     }
-//                   }
-//           )
-//       ),
-//       debugShowCheckedModeBanner: false,
-//     );
-//   }
+
+
+
+//
+// StreamBuilder(
+// builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+// if(snapshot.hasError){
+// return LogInPage();
+// }
+// if(snapshot.connectionState == ConnectionState.waiting){
+// return Scaffold(
+// backgroundColor: backGroundClr,
+// body: Column(
+// mainAxisAlignment: MainAxisAlignment.center,
+// crossAxisAlignment: CrossAxisAlignment.center,
+// children: [
+// Center(
+// child: Container(
+// margin: EdgeInsets.only(left: 20),child: Image.asset("assets/welcomePage1.png",width: 200,height: 200,)),
+// ),
+// SizedBox(height: 40,),
+// Center(
+// child: CircularProgressIndicator(
+// backgroundColor: navBarClr,
+// color: greenClr,
+// )
+// )
+// ]
+// )
+// );
 // }
 //
+// else{
 //
-
+// }
+//
+// },
+//
+// ),

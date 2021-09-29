@@ -1,8 +1,12 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:onebeat_darkmode/ColorsPallete/ColorsPallete.dart';
 import 'package:onebeat_darkmode/DataBase/GenerealExcerise.dart';
 import 'package:onebeat_darkmode/DataBase/Program.dart';
 import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
+import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
 import 'package:onebeat_darkmode/Users/TrainerUser.dart';
 import 'package:onebeat_darkmode/Users/User.dart';
 import 'package:onebeat_darkmode/utils/ExceriseTile.dart';
@@ -22,15 +26,49 @@ class DataBaseService{
   static String personalPrograms = "PERSONAL_PROGRAMS";
 
   static Map<utils.Category , List<utils.GeneralExcerise>> systemExcerises= Map();
+  static final Stream<QuerySnapshot> usersStream = usersCollection.snapshots();
+  static final UsersCounter = StreamBuilder<QuerySnapshot>(
+          stream: DataBaseService.usersStream,
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Text("0" , style: assistantStyle(Colors.white, 70),);
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator(backgroundColor: navBarClr,color: Colors.white,);
+          }
+
+          return Text(snapshot.data!.docs.length.toString() , style: assistantStyle(Colors.white, 70),);
+        },
+  );
+
+  //
+  // static final UsersTable = StreamBuilder<QuerySnapshot>(
+  //   stream: DataBaseService.usersStream,
+  //   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+  //     if (snapshot.hasError) {
+  //       return Container();
+  //     }
+  //
+  //     if (snapshot.connectionState == ConnectionState.waiting) {
+  //       return Container();
+  //     }
+  //     allUsers.clear();
+  //     snapshot.data!.docs.forEach((element) { allUsers.add(GymHeroUser.mapToUser(element));});
+  //     return Container();
+  //   },
+  // );
+
   static List<GymHeroUser> allUsers = [];
 
 
   static Future initDb()async{
 
-    await getSystemUsers();
+   //await getSystemUsers();
     await getSystemExcerises();
   }
   static Future getSystemUsers() async{
+    allUsers.clear();
     await usersCollection.get().then(
             (value) {
           value.docs.forEach((element) {

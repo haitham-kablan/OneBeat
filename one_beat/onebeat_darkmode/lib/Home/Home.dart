@@ -1,5 +1,6 @@
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -130,7 +131,8 @@ class _HomeState extends State<Home> {
                         elevation: 3,
                         child: InkWell(
                           splashColor: greyClr,
-                          onTap: (){
+                          onTap: () async{
+                            await DataBaseService.getSystemUsers();
                             Navigator.push(context, CustomPageRoute(child: AllUsers()));
                           },
                           child: Container(
@@ -157,7 +159,7 @@ class _HomeState extends State<Home> {
                                   ],
                                 ),
                                 SizedBox(height: 25,),
-                                Text(DataBaseService.allUsers.length.toString() , style: assistantStyle(Colors.white, 70),),
+                                DataBaseService.UsersCounter,
                                 Text("משתמשים" , style: assistantStyle(Colors.grey[600]!, 20),),
                                 SizedBox(height: 10,),
                                 Text("לחץ לצפייה" , style: assistantStyle(greenClr, 12),),
