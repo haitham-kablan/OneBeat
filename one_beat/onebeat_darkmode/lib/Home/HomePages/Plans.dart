@@ -8,6 +8,7 @@ import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
 import 'package:onebeat_darkmode/Home/HomePages/BuildPlan.dart';
 import 'package:onebeat_darkmode/Home/HomePages/SpecificPlan.dart';
+import 'package:onebeat_darkmode/Home/adminHomePages/allUsers.dart';
 import 'package:onebeat_darkmode/utils/Porgram.dart';
 import 'package:onebeat_darkmode/utils/ProgramDay.dart';
 
@@ -15,6 +16,7 @@ import '../../Constants.dart';
 
 class Plans extends StatefulWidget {
   const Plans({Key? key}) : super(key: key);
+
 
   @override
   _PlansState createState() => _PlansState();
@@ -25,6 +27,8 @@ class _PlansState extends State<Plans> {
 
   int currentIndex = 0;
   CarouselController carouselController = CarouselController();
+
+
 
   void onChange(int newIndex ,CarouselPageChangedReason reason){
     setState(() {
@@ -98,7 +102,7 @@ class _PlansState extends State<Plans> {
                     enlargeCenterPage: true,
                     scrollDirection: Axis.horizontal,
                   ),
-                  items: gymHeroUser.programs.map((i) {
+                  items: AllUsers.pickedUser!.programs.map((i) {
                     return Builder(
                       builder: (BuildContext context) {
                         return Material(
@@ -107,7 +111,7 @@ class _PlansState extends State<Plans> {
                           child: InkWell(
                             onTap: (){
                               setState(() {
-                                int index = gymHeroUser.programs.indexWhere((element) => element.name == i.name);
+                                int index = AllUsers.pickedUser!.programs.indexWhere((element) => element.name == i.name);
                                 print(index);
                                 print(currentIndex);
                                 if(index > currentIndex){
@@ -115,8 +119,8 @@ class _PlansState extends State<Plans> {
                                 }else if(index == currentIndex){
                                   Navigator.push(
                                     context,
-                                    CustomPageRoute( child: SpecificPlan(name: gymHeroUser.programs[currentIndex].name,
-                                      program: gymHeroUser.programs[currentIndex],),),
+                                    CustomPageRoute( child: SpecificPlan(name: AllUsers.pickedUser!.programs[currentIndex].name,
+                                      program: AllUsers.pickedUser!.programs[currentIndex],),),
                                   );
                                 }else{
                                   carouselController.previousPage(duration: Duration(milliseconds: 300));
@@ -158,7 +162,7 @@ class _PlansState extends State<Plans> {
                   onTap: (){
                     Navigator.push(
                       context,
-                      CustomPageRoute( child: SpecificPlan(name: gymHeroUser.programs[currentIndex].name, program: gymHeroUser.programs[currentIndex],),),
+                      CustomPageRoute( child: SpecificPlan(name: AllUsers.pickedUser!.programs[currentIndex].name, program: AllUsers.pickedUser!.programs[currentIndex],),),
                     );
                   },
                   child: Row(

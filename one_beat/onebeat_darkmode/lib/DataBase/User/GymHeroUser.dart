@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:onebeat_darkmode/utils/Porgram.dart';
 import 'package:onebeat_darkmode/utils/ProgramDay.dart';
+import 'package:onebeat_darkmode/utils/SpecificMeasure.dart';
 
 import '../../Constants.dart';
 
@@ -18,22 +19,19 @@ class GymHeroUser{
   bool trainer;
   double age;
   bool gender;
-  double height;
+  String height;
 
-  double weight;
-  double bodyfat;
-  double stomachSize;
-  double armSize;
   bool fristTime;
 
-  double goalweight;
-  double goalbodyfat;
-  double goalstomachSize;
-  double goalarmSize;
+  String goalweight;
+  String goalbodyfat;
+  String goalstomachSize;
+  String goalarmSize;
 
   List<Program> programs = [];
+  List<SpecificMeasure> Measures = [];
 
-  GymHeroUser(this.name,this.email, this.age, this.gender , this.height , this.weight,this.bodyfat,this.stomachSize,this.armSize,
+  GymHeroUser(this.name,this.email, this.age, this.gender , this.height ,
       this.goalweight,this.goalbodyfat,this.goalstomachSize,this.goalarmSize , this.fristTime , this.trainer);
 
   static GymHeroUser mapToUser(DocumentSnapshot documentSnapshot){
@@ -41,15 +39,14 @@ class GymHeroUser{
     Map<String,dynamic> data = documentSnapshot.data() as Map<String,dynamic>;
 
     return GymHeroUser(data["name"], data["email"], data["age"], data["gender"],
-        data["height"], data["weight"], data["bodyfat"], data["stomachSize"], data["armSize"],
+        data["height"],
         data["goalweight"], data["goalbodyfat"], data["goalstomachSize"], data["goalarmSize"],data["fristTime"],data["trainer"]);
   }
 
   static GymHeroUser emptyUser(String name , String email){
 
-    GymHeroUser gymHeroUser =  GymHeroUser(name, email,20, true, 170, 25,
-        3, 15, 10, 25, 3,
-        15, 10,true,false);
+    GymHeroUser gymHeroUser =  GymHeroUser(name, email,20, true, "170",  "25", '3',
+        "15", '10',true,false);
 
     gymHeroUser.programs.add(Program("A" ,
         List.of({ProgramDay(A)})));
@@ -70,10 +67,6 @@ class GymHeroUser{
     map["fristTime"] = this.fristTime;
     map["age"] = this.age;
     map["height"] = this.height;
-    map["weight"] = this.weight;
-    map["armSize"] = this.armSize;
-    map["stomachSize"] = this.stomachSize;
-    map["bodyfat"] = this.bodyfat;
     map["gender"] = this.gender;
     map["goalarmSize"] = this.goalarmSize;
     map["goalbodyfat"] = this.goalbodyfat;

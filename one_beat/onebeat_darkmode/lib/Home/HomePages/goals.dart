@@ -146,7 +146,7 @@ class _goalsState extends State<goals> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text((counter == 0 ? gymHeroUser.goalweight : (counter == 1 ? gymHeroUser.goalbodyfat : (counter == 2? gymHeroUser.goalarmSize:gymHeroUser.goalstomachSize))).toStringAsFixed(1) , style: GoogleFonts.rubik(
+                        Text((counter == 0 ? gymHeroUser.goalweight : (counter == 1 ? gymHeroUser.goalbodyfat : (counter == 2? gymHeroUser.goalarmSize:gymHeroUser.goalstomachSize))) , style: GoogleFonts.rubik(
                           color: Colors.white,
                           fontSize: 90,
                         ),),
@@ -202,20 +202,20 @@ class _goalsState extends State<goals> {
                         inactiveColor: Colors.grey[300],
                         min: min,
                         max: max,
-                        value: (counter == 0 ? gymHeroUser.goalweight : (counter == 1 ? gymHeroUser.goalbodyfat : (counter == 2? gymHeroUser.goalarmSize:gymHeroUser.goalstomachSize))).toDouble(),
+                        value: double.parse(counter == 0 ? gymHeroUser.goalweight : (counter == 1 ? gymHeroUser.goalbodyfat : (counter == 2? gymHeroUser.goalarmSize:gymHeroUser.goalstomachSize))),
                         onChanged: (val){
                           setState(() {
                             if(counter == 0){
-                              gymHeroUser.goalweight = val;
+                              gymHeroUser.goalweight = val.toStringAsFixed(1);
                             }
                             if(counter == 1){
-                              gymHeroUser.goalbodyfat = val;
+                              gymHeroUser.goalbodyfat = val.toStringAsFixed(1);
                             }
                             if(counter == 2){
-                              gymHeroUser.goalarmSize = val;
+                              gymHeroUser.goalarmSize = val.toStringAsFixed(1);
                             }
                             if(counter == 3){
-                              gymHeroUser.goalstomachSize = val;
+                              gymHeroUser.goalstomachSize = val.toStringAsFixed(1);
                             }
 
                           });

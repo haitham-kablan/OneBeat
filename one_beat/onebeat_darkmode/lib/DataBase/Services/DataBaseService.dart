@@ -11,8 +11,10 @@ import 'package:onebeat_darkmode/Users/TrainerUser.dart';
 import 'package:onebeat_darkmode/Users/User.dart';
 import 'package:onebeat_darkmode/utils/ExceriseTile.dart';
 import 'package:onebeat_darkmode/utils/GeneralExcerises.dart' as utils;
+import 'package:onebeat_darkmode/utils/MemberShip.dart';
 import 'package:onebeat_darkmode/utils/Porgram.dart' as utils1;
 import 'package:onebeat_darkmode/utils/ProgramDay.dart';
+import 'package:onebeat_darkmode/utils/SpecificMeasure.dart';
 
 import '../../Constants.dart';
 
@@ -24,6 +26,8 @@ class DataBaseService{
   static CollectionReference exceriseCollection = FirebaseFirestore.instance.collection("EXCERISES");
 
   static String personalPrograms = "PERSONAL_PROGRAMS";
+  static String measures = "MEASURES";
+  static String memberShip = "MEMBERSHIP";
 
   static Map<utils.Category , List<utils.GeneralExcerise>> systemExcerises= Map();
   static final Stream<QuerySnapshot> usersStream = usersCollection.snapshots();
@@ -68,15 +72,36 @@ class DataBaseService{
     await getSystemExcerises();
   }
   static Future getSystemUsers() async{
+
     allUsers.clear();
+
     await usersCollection.get().then(
-            (value) {
+            (value) async{
           value.docs.forEach((element) {
             GymHeroUser gymHeroUser = GymHeroUser.mapToUser(element);
-            //TODO : MIGHT CHANGE THIS
             allUsers.add(gymHeroUser);
           });
         });
+
+    await getSystemMeasures();
+  }
+
+  static Future getSystemMeasures()async{
+
+    allUsers.forEach((user) async {
+      await usersCollection.doc(user.email).collection(measures).orderBy("time",descending: true)
+          .get().then((value) => value.docs.forEach((element) {
+            user.Measures.add(SpecificMeasure.mapToSpecificMeasure(
+                element.data()["weight"], element.data()["arm"],
+                element.data()["stomach"], element.data()["bodyfat"],
+                element.data()["dateTime"]));
+      }));
+    });
+
+  }
+
+  static Future addMemberShipForUser(String email , MemberShip memberShip) async{
+    await usersCollection.doc(email).collection(DataBaseService.memberShip).doc().set(memberShip.toMap());
   }
 
   static Future getSystemExcerises()async{
@@ -108,6 +133,9 @@ class DataBaseService{
 
   }
 
+  static Future addMeasureForUser(String email , SpecificMeasure specificMeasure)async{
+    await usersCollection.doc(email).collection(measures).doc().set(specificMeasure.toMap());
+  }
   static Future addGeneralExceriseToDb(GeneralExcerise generalExcerise)async{
     await exceriseCollection.doc().set(generalExcerise.toMap());
   }
@@ -128,6 +156,16 @@ class DataBaseService{
 
     DocumentSnapshot documentSnapshot= await usersCollection.doc(email).get();
     GymHeroUser gymHeroUser = GymHeroUser.mapToUser(documentSnapshot);
+
+    await usersCollection.doc(email).collection(measures).orderBy("time",descending: true).get()
+    .then((value) => value.docs.forEach((element) {
+      gymHeroUser.Measures.add(
+          SpecificMeasure.mapToSpecificMeasure(
+              element.data()["weight"], element.data()["arm"],
+              element.data()["stomach"], element.data()["bodyfat"],
+              element.data()["dateTime"]));
+    }));
+
 
     await usersCollection.doc(email).collection(personalPrograms)
     .get().then((value) => value.docs.forEach((element) {

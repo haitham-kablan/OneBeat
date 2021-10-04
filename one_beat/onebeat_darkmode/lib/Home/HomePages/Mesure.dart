@@ -8,6 +8,8 @@ import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
 import 'package:onebeat_darkmode/Design/Button/ButtonStyle.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
+import 'package:onebeat_darkmode/Home/adminHomePages/allUsers.dart';
+import 'package:onebeat_darkmode/utils/SpecificMeasure.dart';
 
 class Measure extends StatefulWidget {
   const Measure({Key? key, this.refresh}) : super(key: key);
@@ -25,6 +27,12 @@ class _MeasureState extends State<Measure> {
   double min = 25;
   double max = 170;
   bool isLoading = false;
+
+  String weight = "25";
+  String bodyfat = "45";
+  String arm = "10";
+  String stomach = "15";
+
 
   int counter = 0;
   List<String> program = ["משקל" , "אחוז שומן", "היקף ידיים","היקף בטן"];
@@ -149,7 +157,7 @@ class _MeasureState extends State<Measure> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text((counter == 0 ? gymHeroUser.weight : (counter == 1 ? gymHeroUser.bodyfat : (counter == 2? gymHeroUser.armSize:gymHeroUser.stomachSize))).toStringAsFixed(1) , style: GoogleFonts.rubik(
+                        Text((counter == 0 ? weight : (counter == 1 ? bodyfat : (counter == 2? arm:stomach))) , style: GoogleFonts.rubik(
                           color: Colors.white,
                           fontSize: 90,
                         ),),
@@ -205,20 +213,20 @@ class _MeasureState extends State<Measure> {
                         inactiveColor: Colors.grey[300],
                         min: min,
                         max: max,
-                        value: (counter == 0 ? gymHeroUser.weight : (counter == 1 ? gymHeroUser.bodyfat : (counter == 2? gymHeroUser.armSize:gymHeroUser.stomachSize))).toDouble(),
+                        value: double.parse(counter == 0 ? weight : (counter == 1 ? bodyfat : (counter == 2? arm:stomach))),
                         onChanged: (val){
                           setState(() {
                             if(counter == 0){
-                              gymHeroUser.weight = val;
+                              weight = val.toStringAsFixed(1);
                             }
                             if(counter == 1){
-                              gymHeroUser.bodyfat = val;
+                              bodyfat = val.toStringAsFixed(1);
                             }
                             if(counter == 2){
-                              gymHeroUser.armSize = val;
+                              arm = val.toStringAsFixed(1);
                             }
                             if(counter == 3){
-                              gymHeroUser.stomachSize = val;
+                              stomach = val.toStringAsFixed(1);
                             }
 
                           });
@@ -235,16 +243,16 @@ class _MeasureState extends State<Measure> {
                 });
 
 
-                Map<String,dynamic> map = Map();
-                map["weight"] = gymHeroUser.weight;
-                map["bodyfat"] = gymHeroUser.bodyfat;
-                map["armSize"] = gymHeroUser.armSize;
-                map["stomachSize"] = gymHeroUser.stomachSize;
-                await DataBaseService.updateUser(map);
+                await DataBaseService.addMeasureForUser(AllUsers.pickedUser!.email, SpecificMeasure(weight, arm, stomach, bodyfat, DateTime.now()));
+                AllUsers.pickedUser!.Measures.insert(0,SpecificMeasure(weight, arm, stomach, bodyfat, DateTime.now()));
+
+
+
                 setState(() {
                   isLoading = false;
                 });
-                refresh();
+                refresh( );
+                Navigator.pop(context);
               }),
                 SizedBox(height: size.height * 0.06,)
               ],

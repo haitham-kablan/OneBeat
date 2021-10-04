@@ -256,13 +256,13 @@ class _HomeState extends State<Home> {
                                       Column(
                                         children: [
                                           Text("משקל",style: assistantStyle(Colors.white, 15),),
-                                          Text(gymHeroUser.goalweight.toStringAsFixed(1),style: assistantStyle(Colors.grey[600]!, 25),),
+                                          Text(gymHeroUser.goalweight,style: assistantStyle(Colors.grey[600]!, 25),),
                                         ],
                                       ),
                                       Column(
                                         children: [
                                           Text("היקף ידיים",style: assistantStyle(Colors.white, 15),),
-                                          Text(gymHeroUser.goalarmSize.toStringAsFixed(1),style: assistantStyle(Colors.grey[600]!, 25),),
+                                          Text(gymHeroUser.goalarmSize,style: assistantStyle(Colors.grey[600]!, 25),),
                                         ],
                                       ),
                                     ],
@@ -274,13 +274,13 @@ class _HomeState extends State<Home> {
                                       Column(
                                         children: [
                                           Text("אחוז שומן",style: assistantStyle(Colors.white, 15),),
-                                          Text(gymHeroUser.goalbodyfat.toStringAsFixed(1),style: assistantStyle(Colors.grey[600]!, 25),),
+                                          Text(gymHeroUser.goalbodyfat,style: assistantStyle(Colors.grey[600]!, 25),),
                                         ],
                                       ),
                                       Column(
                                         children: [
                                           Text("היקף בטן",style: assistantStyle(Colors.white, 15),),
-                                          Text(gymHeroUser.goalstomachSize.toStringAsFixed(1),style: assistantStyle(Colors.grey[600]!, 25),),
+                                          Text(gymHeroUser.goalstomachSize,style: assistantStyle(Colors.grey[600]!, 25),),
                                         ],
                                       ),
                                     ],
@@ -503,13 +503,13 @@ class _HomeState extends State<Home> {
                                       Column(
                                         children: [
                                           Text("משקל",style: assistantStyle(Colors.white, 15),),
-                                          Text(gymHeroUser.weight.toStringAsFixed(1),style: assistantStyle(Colors.grey[600]!, 25),),
+                                          Text(gymHeroUser.Measures[0].weight,style: assistantStyle(Colors.grey[600]!, 25),),
                                         ],
                                       ),
                                       Column(
                                         children: [
                                           Text("היקף ידיים",style: assistantStyle(Colors.white, 15),),
-                                          Text(gymHeroUser.armSize.toStringAsFixed(1),style: assistantStyle(Colors.grey[600]!, 25),),
+                                          Text(gymHeroUser.Measures[0].arm,style: assistantStyle(Colors.grey[600]!, 25),),
                                         ],
                                       ),
                                     ],
@@ -521,13 +521,13 @@ class _HomeState extends State<Home> {
                                       Column(
                                         children: [
                                           Text("אחוז שומן",style: assistantStyle(Colors.white, 15),),
-                                          Text(gymHeroUser.bodyfat.toStringAsFixed(1),style: assistantStyle(Colors.grey[600]!, 25),),
+                                          Text(gymHeroUser.Measures[0].bodyfat,style: assistantStyle(Colors.grey[600]!, 25),),
                                         ],
                                       ),
                                       Column(
                                         children: [
                                           Text("היקף בטן",style: assistantStyle(Colors.white, 15),),
-                                          Text(gymHeroUser.stomachSize.toStringAsFixed(1),style: assistantStyle(Colors.grey[600]!, 25),),
+                                          Text(gymHeroUser.Measures[0].stomach,style: assistantStyle(Colors.grey[600]!, 25),),
                                         ],
                                       ),
                                     ],

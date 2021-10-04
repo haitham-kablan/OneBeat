@@ -11,6 +11,7 @@ import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/ShowError.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
 import 'package:onebeat_darkmode/Home/Home.dart';
+import 'package:onebeat_darkmode/utils/SpecificMeasure.dart';
 
 class WelcomePage3 extends StatefulWidget {
   const WelcomePage3({Key? key}) : super(key: key);
@@ -260,8 +261,9 @@ class _WelcomePage3State extends State<WelcomePage3> {
 
 
                   try{
-                    gymHeroUser.weight = double.parse(weight.text);
-                    if(gymHeroUser.weight < 25 || gymHeroUser.weight > 170){
+
+                    double weightAsDouble = double.parse(weight.text);
+                    if(weightAsDouble < 25 || weightAsDouble > 170){
                       ShowError(context, "משקל לא מתאים");
                       return;
                     }
@@ -272,8 +274,9 @@ class _WelcomePage3State extends State<WelcomePage3> {
 
 
                   try{
-                    gymHeroUser.height = double.parse(height.text);
-                    if(gymHeroUser.height < 50 || gymHeroUser.height > 250){
+                    gymHeroUser.height = height.text;
+                    double heightAsDouble = double.parse(gymHeroUser.height);
+                    if(heightAsDouble < 50 || heightAsDouble > 250){
                       ShowError(context, "גובה לא מתאים");
                       return;
                     }
@@ -301,8 +304,10 @@ class _WelcomePage3State extends State<WelcomePage3> {
 
                 Map<String,dynamic> map =  Map();
 
+                gymHeroUser.Measures.insert(0,SpecificMeasure(weight.text, "10", "15", "45", DateTime.now()));
+
                 map["age"] = gymHeroUser.age;
-                map["weight"] = gymHeroUser.weight;
+                //map["weight"] = gymHeroUser.weight;
                 map["height"] = gymHeroUser.height;
                 map["gender"] = male;
                 map["fristTime"] = gymHeroUser.fristTime;
@@ -313,6 +318,7 @@ class _WelcomePage3State extends State<WelcomePage3> {
                 });
 
                 await DataBaseService.updateUser(map);
+                await DataBaseService.addMeasureForUser(gymHeroUser.email, SpecificMeasure(weight.text, "10", "15", "45", DateTime.now()));
 
                 setState(() {
                   isLoading = false;
