@@ -133,6 +133,9 @@ class _HomeState extends State<Home> {
                           splashColor: greyClr,
                           onTap: () async{
                             await DataBaseService.getSystemUsers();
+
+                          //  await DataBaseService.getSystemMeasures();
+                           // await DataBaseService.getSystemGoalMeasures();
                             Navigator.push(context, CustomPageRoute(child: AllUsers()));
                           },
                           child: Container(

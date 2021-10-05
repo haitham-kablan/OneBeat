@@ -72,14 +72,32 @@ class DataBaseService{
    //await getSystemUsers();
     await getSystemExcerises();
   }
-  static Future getSystemUsers() async{
+  static Future getSystemUsers() {
 
     allUsers.clear();
 
-    await usersCollection.get().then(
+    return usersCollection.get().then(
             (value) async{
           value.docs.forEach((element) async {
             GymHeroUser gymHeroUser = GymHeroUser.mapToUser(element);
+
+            await usersCollection.doc(gymHeroUser.email).collection(measures).orderBy("time",descending: true)
+                .get().then((value) => value.docs.forEach((element) {
+              gymHeroUser.Measures.add(SpecificMeasure.mapToSpecificMeasure(
+                  element.data()["weight"], element.data()["arm"],
+                  element.data()["stomach"], element.data()["bodyfat"],
+                  element.data()["dateTime"]));
+            }));
+
+            await usersCollection.doc(gymHeroUser.email).collection(goalMeasures).orderBy("time",descending: true)
+                .get().then((value) => value.docs.forEach((element) {
+              print("xxxxxxxxxxxxxxxxxxx");
+              gymHeroUser.goalMeasures.add(SpecificMeasure.mapToSpecificMeasure(
+                  element.data()["weight"], element.data()["arm"],
+                  element.data()["stomach"], element.data()["bodyfat"],
+                  element.data()["dateTime"]));
+            }));
+
 
             await usersCollection.doc(gymHeroUser.email).collection(personalPrograms)
                 .get().then((value) => value.docs.forEach((element) {
@@ -106,7 +124,9 @@ class DataBaseService{
               }
 
               gymHeroUser.programs.add(utils1.Program(element.id , l));
-            }));
+            }
+
+            ));
 
             gymHeroUser.programs.add(utils1.Program("A" ,
                 List.of({ProgramDay(A)})));
@@ -116,12 +136,11 @@ class DataBaseService{
 
             gymHeroUser.programs.add(utils1.Program("ABC" ,
                 List.of({ProgramDay(ABCA) , ProgramDay(ABCB) , ProgramDay(ABCC)})));
+
             allUsers.add(gymHeroUser);
           });
         });
 
-    await getSystemMeasures();
-    await getSystemGoalMeasures();
   }
   static Future makeAdmin(String email)async{
     Map<String,dynamic> map = Map();
@@ -129,7 +148,7 @@ class DataBaseService{
     await usersCollection.doc(email).update(map);
   }
   static Future getSystemMeasures()async{
-
+    print(allUsers.length);
     allUsers.forEach((user) async {
       await usersCollection.doc(user.email).collection(measures).orderBy("time",descending: true)
           .get().then((value) => value.docs.forEach((element) {
@@ -147,6 +166,7 @@ class DataBaseService{
     allUsers.forEach((user) async {
       await usersCollection.doc(user.email).collection(goalMeasures).orderBy("time",descending: true)
           .get().then((value) => value.docs.forEach((element) {
+            print("xxxxxxxxxxxxxxxxxxx");
         user.goalMeasures.add(SpecificMeasure.mapToSpecificMeasure(
             element.data()["weight"], element.data()["arm"],
             element.data()["stomach"], element.data()["bodyfat"],
