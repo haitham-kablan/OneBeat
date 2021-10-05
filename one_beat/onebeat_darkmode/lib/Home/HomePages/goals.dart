@@ -10,6 +10,8 @@ import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
 import 'package:onebeat_darkmode/Design/Button/ButtonStyle.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
+import 'package:onebeat_darkmode/Home/adminHomePages/allUsers.dart';
+import 'package:onebeat_darkmode/utils/SpecificMeasure.dart';
 
 
 class goals extends StatefulWidget {
@@ -28,6 +30,11 @@ class _goalsState extends State<goals> {
   double min = 25;
   double max = 170;
   bool isLoading = false;
+
+  String goalweight = "25";
+  String goalbodyfat = "45";
+  String goalarmSize = "10";
+  String goalstomachSize = "15";
 
   int counter = 0;
   List<String> program = ["משקל" , "אחוז שומן", "היקף ידיים","היקף בטן"];
@@ -146,7 +153,7 @@ class _goalsState extends State<goals> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text((counter == 0 ? gymHeroUser.goalweight : (counter == 1 ? gymHeroUser.goalbodyfat : (counter == 2? gymHeroUser.goalarmSize:gymHeroUser.goalstomachSize))) , style: GoogleFonts.rubik(
+                        Text((counter == 0 ? goalweight : (counter == 1 ? goalbodyfat : (counter == 2? goalarmSize:goalstomachSize))) , style: GoogleFonts.rubik(
                           color: Colors.white,
                           fontSize: 90,
                         ),),
@@ -202,20 +209,20 @@ class _goalsState extends State<goals> {
                         inactiveColor: Colors.grey[300],
                         min: min,
                         max: max,
-                        value: double.parse(counter == 0 ? gymHeroUser.goalweight : (counter == 1 ? gymHeroUser.goalbodyfat : (counter == 2? gymHeroUser.goalarmSize:gymHeroUser.goalstomachSize))),
+                        value: double.parse(counter == 0 ? goalweight : (counter == 1 ? goalbodyfat : (counter == 2? goalarmSize:goalstomachSize))),
                         onChanged: (val){
                           setState(() {
                             if(counter == 0){
-                              gymHeroUser.goalweight = val.toStringAsFixed(1);
+                              goalweight = val.toStringAsFixed(1);
                             }
                             if(counter == 1){
-                              gymHeroUser.goalbodyfat = val.toStringAsFixed(1);
+                              goalbodyfat = val.toStringAsFixed(1);
                             }
                             if(counter == 2){
-                              gymHeroUser.goalarmSize = val.toStringAsFixed(1);
+                              goalarmSize = val.toStringAsFixed(1);
                             }
                             if(counter == 3){
-                              gymHeroUser.goalstomachSize = val.toStringAsFixed(1);
+                              goalstomachSize = val.toStringAsFixed(1);
                             }
 
                           });
@@ -235,17 +242,15 @@ class _goalsState extends State<goals> {
                   });
 
 
-                  Map<String,dynamic> map = Map();
-                  map["goalweight"] = gymHeroUser.goalweight;
-                  map["goalbodyfat"] = gymHeroUser.goalbodyfat;
-                  map["goalarmSize"] = gymHeroUser.goalarmSize;
-                  map["goalstomachSize"] = gymHeroUser.goalstomachSize;
 
-                  await DataBaseService.updateUser(map);
+                  await DataBaseService.addGoalMeasureForUser(AllUsers.pickedUser!.email, SpecificMeasure(goalweight, goalarmSize, goalstomachSize, goalbodyfat, DateTime.now()));
+                  AllUsers.pickedUser!.goalMeasures.insert(0,SpecificMeasure(goalweight, goalarmSize, goalstomachSize, goalbodyfat, DateTime.now()));
+
                   refresh();
                   setState(() {
                     isLoading = false;
                   });
+                  Navigator.pop(context);
                 }),
                 SizedBox(height: size.height * 0.06,)
               ],

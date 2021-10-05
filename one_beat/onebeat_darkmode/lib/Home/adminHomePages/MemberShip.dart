@@ -112,7 +112,7 @@ class SingleMemberShip extends StatelessWidget {
             Column(
               children: [
                 Text("מנוי",style: assistantStyle(Colors.transparent, 16),),
-                Text("15\\7\\2021 - 18\\8\\2021",style: assistantStyle(Colors.grey[600]!, 17),),
+                Text(memperShip.startDay +" / " + memperShip.startMonth + " / " + memperShip.startYear + "  -  " + memperShip.endDay +" / " + memperShip.endMonth + " / " + memperShip.endYear,style: assistantStyle(Colors.grey[600]!, 17),),
               ],
             ),
             // SizedBox(height: 10,),

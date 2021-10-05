@@ -27,6 +27,7 @@ class DataBaseService{
 
   static String personalPrograms = "PERSONAL_PROGRAMS";
   static String measures = "MEASURES";
+  static String goalMeasures = "GOALMEASURES";
   static String memberShip = "MEMBERSHIP";
 
   static Map<utils.Category , List<utils.GeneralExcerise>> systemExcerises= Map();
@@ -77,13 +78,50 @@ class DataBaseService{
 
     await usersCollection.get().then(
             (value) async{
-          value.docs.forEach((element) {
+          value.docs.forEach((element) async {
             GymHeroUser gymHeroUser = GymHeroUser.mapToUser(element);
+
+            await usersCollection.doc(gymHeroUser.email).collection(personalPrograms)
+                .get().then((value) => value.docs.forEach((element) {
+
+              List<ProgramDay> l = [];
+
+              int days = element.data()["days"];
+
+              for(int i =0 ; i < days ; i++){
+                l.add(ProgramDay([]));
+              }
+
+              int size = element.data()["size"];
+
+              for(int i =0;i<size;i++){
+                List<String> x = (element.data()["exc" + i.toString()] as String).split("-");
+                print(x);
+                int day = int.parse(x[0]);
+                int sets = int.parse(x[3]);
+                String reps = x[4];
+                String name = x[2];
+                String category = x[1];
+                l[day].excerises.add(ExceriseTile(name: name, sets: sets, reps: reps, machineNumber: "-1", category: category));
+              }
+
+              gymHeroUser.programs.add(utils1.Program(element.id , l));
+            }));
+
+            gymHeroUser.programs.add(utils1.Program("A" ,
+                List.of({ProgramDay(A)})));
+
+            gymHeroUser.programs.add(utils1.Program("AB" ,
+                List.of({ProgramDay(ABA1) , ProgramDay(ABB1) , ProgramDay(ABA2),ProgramDay(ABB2)})));
+
+            gymHeroUser.programs.add(utils1.Program("ABC" ,
+                List.of({ProgramDay(ABCA) , ProgramDay(ABCB) , ProgramDay(ABCC)})));
             allUsers.add(gymHeroUser);
           });
         });
 
     await getSystemMeasures();
+    await getSystemGoalMeasures();
   }
 
   static Future getSystemMeasures()async{
@@ -95,6 +133,20 @@ class DataBaseService{
                 element.data()["weight"], element.data()["arm"],
                 element.data()["stomach"], element.data()["bodyfat"],
                 element.data()["dateTime"]));
+      }));
+    });
+
+  }
+
+  static Future getSystemGoalMeasures()async{
+
+    allUsers.forEach((user) async {
+      await usersCollection.doc(user.email).collection(goalMeasures).orderBy("time",descending: true)
+          .get().then((value) => value.docs.forEach((element) {
+        user.goalMeasures.add(SpecificMeasure.mapToSpecificMeasure(
+            element.data()["weight"], element.data()["arm"],
+            element.data()["stomach"], element.data()["bodyfat"],
+            element.data()["dateTime"]));
       }));
     });
 
@@ -136,6 +188,10 @@ class DataBaseService{
   static Future addMeasureForUser(String email , SpecificMeasure specificMeasure)async{
     await usersCollection.doc(email).collection(measures).doc().set(specificMeasure.toMap());
   }
+
+  static Future addGoalMeasureForUser(String email , SpecificMeasure specificMeasure)async{
+    await usersCollection.doc(email).collection(goalMeasures).doc().set(specificMeasure.toMap());
+  }
   static Future addGeneralExceriseToDb(GeneralExcerise generalExcerise)async{
     await exceriseCollection.doc().set(generalExcerise.toMap());
   }
@@ -160,6 +216,15 @@ class DataBaseService{
     await usersCollection.doc(email).collection(measures).orderBy("time",descending: true).get()
     .then((value) => value.docs.forEach((element) {
       gymHeroUser.Measures.add(
+          SpecificMeasure.mapToSpecificMeasure(
+              element.data()["weight"], element.data()["arm"],
+              element.data()["stomach"], element.data()["bodyfat"],
+              element.data()["dateTime"]));
+    }));
+
+    await usersCollection.doc(email).collection(goalMeasures).orderBy("time",descending: true).get()
+        .then((value) => value.docs.forEach((element) {
+      gymHeroUser.goalMeasures.add(
           SpecificMeasure.mapToSpecificMeasure(
               element.data()["weight"], element.data()["arm"],
               element.data()["stomach"], element.data()["bodyfat"],

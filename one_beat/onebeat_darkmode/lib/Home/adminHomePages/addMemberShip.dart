@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
 import 'package:onebeat_darkmode/Design/Button.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
+import 'package:onebeat_darkmode/Design/ShowError.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
 import 'package:onebeat_darkmode/Home/adminHomePages/allUsers.dart';
 import 'package:onebeat_darkmode/utils/MemberShip.dart';
@@ -183,7 +184,7 @@ class _InnerAddMemberShipState extends State<InnerAddMemberShip> {
               Container(
                 width: 35,
                 child: TextField(
-                  controller: startDay,
+                  controller: endDay,
                   style: whiteText(20),
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -205,7 +206,7 @@ class _InnerAddMemberShipState extends State<InnerAddMemberShip> {
               Container(
                 width: 35,
                 child: TextField(
-                  controller: startMonth,
+                  controller: endMonth,
                   style: whiteText(20),
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -227,7 +228,7 @@ class _InnerAddMemberShipState extends State<InnerAddMemberShip> {
               Container(
                 width: 45,
                 child: TextField(
-                  controller: startYear,
+                  controller: endYear,
                   style: whiteText(20),
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -254,6 +255,41 @@ class _InnerAddMemberShipState extends State<InnerAddMemberShip> {
             color: greenClr,
           ) :
             button(greenClr , "הוספה" , Colors.white , BorderRadius.circular(10),size.width * 0.45,size.height * 0.04,() async {
+
+              if(!goodDay(startDay.text, 31)){
+                ShowError(context, "יום התחלה לא נכון");
+                return;
+              }
+
+              if(!goodDay(startMonth.text, 12)){
+                ShowError(context, "חודש התחלה לא נכון");
+                return;
+              }
+
+              if(!goodDay(startYear.text, 3000)){
+                ShowError(context, "שנת התחלה לא נכון");
+                return;
+              }
+
+
+              if(!goodDay(endDay.text, 31)){
+                ShowError(context, "יום סיום לא נכון");
+                return;
+              }
+
+              if(!goodDay(endMonth.text, 12)){
+                ShowError(context, "חודש סיום לא נכון");
+                return;
+              }
+
+              if(!goodDay(endYear.text, 3000)){
+                ShowError(context, "שנת סיום לא נכון");
+                return;
+              }
+
+
+
+
               setState(() {
                 isLoading = true;
               });
@@ -278,3 +314,28 @@ class _InnerAddMemberShipState extends State<InnerAddMemberShip> {
     );
   }
 }
+
+
+bool goodDay(String str , int max){
+
+
+  if(str.isEmpty){
+    return false;
+  }
+  try{
+    int x = int.parse(str);
+    if(x == 0){
+      return false;
+    }
+    if(x > max){
+      return false;
+    }
+    return true;
+  }catch(e){
+    return false;
+  }
+
+}
+
+
+

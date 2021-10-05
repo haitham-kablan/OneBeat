@@ -23,16 +23,12 @@ class GymHeroUser{
 
   bool fristTime;
 
-  String goalweight;
-  String goalbodyfat;
-  String goalstomachSize;
-  String goalarmSize;
-
   List<Program> programs = [];
   List<SpecificMeasure> Measures = [];
+  List<SpecificMeasure> goalMeasures = [];
 
   GymHeroUser(this.name,this.email, this.age, this.gender , this.height ,
-      this.goalweight,this.goalbodyfat,this.goalstomachSize,this.goalarmSize , this.fristTime , this.trainer);
+      this.fristTime , this.trainer);
 
   static GymHeroUser mapToUser(DocumentSnapshot documentSnapshot){
 
@@ -40,13 +36,12 @@ class GymHeroUser{
 
     return GymHeroUser(data["name"], data["email"], data["age"], data["gender"],
         data["height"],
-        data["goalweight"], data["goalbodyfat"], data["goalstomachSize"], data["goalarmSize"],data["fristTime"],data["trainer"]);
+        data["fristTime"],data["trainer"]);
   }
 
   static GymHeroUser emptyUser(String name , String email){
 
-    GymHeroUser gymHeroUser =  GymHeroUser(name, email,20, true, "170",  "25", '3',
-        "15", '10',true,false);
+    GymHeroUser gymHeroUser =  GymHeroUser(name, email,20, true, "170",true,false);
 
     gymHeroUser.programs.add(Program("A" ,
         List.of({ProgramDay(A)})));
@@ -68,10 +63,6 @@ class GymHeroUser{
     map["age"] = this.age;
     map["height"] = this.height;
     map["gender"] = this.gender;
-    map["goalarmSize"] = this.goalarmSize;
-    map["goalbodyfat"] = this.goalbodyfat;
-    map["goalweight"] = this.goalweight;
-    map["goalstomachSize"] = this.goalstomachSize;
     map["trainer"] = this.trainer;
 
     return map;

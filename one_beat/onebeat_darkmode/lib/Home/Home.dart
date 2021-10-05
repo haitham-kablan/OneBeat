@@ -256,13 +256,13 @@ class _HomeState extends State<Home> {
                                       Column(
                                         children: [
                                           Text("משקל",style: assistantStyle(Colors.white, 15),),
-                                          Text(gymHeroUser.goalweight,style: assistantStyle(Colors.grey[600]!, 25),),
+                                          Text(gymHeroUser.goalMeasures[0].weight,style: assistantStyle(Colors.grey[600]!, 25),),
                                         ],
                                       ),
                                       Column(
                                         children: [
                                           Text("היקף ידיים",style: assistantStyle(Colors.white, 15),),
-                                          Text(gymHeroUser.goalarmSize,style: assistantStyle(Colors.grey[600]!, 25),),
+                                          Text(gymHeroUser.goalMeasures[0].arm,style: assistantStyle(Colors.grey[600]!, 25),),
                                         ],
                                       ),
                                     ],
@@ -274,13 +274,13 @@ class _HomeState extends State<Home> {
                                       Column(
                                         children: [
                                           Text("אחוז שומן",style: assistantStyle(Colors.white, 15),),
-                                          Text(gymHeroUser.goalbodyfat,style: assistantStyle(Colors.grey[600]!, 25),),
+                                          Text(gymHeroUser.goalMeasures[0].bodyfat,style: assistantStyle(Colors.grey[600]!, 25),),
                                         ],
                                       ),
                                       Column(
                                         children: [
                                           Text("היקף בטן",style: assistantStyle(Colors.white, 15),),
-                                          Text(gymHeroUser.goalstomachSize,style: assistantStyle(Colors.grey[600]!, 25),),
+                                          Text(gymHeroUser.goalMeasures[0].stomach,style: assistantStyle(Colors.grey[600]!, 25),),
                                         ],
                                       ),
                                     ],
@@ -646,4 +646,9 @@ String getDayFromEngDay(){
   return "ראשון";
 }
 
+String getDate(DateTime dateTime){
 
+  List<String> x = dateTime.toString().split("-");
+  return x[0] + " / " + x[1] +" / " + x[2].split(" ")[0];
+
+}

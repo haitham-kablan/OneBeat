@@ -304,7 +304,8 @@ class _WelcomePage3State extends State<WelcomePage3> {
 
                 Map<String,dynamic> map =  Map();
 
-                gymHeroUser.Measures.insert(0,SpecificMeasure(weight.text, "10", "15", "45", DateTime.now()));
+                gymHeroUser.Measures.insert(0,SpecificMeasure(weight.text, "-", "-", "-", DateTime.now()));
+                gymHeroUser.goalMeasures.insert(0,SpecificMeasure("-", "-", "-", "-", DateTime.now()));
 
                 map["age"] = gymHeroUser.age;
                 //map["weight"] = gymHeroUser.weight;
@@ -318,7 +319,8 @@ class _WelcomePage3State extends State<WelcomePage3> {
                 });
 
                 await DataBaseService.updateUser(map);
-                await DataBaseService.addMeasureForUser(gymHeroUser.email, SpecificMeasure(weight.text, "10", "15", "45", DateTime.now()));
+                await DataBaseService.addMeasureForUser(gymHeroUser.email, SpecificMeasure(weight.text, "-", "-", "-", DateTime.now()));
+                await DataBaseService.addGoalMeasureForUser(gymHeroUser.email, SpecificMeasure("-", "-", "-", "-", DateTime.now()));
 
                 setState(() {
                   isLoading = false;

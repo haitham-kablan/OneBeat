@@ -116,6 +116,8 @@ flutter:
     - goalAdmin.png
     - weight.png
     - ticket.png
+    - adminAdd.png
+    - addPlan.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
