@@ -223,7 +223,7 @@ class _HomeState extends State<Home> {
                           child: InkWell(
                             splashColor: greyClr,
                             onTap: (){
-                              Navigator.push(context, CustomPageRoute(child: goals(refresh: refresh,)));
+                             // Navigator.push(context, CustomPageRoute(child: goals(refresh: refresh,)));
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -290,6 +290,87 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                         ),
+        Material(
+          color: backGroundClr,
+          borderRadius: BorderRadius.circular(10),
+          elevation: 3,
+          child: InkWell(
+            splashColor: greyClr,
+            onTap:(){
+            //  Navigator.push(context, CustomPageRoute(child: Measure(refresh: refresh,)));
+            },
+
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color:Colors.grey[800]! , width: 0.25),
+                color: greyClr,
+              ),
+              width: size.width * 0.42,
+              height:  size.height * 0.28,
+              child: Column(
+                children: [
+                  SizedBox(height: 10,),
+                  Row(
+                    children: [
+                      SizedBox(width: 10,),
+                      Image.asset("assets/weight-scale.png" ,width :20 , height: 20,),
+                      Spacer(flex: 1,),
+                      Text("מדידות" , style: GoogleFonts.assistant(
+                        color: greenClr,
+                        fontSize: 14,
+                      )),
+                      SizedBox(width: 10,),
+                    ],
+                  ),
+                  SizedBox(height: 25,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          Text("משקל",style: assistantStyle(Colors.white, 15),),
+                          Text(gymHeroUser.Measures[0].weight,style: assistantStyle(Colors.grey[600]!, 25),),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text("היקף ידיים",style: assistantStyle(Colors.white, 15),),
+                          Text(gymHeroUser.Measures[0].arm,style: assistantStyle(Colors.grey[600]!, 25),),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 25,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          Text("אחוז שומן",style: assistantStyle(Colors.white, 15),),
+                          Text(gymHeroUser.Measures[0].bodyfat,style: assistantStyle(Colors.grey[600]!, 25),),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text("היקף בטן",style: assistantStyle(Colors.white, 15),),
+                          Text(gymHeroUser.Measures[0].stomach,style: assistantStyle(Colors.grey[600]!, 25),),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+
+                      ],
+                    ),
+                    SizedBox(height: size.height * 0.02,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
                         Material(
                           color: backGroundClr,
                           borderRadius: BorderRadius.circular(10),
@@ -364,12 +445,6 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: size.height * 0.02,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
                         Material(
                           color: backGroundClr,
                           borderRadius: BorderRadius.circular(10),
@@ -463,6 +538,14 @@ class _HomeState extends State<Home> {
                         ),
 
 
+
+
+                      ],
+                    ),
+                    SizedBox(height: size.height * 0.02,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
                         Material(
                           color: backGroundClr,
                           borderRadius: BorderRadius.circular(10),
@@ -470,7 +553,7 @@ class _HomeState extends State<Home> {
                           child: InkWell(
                             splashColor: greyClr,
                             onTap:(){
-                              Navigator.push(context, CustomPageRoute(child: Measure(refresh: refresh,)));
+                              Navigator.push(context, CustomPageRoute(child: Hours()));
                             },
 
                             child: Container(
@@ -484,70 +567,18 @@ class _HomeState extends State<Home> {
                               child: Column(
                                 children: [
                                   SizedBox(height: 10,),
-                                  Row(
-                                    children: [
-                                      SizedBox(width: 10,),
-                                      Image.asset("assets/weight-scale.png" ,width :20 , height: 20,),
-                                      Spacer(flex: 1,),
-                                      Text("מדידות" , style: GoogleFonts.assistant(
-                                        color: greenClr,
-                                        fontSize: 14,
-                                      )),
-                                      SizedBox(width: 10,),
-                                    ],
+                                  Center(
+                                    child: Text("סיור ורטואלי" , style: assistantStyle(greenClr, 16),),
                                   ),
-                                  SizedBox(height: 25,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Column(
-                                        children: [
-                                          Text("משקל",style: assistantStyle(Colors.white, 15),),
-                                          Text(gymHeroUser.Measures[0].weight,style: assistantStyle(Colors.grey[600]!, 25),),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          Text("היקף ידיים",style: assistantStyle(Colors.white, 15),),
-                                          Text(gymHeroUser.Measures[0].arm,style: assistantStyle(Colors.grey[600]!, 25),),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 25,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Column(
-                                        children: [
-                                          Text("אחוז שומן",style: assistantStyle(Colors.white, 15),),
-                                          Text(gymHeroUser.Measures[0].bodyfat,style: assistantStyle(Colors.grey[600]!, 25),),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          Text("היקף בטן",style: assistantStyle(Colors.white, 15),),
-                                          Text(gymHeroUser.Measures[0].stomach,style: assistantStyle(Colors.grey[600]!, 25),),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                  SizedBox(height: 30,),
+                                  Image.asset("assets/virtual.png",width: 70,height: 70,),
+                                  SizedBox(height: 20,),
+                                  Center(child: Text("לחץ לצפייה" , style: assistantStyle(Colors.white, 14),textDirection: TextDirection.rtl,)),
+
                                 ],
                               ),
                             ),
                           ),
-                        ),
-
-                      ],
-                    ),
-                    SizedBox(height: size.height * 0.02,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-
-                        Container(
-                          width: size.width * 0.42,
-                          height:  size.height * 0.28,
                         ),
                         Material(
                           color: backGroundClr,
@@ -571,12 +602,12 @@ class _HomeState extends State<Home> {
                                 children: [
                                   SizedBox(height: 10,),
                                   Center(
-                                    child: Text("שעות פתיחה" , style: assistantStyle(greenClr, 14),),
+                                    child: Text("שעות פתיחה" , style: assistantStyle(greenClr, 16),),
                                   ),
                                   SizedBox(height: 30,),
                                   Image.asset("assets/watch.png",width: 70,height: 70,),
                                   SizedBox(height: 20,),
-                                  Center(child: Text("ראשון , שלישי , חמישי" , style: assistantStyle(Colors.white, 15),textDirection: TextDirection.rtl,)),
+                                  Center(child: Text("ראשון , שלישי , חמישי" , style: assistantStyle(Colors.white, 14),textDirection: TextDirection.rtl,)),
                                   gymHeroUser.gender ? Column(
                                     children: [
                                       Text("06:00 - 11:00" , style: assistantStyle(Colors.grey[600]!, 12),),
@@ -591,6 +622,82 @@ class _HomeState extends State<Home> {
                         ),
                       ],
                     ),
+        SizedBox(height: size.height * 0.02,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+
+
+
+            Material(
+              color: backGroundClr,
+              borderRadius: BorderRadius.circular(10),
+              elevation: 3,
+              child: InkWell(
+                splashColor: greyClr,
+                onTap:(){
+                  Navigator.push(context, CustomPageRoute(child: Hours()));
+                },
+
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color:Colors.grey[800]! , width: 0.25),
+                    color: greyClr,
+                  ),
+                  width: size.width * 0.42,
+                  height:  size.height * 0.28,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10,),
+                      Center(
+                        child: Text("הגעה ויצירת קשר" , style: assistantStyle(greenClr, 16),),
+                      ),
+                      SizedBox(height: 30,),
+                      Image.asset("assets/location.png",width: 70,height: 70,),
+                      SizedBox(height: 20,),
+                      Center(child: Text("Waze and phone" , style: assistantStyle(Colors.white, 14),textDirection: TextDirection.rtl,)),
+
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Material(
+              color: backGroundClr,
+              borderRadius: BorderRadius.circular(10),
+              elevation: 3,
+              child: InkWell(
+                splashColor: greyClr,
+                onTap:(){
+                  Navigator.push(context, CustomPageRoute(child: Hours()));
+                },
+
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color:Colors.grey[800]! , width: 0.25),
+                    color: greyClr,
+                  ),
+                  width: size.width * 0.42,
+                  height:  size.height * 0.28,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10,),
+                      Center(
+                        child: Text("מי אנחנו?" , style: assistantStyle(greenClr, 16),textDirection: TextDirection.rtl,),
+                      ),
+                      SizedBox(height: 30,),
+                      Image.asset("assets/about.png",width: 70,height: 70,),
+                      SizedBox(height: 25,),
+                      Center(child: Text("נעים להכיר" , style: assistantStyle(Colors.white, 14),textDirection: TextDirection.rtl,)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
                     SizedBox(height: 50,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

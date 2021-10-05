@@ -4,10 +4,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
 import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
 import 'package:onebeat_darkmode/Design/Animation/PageTransition.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
+import 'package:onebeat_darkmode/Home/HomePages/BuildPlan.dart';
 import 'package:onebeat_darkmode/Home/HomePages/Plans.dart';
 import 'package:onebeat_darkmode/Home/adminHomePages/AdminMeasure.dart';
 import 'package:onebeat_darkmode/Home/adminHomePages/AdminPlans.dart';
@@ -24,6 +26,12 @@ class SelectedUser extends StatefulWidget {
 }
 
 class _SelectedUserState extends State<SelectedUser> {
+
+  void refresh(){
+    setState(() {
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -130,7 +138,10 @@ class _SelectedUserState extends State<SelectedUser> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Material(
+            AllUsers.pickedUser!.trainer ? Container(
+              width: size.width * 0.28,
+              height: size.height * 0.13,
+            ) : Material(
               color: Colors.transparent,
               child: InkWell(
                 onTap: (){
@@ -179,8 +190,13 @@ class _SelectedUserState extends State<SelectedUser> {
 
                                         GestureDetector(
                                             child: Text("כן",textDirection: TextDirection.rtl,style: assistantStyle(Colors.white, 20),),
-                                        onTap: (){
-                                              
+                                        onTap: () async {
+                                              setState(() {
+                                                AllUsers.pickedUser!.trainer = true;
+                                              });
+
+                                              await DataBaseService.makeAdmin(AllUsers.pickedUser!.email);
+                                              Navigator.pop(context);
                                         },)
                                       ],
                                     ),
@@ -217,7 +233,7 @@ class _SelectedUserState extends State<SelectedUser> {
               color: Colors.transparent,
               child: InkWell(
                 onTap: (){
-                  Navigator.push(context, CustomPageRoute(child: AdminPlans()));
+                  Navigator.push(context, CustomPageRoute(child: BuildPlan(refresh: refresh,)));
                 },
                 child: Container(
 

@@ -123,7 +123,11 @@ class DataBaseService{
     await getSystemMeasures();
     await getSystemGoalMeasures();
   }
-
+  static Future makeAdmin(String email)async{
+    Map<String,dynamic> map = Map();
+    map["trainer"] = true;
+    await usersCollection.doc(email).update(map);
+  }
   static Future getSystemMeasures()async{
 
     allUsers.forEach((user) async {
@@ -179,9 +183,9 @@ class DataBaseService{
 
 
 
-  static Future addProgramToDb(utils1.Program program)async{
+  static Future addProgramToDb(utils1.Program program , String email)async{
 
-    await program.toMap();
+    await program.toMap(email);
 
   }
 

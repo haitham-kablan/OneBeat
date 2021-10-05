@@ -50,54 +50,54 @@ Drawer mainDr(Size size,context,action){
               ),
             ),
           ),
-          SizedBox(height: 30,),
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap:(){
-                Navigator.pop(context);
-                Navigator.push(context, CustomPageRoute(child: Measure(refresh: action,)));
-
-              },
-              child: Row(
-                children: [
-                  Spacer(flex: 1,),
-                  Container(
-                      margin: EdgeInsets.only(bottom: 3),
-                      child: Text("מדידות" , style: assistantStyle(Colors.grey[600]!, 20),)),
-                  SizedBox(width: 15,),
-                  Icon(
-                    Icons.accessibility,
-                    color: Colors.grey[600]!,
-                    size: 20,
-                  ),
-                  SizedBox(width: 25,),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(height: 30,),
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap:(){
-                Navigator.pop(context);
-                Navigator.push(context, CustomPageRoute(child: goals(refresh: action,)));
-
-              },
-              child: Row(
-                children: [
-                  Spacer(flex: 1,),
-                  Container(
-                      margin: EdgeInsets.only(bottom: 3),
-                      child: Text("יעדים" , style: assistantStyle(Colors.grey[600]!, 20),)),
-                  SizedBox(width: 15,),
-                  Image.asset("assets/chart-bars.png" ,width :20 , height: 20,),
-                  SizedBox(width: 25,),
-                ],
-              ),
-            ),
-          ),
+          // SizedBox(height: 30,),
+          // Material(
+          //   color: Colors.transparent,
+          //   child: InkWell(
+          //     onTap:(){
+          //       Navigator.pop(context);
+          //       Navigator.push(context, CustomPageRoute(child: Measure(refresh: action,)));
+          //
+          //     },
+          //     child: Row(
+          //       children: [
+          //         Spacer(flex: 1,),
+          //         Container(
+          //             margin: EdgeInsets.only(bottom: 3),
+          //             child: Text("מדידות" , style: assistantStyle(Colors.grey[600]!, 20),)),
+          //         SizedBox(width: 15,),
+          //         Icon(
+          //           Icons.accessibility,
+          //           color: Colors.grey[600]!,
+          //           size: 20,
+          //         ),
+          //         SizedBox(width: 25,),
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          // SizedBox(height: 30,),
+          // Material(
+          //   color: Colors.transparent,
+          //   child: InkWell(
+          //     onTap:(){
+          //       Navigator.pop(context);
+          //       Navigator.push(context, CustomPageRoute(child: goals(refresh: action,)));
+          //
+          //     },
+          //     child: Row(
+          //       children: [
+          //         Spacer(flex: 1,),
+          //         Container(
+          //             margin: EdgeInsets.only(bottom: 3),
+          //             child: Text("יעדים" , style: assistantStyle(Colors.grey[600]!, 20),)),
+          //         SizedBox(width: 15,),
+          //         Image.asset("assets/chart-bars.png" ,width :20 , height: 20,),
+          //         SizedBox(width: 25,),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           SizedBox(height: 30,),
           Material(
             color: Colors.transparent,

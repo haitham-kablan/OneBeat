@@ -13,7 +13,7 @@ class Program{
 
   Program(this.name , this.days);
 
-  Future toMap() async{
+  Future toMap(String email) async{
 
     Map<String,dynamic> Docmap = Map();
     int size = 0;
@@ -26,7 +26,7 @@ class Program{
     Docmap["size"] = size;
     Docmap["days"] = days.length;
 
-    await DataBaseService.usersCollection.doc(gymHeroUser.email)
+    await DataBaseService.usersCollection.doc(email)
     .collection(DataBaseService.personalPrograms).doc(name).set(Docmap);
   }
 

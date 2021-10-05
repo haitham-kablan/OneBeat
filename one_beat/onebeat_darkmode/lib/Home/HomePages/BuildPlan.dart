@@ -12,6 +12,7 @@ import 'package:onebeat_darkmode/Design/DayBox.dart';
 import 'package:onebeat_darkmode/Design/ShowError.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
 import 'package:onebeat_darkmode/Home/HomePages/addTrainDay.dart';
+import 'package:onebeat_darkmode/Home/adminHomePages/allUsers.dart';
 import 'package:onebeat_darkmode/HomePage/screens/Excerise/addTrainDay.dart' as x;
 import 'package:onebeat_darkmode/utils/GeneralExcerises.dart';
 import 'package:onebeat_darkmode/utils/Porgram.dart';
@@ -205,10 +206,12 @@ class _BuildPlanState extends State<BuildPlan> {
                       Program program = Program(name.text , addTrainDay.getProgram(list.length));
 
                       await DataBaseService.addProgramToDb(
-                          program
+                          program,AllUsers.pickedUser!.email
                       );
+
                       addTrainDay.clear();
-                      gymHeroUser.programs.insert(0, program);
+                      //gymHeroUser.programs.insert(0, program);
+                      AllUsers.pickedUser!.programs.insert(0, program);
 
                       refresh();
                       Navigator.pop(context);
