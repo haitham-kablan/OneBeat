@@ -121,7 +121,6 @@ flutter:
     - location.png
     - about.png
     - virtual.png
-    - assets/welcomePage/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
