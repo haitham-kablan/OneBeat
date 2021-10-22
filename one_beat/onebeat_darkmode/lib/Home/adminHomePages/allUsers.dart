@@ -39,7 +39,6 @@ class _AllUsersState extends State<AllUsers> {
         appBar: AppBar(
           actions: [
             IconButton(icon: Icon(Icons.search,color: Colors.white,),onPressed: (){
-
               showSearch(context: context, delegate: DataSearch(refresh));
             },)
           ],
