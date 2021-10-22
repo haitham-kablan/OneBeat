@@ -12,7 +12,7 @@ Widget Dots(int index){
           width: 10,
           height: 10,
           decoration: BoxDecoration(
-            color: index == 0 ? greenClr : emptyDotClr,
+            color: index == 0 ? greenClr : Colors.grey[600],
             shape: BoxShape.circle,
           ),
 
@@ -22,7 +22,7 @@ Widget Dots(int index){
         width: 10,
         height: 10,
         decoration: BoxDecoration(
-          color:  index == 1 ? greenClr : emptyDotClr,
+          color:  index == 1 ? greenClr : Colors.grey[600],
           shape: BoxShape.circle,
         ),
 
@@ -32,7 +32,7 @@ Widget Dots(int index){
         width: 10,
         height: 10,
         decoration: BoxDecoration(
-          color:  index == 2 ? greenClr : emptyDotClr,
+          color:  index == 2 ? greenClr : Colors.grey[600],
           shape: BoxShape.circle,
         ),
 

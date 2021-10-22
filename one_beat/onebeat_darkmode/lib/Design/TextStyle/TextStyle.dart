@@ -43,7 +43,9 @@ TextStyle greenText(double? size){
     fontSize: size,
   );
 }
-
+Text simpleText(Color clr , double? size , String text){
+  return Text(text,style: assistantStyle(clr,size),);
+}
 TextStyle assistantStyle(Color clr , double? size){
   return GoogleFonts.assistant(
     color: clr,

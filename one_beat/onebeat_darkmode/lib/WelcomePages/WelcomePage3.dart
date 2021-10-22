@@ -64,7 +64,7 @@ class _WelcomePage3State extends State<WelcomePage3> {
                   child: Container(
                       width: size.width * 0.8,
                       child: Text("עדכן את הנתונים האישיים שלך כדי שתוכל לעקוב אחריהם ולהשיג את התוצאות שחלמת עליהן", style: GoogleFonts.assistant(
-                        color: emptyDotClr,
+                        color: Colors.grey[600],
                         fontSize: 20,
                       ) , textAlign: TextAlign.center,))),
               SizedBox(height: size.height * 0.05,),
@@ -87,7 +87,7 @@ class _WelcomePage3State extends State<WelcomePage3> {
                           disabledBorder: InputBorder.none,
                           hintText: "160",
                           hintStyle: GoogleFonts.assistant(
-                            color: emptyDotClr,
+                            color: Colors.grey[600],
                             fontSize: 17,
                           ),
                         ),
@@ -125,7 +125,7 @@ class _WelcomePage3State extends State<WelcomePage3> {
                           disabledBorder: InputBorder.none,
                           hintText: "70",
                           hintStyle:  GoogleFonts.assistant(
-                            color: emptyDotClr,
+                            color: Colors.grey[600],
                             fontSize: 17,
                           ),
                         ),
@@ -163,7 +163,7 @@ class _WelcomePage3State extends State<WelcomePage3> {
                           disabledBorder: InputBorder.none,
                           hintText: "20",
                           hintStyle:  GoogleFonts.assistant(
-                            color: emptyDotClr,
+                            color: Colors.grey[600],
                             fontSize: 17,
                           ),
                         ),
