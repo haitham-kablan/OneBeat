@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
           elevation: 3,
           centerTitle: true,
           title: Container(
-            margin: EdgeInsets.only(left: 10),
+           // margin: EdgeInsets.only(left: 10),
             child: Row(
               children: [
                 Text("GYM HERO" , style: assistantStyle(greenClr, 25),),
@@ -120,6 +120,8 @@ class _HomeState extends State<Home> {
                 ),
                 SizedBox(height:size.height * 0.03),
                 Column(
+
+
                   children: (gymHeroUser.trainer && switched)? [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -215,6 +217,128 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                   ]: [
+
+                    Container(
+                    width : size.width * 0.9,
+                decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+            border: Border.all(color:Colors.grey[800]! , width: 0.25),
+            color: greyClr,
+          ),
+        child:Padding(
+          padding: const EdgeInsets.only(right:10.0,left:10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                SizedBox(height:10),
+                Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.chevron_left,color: greenClr,), onPressed: () {  },
+                    ),
+                    Spacer(flex:1),
+                    Text("תוכניות אימון למתחילים" , style: GoogleFonts.assistant(
+                      color: greenClr,
+                      fontSize: 17,
+                    )),
+                  ],
+                ),
+                SizedBox(height:10),
+                Row(
+                  children: [
+                    SizedBox(width:15),
+                    Container(
+                      margin:EdgeInsets.only(top:20),
+                        child: Image.asset("assets/list_2_.png" ,width :30 , height: 30,)),
+                    Spacer(flex:1),
+                    Container(
+                      width:size.width * 0.7,
+                      child: Text(" אתה מעוניין בתחום האימונים ולא יודע איך להתחיל?\n אנחנו כאן בדיוק בשבילך.\nצפה בתוכניות האימון המומלצות עבור מתאמנים מתחילים והתחל את המסע שלך לגוף בריא יותר" , style: GoogleFonts.assistant(
+                        color: Colors.grey[600]!,
+                        fontSize: 14,
+                      ),textAlign: TextAlign.right,textDirection: TextDirection.rtl,),
+                    ),
+                  ],
+                ),
+                SizedBox(height:10),
+              ],
+          ),
+        ),
+                ),
+        SizedBox(height:20),
+        Container(
+          width : size.width * 0.9,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color:Colors.grey[800]! , width: 0.25),
+            color: greyClr,
+          ),
+          child:Padding(
+            padding: const EdgeInsets.only(right:10.0,left:10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                SizedBox(height:10),
+                Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.chevron_left,color: greenClr,), onPressed: () {  },
+                    ),
+                    Spacer(flex:1),
+                    Text("תכירו אותנו יותר" , style: GoogleFonts.assistant(
+                      color: greenClr,
+                      fontSize: 17,
+                    )),
+                  ],
+                ),
+                SizedBox(height:10),
+                Row(
+                //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/location.png",width: 50,height: 50,),
+                            SizedBox(height:10),
+                            Center(child: Text("הגעה\nויצירת קשר" , style: assistantStyle(Colors.grey[600]!, 14),textDirection: TextDirection.rtl,textAlign: TextAlign.center,)),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/virtual.png",width: 50,height: 50,),
+                            SizedBox(height:10),
+                            Center(child: Text("סיור\nוירטואלי" , style: assistantStyle(Colors.grey[600]!, 14),textDirection: TextDirection.rtl,textAlign: TextAlign.center,)),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/about.png",width: 50,height: 50,),
+                            SizedBox(height:10),
+                            Center(child: Text("מי \nאנחנו?" , style: assistantStyle(Colors.grey[600]!, 14),textDirection: TextDirection.rtl,textAlign: TextAlign.center,)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height:25),
+              ],
+            ),
+          ),
+        ),
+                    SizedBox(height: 20,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
