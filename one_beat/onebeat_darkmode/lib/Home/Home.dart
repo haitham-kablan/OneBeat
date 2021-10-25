@@ -1,5 +1,7 @@
 
 
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,7 @@ import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
 import 'package:onebeat_darkmode/Design/Animation/PageTransition.dart';
 import 'package:onebeat_darkmode/Design/Button/HomeButton.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
+import 'package:onebeat_darkmode/Design/ShowError.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
 import 'package:onebeat_darkmode/Home/HomePages/AllExcerises.dart';
 import 'package:onebeat_darkmode/Home/HomePages/Mesure.dart';
@@ -21,7 +24,10 @@ import 'package:onebeat_darkmode/utils/MainDrawer.dart';
 import 'package:onebeat_darkmode/utils/exitDialouge.dart';
 
 
+import 'HomePages/About.dart';
+import 'HomePages/GeneralPlans.dart';
 import 'HomePages/Hours.dart';
+import 'HomePages/Location.dart';
 import 'HomePages/Plans.dart';
 import 'HomePages/goals.dart';
 
@@ -126,7 +132,10 @@ class _HomeState extends State<Home> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-
+                      Container(
+                        width: size.width * 0.42,
+                        height:  size.height * 0.28,
+                      ),
                       Material(
                         color: backGroundClr,
                         borderRadius: BorderRadius.circular(10),
@@ -174,52 +183,20 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
-                      Material(
-                        color: backGroundClr,
-                        borderRadius: BorderRadius.circular(10),
-                        elevation: 3,
-                        child: InkWell(
-                          splashColor: greyClr,
-                          onTap: (){
-                            Navigator.push(context, CustomPageRoute(child: AllExcerises()));
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color:Colors.grey[800]! , width: 0.25),
-                              color: greyClr,
-                            ),
-                            width: size.width * 0.42,
-                            height:  size.height * 0.28,
-                            child: Column(
-                              children: [
-                                SizedBox(height: 10,),
-                                Row(
-                                  children: [
-                                    SizedBox(width: 10,),
-                                    Icon(Icons.apps_sharp,color: Colors.grey[600]!,),
-                                    Spacer(flex: 1,),
-                                    Text("לו\"ז  שעות" , style: GoogleFonts.assistant(
-                                      color:greenClr,
-                                      fontSize: 14,
-                                    ),textDirection: TextDirection.rtl,),
-                                    SizedBox(width: 10,),
-                                  ],
-                                ),
-                                SizedBox(height: 40,),
-                                Image.asset("assets/work_calendar.png" ,width :80 , height: 80,),
 
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                   ]: [
 
-                    Container(
-                    width : size.width * 0.9,
+                    Material(
+                color:Colors.transparent,
+
+                      child: InkWell(
+                      onTap:(){
+                        Navigator.push(context,CustomPageRoute(child:GeneralPlans()));
+          },
+                        child: Container(
+                        width : size.width * 0.9,
                 decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
             border: Border.all(color:Colors.grey[800]! , width: 0.25),
@@ -233,31 +210,31 @@ class _HomeState extends State<Home> {
                 SizedBox(height:10),
                 Row(
                   children: [
-                    IconButton(
-                      icon: Icon(Icons.chevron_left,color: greenClr,), onPressed: () {  },
-                    ),
-                    Spacer(flex:1),
-                    Text("תוכניות אימון למתחילים" , style: GoogleFonts.assistant(
-                      color: greenClr,
-                      fontSize: 17,
-                    )),
+                        IconButton(
+                          icon: Icon(Icons.chevron_left,color: greenClr,), onPressed: () {  },
+                        ),
+                        Spacer(flex:1),
+                        Text("תוכניות אימון למתחילים" , style: GoogleFonts.assistant(
+                          color: greenClr,
+                          fontSize: 17,
+                        )),
                   ],
                 ),
                 SizedBox(height:10),
                 Row(
                   children: [
-                    SizedBox(width:15),
-                    Container(
-                      margin:EdgeInsets.only(top:20),
-                        child: Image.asset("assets/list_2_.png" ,width :30 , height: 30,)),
-                    Spacer(flex:1),
-                    Container(
-                      width:size.width * 0.7,
-                      child: Text(" אתה מעוניין בתחום האימונים ולא יודע איך להתחיל?\n אנחנו כאן בדיוק בשבילך.\nצפה בתוכניות האימון המומלצות עבור מתאמנים מתחילים והתחל את המסע שלך לגוף בריא יותר" , style: GoogleFonts.assistant(
-                        color: Colors.grey[600]!,
-                        fontSize: 14,
-                      ),textAlign: TextAlign.right,textDirection: TextDirection.rtl,),
-                    ),
+                        SizedBox(width:15),
+                        Container(
+                          margin:EdgeInsets.only(top:20),
+                            child: Image.asset("assets/list_2_.png" ,width :30 , height: 30,)),
+                        Spacer(flex:1),
+                        Container(
+                          width:size.width * 0.7,
+                          child: Text(" אתה מעוניין בתחום האימונים ולא יודע איך להתחיל?\n אנחנו כאן בדיוק בשבילך.\nצפה בתוכניות האימון המומלצות עבור מתאמנים מתחילים והתחל את המסע שלך לגוף בריא יותר" , style: GoogleFonts.assistant(
+                            color: Colors.grey[600]!,
+                            fontSize: 14,
+                          ),textAlign: TextAlign.right,textDirection: TextDirection.rtl,),
+                        ),
                   ],
                 ),
                 SizedBox(height:10),
@@ -265,6 +242,8 @@ class _HomeState extends State<Home> {
           ),
         ),
                 ),
+                      ),
+                    ),
         SizedBox(height:20),
         Container(
           width : size.width * 0.9,
@@ -296,14 +275,22 @@ class _HomeState extends State<Home> {
                 //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Expanded(
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset("assets/location.png",width: 50,height: 50,),
-                            SizedBox(height:10),
-                            Center(child: Text("הגעה\nויצירת קשר" , style: assistantStyle(Colors.grey[600]!, 14),textDirection: TextDirection.rtl,textAlign: TextAlign.center,)),
-                          ],
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap:(){
+                            Navigator.push(context,CustomPageRoute(child:LocationWaze()));
+                          },
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset("assets/location.png",width: 50,height: 50,),
+                                SizedBox(height:10),
+                                Center(child: Text("הגעה\nויצירת קשר" , style: assistantStyle(Colors.grey[600]!, 14),textDirection: TextDirection.rtl,textAlign: TextAlign.center,)),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -320,14 +307,22 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     Expanded(
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset("assets/about.png",width: 50,height: 50,),
-                            SizedBox(height:10),
-                            Center(child: Text("מי \nאנחנו?" , style: assistantStyle(Colors.grey[600]!, 14),textDirection: TextDirection.rtl,textAlign: TextAlign.center,)),
-                          ],
+                      child: Material(
+                        color:Colors.transparent,
+                        child: InkWell(
+                          onTap:(){
+                            Navigator.push(context,CustomPageRoute(child:AboutPage()));
+                          },
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset("assets/about.png",width: 50,height: 50,),
+                                SizedBox(height:10),
+                                Center(child: Text("מי \nאנחנו?" , style: assistantStyle(Colors.grey[600]!, 14),textDirection: TextDirection.rtl,textAlign: TextAlign.center,)),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -350,7 +345,7 @@ class _HomeState extends State<Home> {
                           child: InkWell(
                             splashColor: greyClr,
                             onTap: (){
-                             // Navigator.push(context, CustomPageRoute(child: goals(refresh: refresh,)));
+                             ShowError(context,"נא גש למתאמן כדי לעדכן את היעדים שלך");
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -424,7 +419,7 @@ class _HomeState extends State<Home> {
           child: InkWell(
             splashColor: greyClr,
             onTap:(){
-            //  Navigator.push(context, CustomPageRoute(child: Measure(refresh: refresh,)));
+              ShowError(context,"נא גש למתאמן כדי לעדכן את המדידות שלך");
             },
 
             child: Container(
@@ -504,9 +499,10 @@ class _HomeState extends State<Home> {
                           elevation: 3,
                           child: InkWell(
                             splashColor: greyClr,
-                            onTap: (){
-                              Navigator.push(context, CustomPageRoute(child: AllExcerises()));
+                            onTap:(){
+                              Navigator.push(context, CustomPageRoute(child: Hours()));
                             },
+
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
@@ -518,55 +514,20 @@ class _HomeState extends State<Home> {
                               child: Column(
                                 children: [
                                   SizedBox(height: 10,),
-                                  Row(
+                                  Center(
+                                    child: Text("שעות פתיחה" , style: assistantStyle(greenClr, 16),),
+                                  ),
+                                  SizedBox(height: 30,),
+                                  Image.asset("assets/watch.png",width: 70,height: 70,),
+                                  SizedBox(height: 20,),
+                                  Center(child: Text("ראשון , שלישי , חמישי" , style: assistantStyle(Colors.white, 14),textDirection: TextDirection.rtl,)),
+                                  gymHeroUser.gender ? Column(
                                     children: [
-                                      SizedBox(width: 10,),
-                                      Image.asset("assets/stretching.png" ,width :20 , height: 20,),
-                                      Spacer(flex: 1,),
-                                      Text("תרגילים" , style: GoogleFonts.assistant(
-                                        color:greenClr,
-                                        fontSize: 14,
-                                      )),
-                                      SizedBox(width: 10,),
+                                      Text("06:00 - 11:00" , style: assistantStyle(Colors.grey[600]!, 12),),
+                                      Text("18:30 - 23:30" , style: assistantStyle(Colors.grey[600]!, 12),),
                                     ],
-                                  ),
-                                  SizedBox(height: 15,),
-                                  Row(
-                                    children:[
-                                      Spacer(flex: 1,),
-                                      IconButton(
-                                        icon: Icon(Icons.arrow_left,color: Colors.grey[600]!,),
-                                        onPressed: (){
-                                          setState(() {
-                                            if(current == 0){
-                                              current = 6;
-                                            }else{
-                                              current--;
-                                            }
-                                          });
-                                        },
-                                      ),
-
-                                      Image.asset(
-                                        GeneralExcerise(stringCategoryToCategory(muscles[current]),"")
-                                            .getCategoryPic(),width: 60,height: 100,),
-                                      IconButton(
-                                        icon: Icon(Icons.arrow_right,color: Colors.grey[600]!,),
-                                        onPressed: (){
-                                          setState(() {
-                                            if(current == 6){
-                                              current = 0;
-                                            }else{
-                                              current++;
-                                            }
-                                          });
-                                        },
-                                      ),
-                                      Spacer(flex: 1,),
-                                    ],
-                                  ),
-                                  Text(muscles[current],style: assistantStyle(Colors.white, 20),),
-                                  Text(  DataBaseService.systemExcerises[stringCategoryToCategory(muscles[current])]!.length.toString() + "  תרגילים",style: assistantStyle(Colors.grey[600]!, 15),textDirection: TextDirection.rtl,),
+                                  )  :
+                                  Text("11:00 - 18:30" , style: assistantStyle(Colors.grey[600]!, 12),),
                                 ],
                               ),
                             ),
@@ -670,161 +631,8 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                     SizedBox(height: size.height * 0.02,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Material(
-                          color: backGroundClr,
-                          borderRadius: BorderRadius.circular(10),
-                          elevation: 3,
-                          child: InkWell(
-                            splashColor: greyClr,
-                            onTap:(){
-                              Navigator.push(context, CustomPageRoute(child: Hours()));
-                            },
 
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color:Colors.grey[800]! , width: 0.25),
-                                color: greyClr,
-                              ),
-                              width: size.width * 0.42,
-                              height:  size.height * 0.28,
-                              child: Column(
-                                children: [
-                                  SizedBox(height: 10,),
-                                  Center(
-                                    child: Text("סיור ורטואלי" , style: assistantStyle(greenClr, 16),),
-                                  ),
-                                  SizedBox(height: 30,),
-                                  Image.asset("assets/virtual.png",width: 70,height: 70,),
-                                  SizedBox(height: 20,),
-                                  Center(child: Text("לחץ לצפייה" , style: assistantStyle(Colors.white, 14),textDirection: TextDirection.rtl,)),
-
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Material(
-                          color: backGroundClr,
-                          borderRadius: BorderRadius.circular(10),
-                          elevation: 3,
-                          child: InkWell(
-                            splashColor: greyClr,
-                            onTap:(){
-                              Navigator.push(context, CustomPageRoute(child: Hours()));
-                            },
-
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color:Colors.grey[800]! , width: 0.25),
-                                color: greyClr,
-                              ),
-                              width: size.width * 0.42,
-                              height:  size.height * 0.28,
-                              child: Column(
-                                children: [
-                                  SizedBox(height: 10,),
-                                  Center(
-                                    child: Text("שעות פתיחה" , style: assistantStyle(greenClr, 16),),
-                                  ),
-                                  SizedBox(height: 30,),
-                                  Image.asset("assets/watch.png",width: 70,height: 70,),
-                                  SizedBox(height: 20,),
-                                  Center(child: Text("ראשון , שלישי , חמישי" , style: assistantStyle(Colors.white, 14),textDirection: TextDirection.rtl,)),
-                                  gymHeroUser.gender ? Column(
-                                    children: [
-                                      Text("06:00 - 11:00" , style: assistantStyle(Colors.grey[600]!, 12),),
-                                      Text("18:30 - 23:30" , style: assistantStyle(Colors.grey[600]!, 12),),
-                                    ],
-                                  )  :
-                                  Text("11:00 - 18:30" , style: assistantStyle(Colors.grey[600]!, 12),),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
         SizedBox(height: size.height * 0.02,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-
-
-
-            Material(
-              color: backGroundClr,
-              borderRadius: BorderRadius.circular(10),
-              elevation: 3,
-              child: InkWell(
-                splashColor: greyClr,
-                onTap:(){
-                  Navigator.push(context, CustomPageRoute(child: Hours()));
-                },
-
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color:Colors.grey[800]! , width: 0.25),
-                    color: greyClr,
-                  ),
-                  width: size.width * 0.42,
-                  height:  size.height * 0.28,
-                  child: Column(
-                    children: [
-                      SizedBox(height: 10,),
-                      Center(
-                        child: Text("הגעה ויצירת קשר" , style: assistantStyle(greenClr, 16),),
-                      ),
-                      SizedBox(height: 30,),
-                      Image.asset("assets/location.png",width: 70,height: 70,),
-                      SizedBox(height: 20,),
-                      Center(child: Text("Waze and phone" , style: assistantStyle(Colors.white, 14),textDirection: TextDirection.rtl,)),
-
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Material(
-              color: backGroundClr,
-              borderRadius: BorderRadius.circular(10),
-              elevation: 3,
-              child: InkWell(
-                splashColor: greyClr,
-                onTap:(){
-                  Navigator.push(context, CustomPageRoute(child: Hours()));
-                },
-
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color:Colors.grey[800]! , width: 0.25),
-                    color: greyClr,
-                  ),
-                  width: size.width * 0.42,
-                  height:  size.height * 0.28,
-                  child: Column(
-                    children: [
-                      SizedBox(height: 10,),
-                      Center(
-                        child: Text("מי אנחנו?" , style: assistantStyle(greenClr, 16),textDirection: TextDirection.rtl,),
-                      ),
-                      SizedBox(height: 30,),
-                      Image.asset("assets/about.png",width: 70,height: 70,),
-                      SizedBox(height: 25,),
-                      Center(child: Text("נעים להכיר" , style: assistantStyle(Colors.white, 14),textDirection: TextDirection.rtl,)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
                     SizedBox(height: 50,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -43,14 +43,13 @@ class GymHeroUser{
 
     GymHeroUser gymHeroUser =  GymHeroUser(name, email,20, true, "170",true,false);
 
-    gymHeroUser.programs.add(Program("A" ,
-        List.of({ProgramDay(A)})));
+    gymHeroUser.programs.add(Program("ירידה באחוז שומן" ,
+        List.of({ProgramDay(WeightReduce)})));
 
-    gymHeroUser.programs.add(Program("AB" ,
-        List.of({ProgramDay(ABA1) , ProgramDay(ABB1) , ProgramDay(ABA2),ProgramDay(ABB2)})));
+    gymHeroUser.programs.add(Program("עלייה במסת שריר" ,
+        List.of({ProgramDay(gainMuscle)})));
 
-    gymHeroUser.programs.add(Program("ABC" ,
-        List.of({ProgramDay(ABCA) , ProgramDay(ABCB) , ProgramDay(ABCC)})));
+
     return gymHeroUser;
   }
 

@@ -1,33 +1,40 @@
-
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
 import 'package:onebeat_darkmode/Design/Animation/PageTransition.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
-import 'package:onebeat_darkmode/Home/HomePages/BuildPlan.dart';
-import 'package:onebeat_darkmode/Home/HomePages/SpecificPlan.dart';
 import 'package:onebeat_darkmode/Home/adminHomePages/allUsers.dart';
 import 'package:onebeat_darkmode/utils/Porgram.dart';
 import 'package:onebeat_darkmode/utils/ProgramDay.dart';
 
 import '../../Constants.dart';
+import 'SpecificPlan.dart';
 
-class Plans extends StatefulWidget {
-  const Plans({Key? key}) : super(key: key);
 
+class GeneralPlans extends StatefulWidget {
+  const GeneralPlans({Key? key}) : super(key: key);
 
   @override
-  _PlansState createState() => _PlansState();
+  _GeneralPlansState createState() => _GeneralPlansState();
 }
 
-class _PlansState extends State<Plans> {
+class _GeneralPlansState extends State<GeneralPlans> {
 
 
   int currentIndex = 0;
   CarouselController carouselController = CarouselController();
 
+  List<Program> programs = [
+  Program("ירידה באחוז שומן" ,
+  List.of({ProgramDay(WeightReduce)})),
+
+    Program("עלייה במסת שריר" ,
+        List.of({ProgramDay(gainMuscle)})),
+
+  ];
 
 
   void onChange(int newIndex ,CarouselPageChangedReason reason){
@@ -40,26 +47,11 @@ class _PlansState extends State<Plans> {
     setState(() {
     });
   }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor: backGroundClr,
-        // floatingActionButton: FloatingActionButton.extended(
-        //   elevation: 10,
-        //     onPressed: (){
-        //       Navigator.push(
-        //         context,
-        //         CustomPageRoute( child: BuildPlan(refresh: refresh,),),
-        //       );
-        //     },
-        //     label: Text("בניית תוכנית אימון" , style: whiteText(16),),
-        //   icon: Icon(Icons.add , color: Colors.white , size: 16,),
-        //   backgroundColor: greenClr,
-        // ),
-
+    return Scaffold(
+        backgroundColor: backGroundClr,
         appBar: AppBar(
 
           elevation: 3,
@@ -78,12 +70,12 @@ class _PlansState extends State<Plans> {
               children: [
                 SizedBox(height: size.height * 0.08,),
                 Container(
-                  width: size.width * 0.8,
+                  width: size.width * 0.9,
                   child: Center(
                     child: Text(
-                      "במידה ותרצה להוסיף תוכנית אימון חדשה , נא לגשת למאמן",
+                      "תוכניות אלו מיועדות למתאמנים חדשים,במידה ותרצה תוכניות יותר מתקדמות נא לגשת למאמן בדלפק כדי ליצור עבורך תוכנית חדשה",
                       textDirection: TextDirection.rtl,
-                      style: assistantStyle(Colors.grey[600]!,20),
+                      style: assistantStyle(Colors.grey[500]!,17),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -102,7 +94,7 @@ class _PlansState extends State<Plans> {
                     enlargeCenterPage: true,
                     scrollDirection: Axis.horizontal,
                   ),
-                  items: gymHeroUser.programs.map((i) {
+                  items: programs.map((i) {
                     return Builder(
                       builder: (BuildContext context) {
                         return Material(
@@ -111,7 +103,7 @@ class _PlansState extends State<Plans> {
                           child: InkWell(
                             onTap: (){
                               setState(() {
-                                int index = gymHeroUser.programs.indexWhere((element) => element.name == i.name);
+                                int index = programs.indexWhere((element) => element.name == i.name);
                                 print(index);
                                 print(currentIndex);
                                 if(index > currentIndex){
@@ -119,8 +111,8 @@ class _PlansState extends State<Plans> {
                                 }else if(index == currentIndex){
                                   Navigator.push(
                                     context,
-                                    CustomPageRoute( child: SpecificPlan(name: gymHeroUser.programs[currentIndex].name,
-                                      program: gymHeroUser.programs[currentIndex],),),
+                                    CustomPageRoute( child: SpecificPlan(name: programs[currentIndex].name,
+                                      program: programs[currentIndex],),),
                                   );
                                 }else{
                                   carouselController.previousPage(duration: Duration(milliseconds: 300));
@@ -162,14 +154,14 @@ class _PlansState extends State<Plans> {
                   onTap: (){
                     Navigator.push(
                       context,
-                      CustomPageRoute( child: SpecificPlan(name: gymHeroUser.programs[currentIndex].name, program: gymHeroUser.programs[currentIndex],),),
+                      CustomPageRoute( child: SpecificPlan(name: programs[currentIndex].name, program: programs[currentIndex],),),
                     );
                   },
                   child: Row(
                     children: [
                       Spacer(flex:1),
                       Container(
-                        margin: EdgeInsets.only(top: 2),
+                          margin: EdgeInsets.only(top: 2),
                           child: Icon(Icons.arrow_left , color: Color(0xff707070),size: 20,)),
                       Text("צפייה בתוכנית", style: explaintion(17),textAlign: TextAlign.center,),
 
@@ -180,13 +172,14 @@ class _PlansState extends State<Plans> {
               ],
             ),
             Align(
-              alignment: Alignment.bottomLeft,
+                alignment: Alignment.bottomLeft,
                 child: Container(
-                  margin: EdgeInsets.only(bottom: 20),
+                    margin: EdgeInsets.only(bottom: 20),
                     child: Image.asset("assets/plansBg.png" , width: 80,height: 80,)))
           ],
         )
-      ),
+
     );
   }
 }
+
