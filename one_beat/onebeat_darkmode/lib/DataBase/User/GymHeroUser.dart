@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:onebeat_darkmode/utils/MemberShipClass.dart';
 import 'package:onebeat_darkmode/utils/Porgram.dart';
 import 'package:onebeat_darkmode/utils/ProgramDay.dart';
 import 'package:onebeat_darkmode/utils/SpecificMeasure.dart';
@@ -16,6 +17,7 @@ class GymHeroUser{
   final String name;
   final String email;
 
+
   bool trainer;
   double age;
   bool gender;
@@ -26,6 +28,8 @@ class GymHeroUser{
   List<Program> programs = [];
   List<SpecificMeasure> Measures = [];
   List<SpecificMeasure> goalMeasures = [];
+
+  static MemberShipClass userMemberShip = MemberShipClass("-", "-", "-", "-", "-", "-");
 
   GymHeroUser(this.name,this.email, this.age, this.gender , this.height ,
       this.fristTime , this.trainer);

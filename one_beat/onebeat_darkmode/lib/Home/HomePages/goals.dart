@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
 import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
@@ -245,6 +246,9 @@ class _goalsState extends State<goals> {
 
                   await DataBaseService.addGoalMeasureForUser(AllUsers.pickedUser!.email, SpecificMeasure(goalweight, goalarmSize, goalstomachSize, goalbodyfat, DateTime.now()));
                   AllUsers.pickedUser!.goalMeasures.insert(0,SpecificMeasure(goalweight, goalarmSize, goalstomachSize, goalbodyfat, DateTime.now()));
+                  if( AllUsers.pickedUser!.email == gymHeroUser.email){
+                    gymHeroUser.goalMeasures.insert(0,SpecificMeasure(goalweight, goalarmSize, goalstomachSize, goalbodyfat, DateTime.now()));
+                  }
 
                   refresh();
                   setState(() {

@@ -210,7 +210,10 @@ class _BuildPlanState extends State<BuildPlan> {
                       );
 
                       addTrainDay.clear();
-                      //gymHeroUser.programs.insert(0, program);
+
+                      if(AllUsers.pickedUser!.email == gymHeroUser.email){
+                        gymHeroUser.programs.insert(0, program);
+                      }
                       AllUsers.pickedUser!.programs.insert(0, program);
 
                       refresh();

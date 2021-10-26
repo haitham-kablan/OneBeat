@@ -10,6 +10,7 @@ import 'package:onebeat_darkmode/DataBase/SpecicficExcerise.dart' as oldSpecifc;
 
 import 'package:onebeat_darkmode/Design/Button.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
+import 'package:onebeat_darkmode/Design/ShowError.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
 import 'package:onebeat_darkmode/HomePage/screens/Excerise/addTrainDay.dart' as x;
 import 'package:onebeat_darkmode/HomePage/screens/Excerise/addTrainDay.dart';
@@ -48,7 +49,7 @@ class _addTrainDayState extends State<addTrainDay> {
 
   final int day;
 
-  List<String> muscles = ["חזה","גב","יד קדמית","יד אחורית","כתפיים","בטן","רגליים"];
+  List<String> muscles = ["חזה","גב","יד קדמית","יד אחורית","כתפיים","בטן","רגליים","קרדיו"];
   List<ExcerisesWidget> widgets = [];
 
   _addTrainDayState(this.day){
@@ -60,11 +61,12 @@ class _addTrainDayState extends State<addTrainDay> {
       ExcerisesWidget(category: Category.SHOULDERS,day: day-1),
       ExcerisesWidget(category: Category.ABS,day: day-1),
       ExcerisesWidget(category: Category.LEGS,day: day-1),
+      ExcerisesWidget(category: Category.CARDIO,day: day-1),
     ];
   }
 
   static List<List<SpecificExcerise>> selectedExcerises = [
-    [],[],[],[],[],[],[]
+    [],[],[],[],[],[],[],[]
   ];
 
 
@@ -84,6 +86,7 @@ class _addTrainDayState extends State<addTrainDay> {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset : false,
         backgroundColor: backGroundClr,
         appBar: AppBar(
 
@@ -97,8 +100,7 @@ class _addTrainDayState extends State<addTrainDay> {
             Navigator.pop(context);
           }, icon: Icon(Icons.chevron_left , color: Colors.white, size: 35,)),
         ),
-        body: Stack(
-          children: [
+        body: 
             Column(
               children: [
                 SizedBox(height: 20,),
@@ -138,16 +140,23 @@ class _addTrainDayState extends State<addTrainDay> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    Container(
+                      width: size.width * 0.29,
+                    ),
+                    GeneralExcerise(Category.CARDIO,"").getPicTile((){
+                      ExceriseListDialouge(context, size, widgets[7]);
+                    }),
                     GeneralExcerise(Category.ABS,"").getPicTile((){
                       ExceriseListDialouge(context, size, widgets[5]);
                     }),
+
+
                   ],
                 ),
                 Spacer(flex: 1,),
               ],
             ),
-          ],
-        ),
+
       ),
     );
   }
@@ -174,6 +183,7 @@ class _ExceriseTileState extends State<ExceriseTile> {
   int sets ;
   int reps;
   final String name;
+  TextEditingController CardioMins = TextEditingController();
 
   _ExceriseTileState(this.name, this.category , this.isChecked , this.sets , this.reps, this.day);
   @override
@@ -209,6 +219,17 @@ class _ExceriseTileState extends State<ExceriseTile> {
                     checkColor: Colors.white,
                     fillColor: MaterialStateProperty.resolveWith((states) => getColor(states)),
                     onChanged: (bool? value) {
+
+                      try{
+                        if(CardioMins.text.isEmpty){
+                          reps = 20;
+                        }else{
+                          reps = int.parse(CardioMins.text);
+                        }
+                      }catch(e){
+                        ShowError(context, "נא הזן מספר חוקי של דקות");
+                        return;
+                      }
                       if(value!){
                         _addTrainDayState.onAdd(SpecificExcerise(sets, reps, stringCategoryToCategoryModified(category), name),day);
                       }else{
@@ -226,7 +247,57 @@ class _ExceriseTileState extends State<ExceriseTile> {
                 ],
               ),
               SizedBox(height: 15,),
-              isChecked ? Row(
+              isChecked ? sets== -1 ?
+                  Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                   children: [
+                     Padding(
+                       padding: const EdgeInsets.only(left: 40,right: 40),
+                       child: Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         children: [
+                           Text("  דקות" , style: assistantStyle(Colors.grey[600]!, 17),textDirection: TextDirection.rtl,),
+                           Container(
+                             width: 30,
+                             child: TextField(
+                               controller: CardioMins,
+                               onChanged: (newNum){
+                                 try{
+                                   if(CardioMins.text.isEmpty){
+                                     reps = 20;
+                                   }else{
+                                     reps = int.parse(CardioMins.text);
+                                   }
+                                 }catch(e){
+                                   ShowError(context, "נא הזן מספר חוקי של דקות");
+                                   return;
+                                 }
+                                 _addTrainDayState.onAdd(SpecificExcerise(sets, reps, stringCategoryToCategoryModified(category), name),day);
+                               },
+                               style: greenText(17),
+                               keyboardType: TextInputType.number,
+                               decoration: InputDecoration(
+                                 border: InputBorder.none,
+                                 focusedBorder: InputBorder.none,
+                                 enabledBorder: InputBorder.none,
+                                 errorBorder: InputBorder.none,
+                                 disabledBorder: InputBorder.none,
+                                 hintText: "20",
+                                 hintStyle:  GoogleFonts.assistant(
+                                   color: emptyDotClr,
+                                   fontSize: 17,
+                                 ),
+                               ),
+                             ),
+                           ),
+                           Text(" זמן:" , style: assistantStyle(Colors.grey[600]!, 17),textDirection: TextDirection.rtl,),
+                         ],
+                       ),
+                     ),
+                   ],
+                  )
+
+                  :Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Column(
@@ -236,8 +307,8 @@ class _ExceriseTileState extends State<ExceriseTile> {
                         children: [
                           IconButton(onPressed: (){
                             setState(() {
-                              if(sets -1 < 0){
-                                sets = 0;
+                              if(sets -1 < 1){
+                                sets = 1;
                               }else{
                                 sets--;
                               }
@@ -267,8 +338,8 @@ class _ExceriseTileState extends State<ExceriseTile> {
                         children: [
                           IconButton(onPressed: (){
                             setState(() {
-                              if(reps -1 < 0){
-                                reps = 0;
+                              if(reps -1 < 1){
+                                reps = 1;
                               }else{
                                 reps--;
                               }
@@ -356,7 +427,12 @@ class _ExcerisesWidgetState extends State<ExcerisesWidget> {
             ),
             SizedBox(height: 20,),
             Column(
-                children: DataBaseService.systemExcerises[category]!.map((e) => ExceriseTile(name: e.name, category: category.toString() , isChecked: _addTrainDayState.selectedExcerises[day].any((element) => element.name == e.name),sets:_addTrainDayState.selectedExcerises[day].any((element) => element.name == e.name) ? _addTrainDayState.selectedExcerises[day].where((element) => element.name == e.name).first.sets : 4 , reps:_addTrainDayState.selectedExcerises[day].any((element) => element.name == e.name) ?_addTrainDayState.selectedExcerises[day].where((element) => element.name == e.name).first.reps : 10 ,day: day,)).toList(),
+                children: category == Category.CARDIO ?
+                [
+                  ExceriseTile(name: "אירובי - הליכון / סטודיו / אליפטי / אופניים", category: Category.CARDIO.toString(), isChecked: _addTrainDayState.selectedExcerises[day].any((element) => element.name == "אירובי - הליכון / סטודיו / אליפטי / אופניים"), sets: -1, reps:_addTrainDayState.selectedExcerises[day].any((element) => element.name =="אירובי - הליכון / סטודיו / אליפטי / אופניים") ?_addTrainDayState.selectedExcerises[day].where((element) => element.name == "אירובי - הליכון / סטודיו / אליפטי / אופניים").first.reps : 10, day: day),
+                ]
+                    :
+                DataBaseService.systemExcerises[category]!.map((e) => ExceriseTile(name: e.name, category: category.toString() , isChecked: _addTrainDayState.selectedExcerises[day].any((element) => element.name == e.name),sets:_addTrainDayState.selectedExcerises[day].any((element) => element.name == e.name) ? _addTrainDayState.selectedExcerises[day].where((element) => element.name == e.name).first.sets : 4 , reps:_addTrainDayState.selectedExcerises[day].any((element) => element.name == e.name) ?_addTrainDayState.selectedExcerises[day].where((element) => element.name == e.name).first.reps : 10 ,day: day,)).toList(),
               ),
           ],
         ),

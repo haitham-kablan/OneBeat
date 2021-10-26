@@ -12,15 +12,17 @@ import 'package:onebeat_darkmode/Home/adminHomePages/allUsers.dart';
 import 'package:onebeat_darkmode/utils/SpecificMeasure.dart';
 
 class Measure extends StatefulWidget {
-  const Measure({Key? key, this.refresh}) : super(key: key);
+  const Measure({Key? key, this.refresh, required this.onClick}) : super(key: key);
   final refresh;
+  final onClick;
 
   @override
-  _MeasureState createState() => _MeasureState(refresh);
+  _MeasureState createState() => _MeasureState(refresh,onClick);
 }
 
 class _MeasureState extends State<Measure> {
   final refresh;
+  final onClick;
 
   String category = "משקל";
   String sizeElm = "ק\"ג";
@@ -37,7 +39,7 @@ class _MeasureState extends State<Measure> {
   int counter = 0;
   List<String> program = ["משקל" , "אחוז שומן", "היקף ידיים","היקף בטן"];
 
-  _MeasureState(this.refresh);
+  _MeasureState(this.refresh, this.onClick);
 
 
   @override
@@ -245,6 +247,9 @@ class _MeasureState extends State<Measure> {
 
                 await DataBaseService.addMeasureForUser(AllUsers.pickedUser!.email, SpecificMeasure(weight, arm, stomach, bodyfat, DateTime.now()));
                 AllUsers.pickedUser!.Measures.insert(0,SpecificMeasure(weight, arm, stomach, bodyfat, DateTime.now()));
+                if( AllUsers.pickedUser!.email == gymHeroUser.email){
+                  gymHeroUser.Measures.insert(0,SpecificMeasure(weight, arm, stomach, bodyfat, DateTime.now()));
+                }
 
 
 
@@ -252,6 +257,7 @@ class _MeasureState extends State<Measure> {
                   isLoading = false;
                 });
                 refresh( );
+                onClick();
                 Navigator.pop(context);
               }),
                 SizedBox(height: size.height * 0.06,)

@@ -12,16 +12,20 @@ import 'package:onebeat_darkmode/Home/adminHomePages/allUsers.dart';
 
 class AdminMeasure extends StatefulWidget {
 
+  final onClick;
 
+  const AdminMeasure({Key? key, required this.onClick}) : super(key: key);
 
   @override
-  _AdminMeasureState createState() => _AdminMeasureState();
+  _AdminMeasureState createState() => _AdminMeasureState(onClick);
 
 }
 
 class _AdminMeasureState extends State<AdminMeasure> {
 
+  final onClick;
 
+  _AdminMeasureState(this.onClick);
   void refresh(){
     setState(() {
 
@@ -36,7 +40,7 @@ class _AdminMeasureState extends State<AdminMeasure> {
         floatingActionButton: FloatingActionButton.extended(
           icon: Icon(Icons.add , color: Colors.white,),
           onPressed: (){
-            Navigator.push(context, CustomPageRoute(child: Measure(refresh: refresh,)));
+            Navigator.push(context, CustomPageRoute(child: Measure(refresh: refresh,onClick: onClick,)));
           },
           label: Text("הוסף מדידה",style: assistantStyle(Colors.white, 15),),backgroundColor: greenClr,),
         appBar: AppBar(

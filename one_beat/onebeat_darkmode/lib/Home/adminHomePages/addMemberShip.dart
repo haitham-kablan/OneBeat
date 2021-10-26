@@ -5,12 +5,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
+import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
 import 'package:onebeat_darkmode/Design/Button.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/ShowError.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
 import 'package:onebeat_darkmode/Home/adminHomePages/allUsers.dart';
 import 'package:onebeat_darkmode/utils/MemberShip.dart';
+import 'package:onebeat_darkmode/utils/MemberShipClass.dart';
 
 
 addMemberShip(context,Size size,String email){
@@ -300,6 +302,10 @@ class _InnerAddMemberShipState extends State<InnerAddMemberShip> {
                       startMonth.text,startYear.text,
                       endDay.text,endMonth.text,endYear.text,
                       DateTime.now().millisecondsSinceEpoch));
+
+              if( AllUsers.pickedUser!.email == gymHeroUser.email){
+                GymHeroUser.userMemberShip = MemberShipClass(endDay.text, endMonth.text, endYear.text, startDay.text, startMonth.text, startYear.text);
+              }
 
               setState(() {
                 isLoading = false;

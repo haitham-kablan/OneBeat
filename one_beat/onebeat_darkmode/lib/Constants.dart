@@ -5,6 +5,8 @@ import 'package:onebeat_darkmode/utils/ExceriseTile.dart';
 
 final List<ExceriseTile> WeightReduce = List.of(
     {
+
+          ExceriseTile(name: "אירובי - הליכון / סטודיו / אליפטי / אופניים", sets: -1, reps: "20-60", machineNumber: "-1",category: "קרדיו",),
           ExceriseTile(name: "לחיצת חזה במכונה ", sets: 2, reps: "10", machineNumber: "17",category: "חזה",),
           ExceriseTile(name: "פרפר במכונה ", sets: 2, reps: "10", machineNumber: "18",category: "חזה",),
           ExceriseTile(name: "משיכת פולי עליון רחב לחזה ", sets: 2, reps: "10", machineNumber: "4",category: "גב",),

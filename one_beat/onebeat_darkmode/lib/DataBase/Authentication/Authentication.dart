@@ -59,6 +59,7 @@ class AuthenticationService{
      if(usr == null){
        return GymHeroUser.emptyUser("", "");
      }
+     await DataBaseService.getUserMemberShip(usr.email!);
      return await DataBaseService.getUser(usr.email!);
    }
 

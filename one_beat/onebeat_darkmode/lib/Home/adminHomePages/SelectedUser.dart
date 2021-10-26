@@ -19,14 +19,17 @@ import 'MemberShip.dart';
 import 'adminGoalMeasure.dart';
 
 class SelectedUser extends StatefulWidget {
-  const SelectedUser({Key? key}) : super(key: key);
+  final onClick;
+  const SelectedUser({Key? key, required this.onClick}) : super(key: key);
 
   @override
-  _SelectedUserState createState() => _SelectedUserState();
+  _SelectedUserState createState() => _SelectedUserState(onClick);
 }
 
 class _SelectedUserState extends State<SelectedUser> {
+  final onClick;
 
+  _SelectedUserState(this.onClick);
   void refresh(){
     setState(() {
 
@@ -55,7 +58,7 @@ class _SelectedUserState extends State<SelectedUser> {
               child: InkWell(
                 onTap: (){
 
-                  Navigator.push(context, CustomPageRoute(child: AdminMeasure()));
+                  Navigator.push(context, CustomPageRoute(child: AdminMeasure(onClick: onClick,)));
                 },
                 child: Container(
 
@@ -193,6 +196,7 @@ class _SelectedUserState extends State<SelectedUser> {
                                         onTap: () async {
                                               setState(() {
                                                 AllUsers.pickedUser!.trainer = true;
+
                                               });
 
                                               await DataBaseService.makeAdmin(AllUsers.pickedUser!.email);

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:onebeat_darkmode/DataBase/Authentication/Authentication.dart';
 import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
@@ -19,6 +20,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await DataBaseService.initDb();
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+
   runApp(MyApp());
 }
 
@@ -41,6 +47,7 @@ class MyApp extends StatelessWidget {
 
             if (snapshot.connectionState == ConnectionState.done) {
               gymHeroUser = snapshot.data!;
+
               return (gymHeroUser.email.isEmpty ? LogInPage() : (gymHeroUser.fristTime ? WelcomePage1() : Home()));
             }
 

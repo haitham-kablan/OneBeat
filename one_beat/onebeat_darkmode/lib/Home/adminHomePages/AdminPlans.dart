@@ -136,12 +136,13 @@ class _AdminPlansState extends State<AdminPlans> {
                                   children: [
                                     Text("תוכנית", style: explaintion(17),),
                                     Container(
-                                      child: Text(i.name, style: greenText(25),textAlign: TextAlign.center,),
+                                      child: Text(i.name.length > 20 ? i.name.substring(0,18) + ".." : i.name, style: greenText(25),textAlign: TextAlign.center,),
                                       width: size.width * 0.4,
                                     ),
                                     SizedBox(height: 20,),
                                     Text("מספר ימים בשבוע", style: assistantStyle(Colors.grey[600]!, 17),),
-                                    Text(i.days.length.toString(), style: assistantStyle(Colors.grey[600]!, 17),),
+                                    Text(((AllUsers.pickedUser!.programs.indexOf(i) == AllUsers.pickedUser!.programs.length -1)||
+                                        AllUsers.pickedUser!.programs.indexOf(i) == AllUsers.pickedUser!.programs.length -2) ? "לפי המאמן" :i.days.length.toString(), style: assistantStyle(Colors.grey[600]!, 17),),
                                     SizedBox(height: 10,),
 
                                   ],

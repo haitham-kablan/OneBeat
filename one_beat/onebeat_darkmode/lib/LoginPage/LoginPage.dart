@@ -6,6 +6,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:onebeat_darkmode/DataBase/Authentication/Authentication.dart';
+import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
 import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
 import 'package:onebeat_darkmode/Design/Animation/PageTransition.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
@@ -114,6 +115,7 @@ class _LogInPageState extends State<LogInPage> {
                                 child: WelcomePage1()
                             ), (Route<dynamic> route) => false);
                           }else{
+                            await DataBaseService.getUserMemberShip(emailControler.text);
                             Navigator.of(context).pushAndRemoveUntil(CustomPageRoute( child:Home()), (Route<dynamic> route) => false);
                           }
 

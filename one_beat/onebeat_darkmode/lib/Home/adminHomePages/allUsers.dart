@@ -13,17 +13,19 @@ import 'package:onebeat_darkmode/Home/adminHomePages/SelectedUser.dart';
 
 
 class AllUsers extends StatefulWidget {
-
-  const AllUsers({Key? key}) : super(key: key);
+  final onClick;
+  const AllUsers({Key? key, required this.onClick}) : super(key: key);
 
   static GymHeroUser? pickedUser = null;
 
   @override
-  _AllUsersState createState() => _AllUsersState();
+  _AllUsersState createState() => _AllUsersState(onClick);
 }
 
 class _AllUsersState extends State<AllUsers> {
+  final onClick;
 
+  _AllUsersState(this.onClick);
   void refresh(){
     setState(() {
 
@@ -37,6 +39,13 @@ class _AllUsersState extends State<AllUsers> {
       child: Scaffold(
         backgroundColor: backGroundClr,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            onPressed: (){
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.chevron_left , color: Colors.white,),
+          ),
           actions: [
             IconButton(icon: Icon(Icons.search,color: Colors.white,),onPressed: (){
               showSearch(context: context, delegate: DataSearch(refresh));
@@ -50,7 +59,7 @@ class _AllUsersState extends State<AllUsers> {
           ),
         ),
         body: SingleChildScrollView(
-          child: AllUsers.pickedUser == null ? NoUserSelected(refresh: refresh):SelectedUser(),
+          child: AllUsers.pickedUser == null ? NoUserSelected(refresh: refresh):SelectedUser(onClick: onClick,),
         ),
 
       ),

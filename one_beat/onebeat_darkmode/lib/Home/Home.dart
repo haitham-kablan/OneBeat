@@ -144,10 +144,7 @@ class _HomeState extends State<Home> {
                           splashColor: greyClr,
                           onTap: () async{
                             await DataBaseService.getSystemUsers();
-
-                          //  await DataBaseService.getSystemMeasures();
-                           // await DataBaseService.getSystemGoalMeasures();
-                            Navigator.push(context, CustomPageRoute(child: AllUsers()));
+                            Navigator.push(context, CustomPageRoute(child: AllUsers(onClick: refresh,)));
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -294,18 +291,18 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset("assets/virtual.png",width: 50,height: 50,),
-                            SizedBox(height:10),
-                            Center(child: Text("סיור\nוירטואלי" , style: assistantStyle(Colors.grey[600]!, 14),textDirection: TextDirection.rtl,textAlign: TextAlign.center,)),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // Expanded(
+                    //   child: Container(
+                    //     child: Column(
+                    //       mainAxisAlignment: MainAxisAlignment.center,
+                    //       children: [
+                    //         Image.asset("assets/virtual.png",width: 50,height: 50,),
+                    //         SizedBox(height:10),
+                    //         Center(child: Text("סיור\nוירטואלי" , style: assistantStyle(Colors.grey[600]!, 14),textDirection: TextDirection.rtl,textAlign: TextAlign.center,)),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                     Expanded(
                       child: Material(
                         color:Colors.transparent,
@@ -345,7 +342,7 @@ class _HomeState extends State<Home> {
                           child: InkWell(
                             splashColor: greyClr,
                             onTap: (){
-                             ShowError(context,"נא גש למתאמן כדי לעדכן את היעדים שלך");
+                             ShowError(context,"נא גש למאמן כדי לעדכן את היעדים שלך");
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -419,7 +416,7 @@ class _HomeState extends State<Home> {
           child: InkWell(
             splashColor: greyClr,
             onTap:(){
-              ShowError(context,"נא גש למתאמן כדי לעדכן את המדידות שלך");
+              ShowError(context,"נא גש למאמן כדי לעדכן את המדידות שלך");
             },
 
             child: Container(
@@ -500,7 +497,7 @@ class _HomeState extends State<Home> {
                           child: InkWell(
                             splashColor: greyClr,
                             onTap:(){
-                              Navigator.push(context, CustomPageRoute(child: Hours()));
+                              ShowError(context,"נא לגשת למאמן כדי לעדכן את פרטי המנוי");
                             },
 
                             child: Container(
@@ -515,19 +512,23 @@ class _HomeState extends State<Home> {
                                 children: [
                                   SizedBox(height: 10,),
                                   Center(
-                                    child: Text("שעות פתיחה" , style: assistantStyle(greenClr, 16),),
+                                    child: Text("מנוי אישי" , style: assistantStyle(greenClr, 16),),
                                   ),
-                                  SizedBox(height: 30,),
-                                  Image.asset("assets/watch.png",width: 70,height: 70,),
+                                  SizedBox(height: 10,),
+                                  Image.asset("assets/ticket.png",width: 70,height: 70,),
                                   SizedBox(height: 20,),
-                                  Center(child: Text("ראשון , שלישי , חמישי" , style: assistantStyle(Colors.white, 14),textDirection: TextDirection.rtl,)),
-                                  gymHeroUser.gender ? Column(
-                                    children: [
-                                      Text("06:00 - 11:00" , style: assistantStyle(Colors.grey[600]!, 12),),
-                                      Text("18:30 - 23:30" , style: assistantStyle(Colors.grey[600]!, 12),),
-                                    ],
-                                  )  :
-                                  Text("11:00 - 18:30" , style: assistantStyle(Colors.grey[600]!, 12),),
+                                  Center(
+                                    child: Text("החל מ",style:  assistantStyle(Colors.white, 14),),
+                                  ),
+                                  Center(child:
+                                  Text(GymHeroUser.userMemberShip.startDay == "-" ? "_": GymHeroUser.userMemberShip.startDay +" / " + GymHeroUser.userMemberShip.startMonth + " / " + GymHeroUser.userMemberShip.startYaer,style: assistantStyle(Colors.grey[600]!, 14),),
+                                  ),
+                                  Center(
+                                    child: Text("עד",style:  assistantStyle(Colors.white, 14),),
+                                  ),
+                                  Center(child:
+                                  Text(GymHeroUser.userMemberShip.startDay == "-" ? "":  GymHeroUser.userMemberShip.endDay +" / " + GymHeroUser.userMemberShip.endMonth + " / " + GymHeroUser.userMemberShip.endYaer,style: assistantStyle(Colors.grey[600]!, 14),),
+                                  ),
                                 ],
                               ),
                             ),
@@ -595,7 +596,7 @@ class _HomeState extends State<Home> {
                                           Column(
                                             children: [
                                               SizedBox(height: 15,),
-                                              Text((gymHeroUser.programs[plansCurrent].name.length > 7 ? gymHeroUser.programs[plansCurrent].name.substring(0,6) + "...": gymHeroUser.programs[plansCurrent].name),style: assistantStyle(Colors.white, 18),),
+                                              Text((gymHeroUser.programs[plansCurrent].name.length > 4 ? gymHeroUser.programs[plansCurrent].name.substring(0,3) + "..": gymHeroUser.programs[plansCurrent].name),style: assistantStyle(Colors.white, 18),),
                                               Text(gymHeroUser.programs[plansCurrent].days.length.toString() + "  אימונים",style: assistantStyle(Colors.grey[600]!, 14),textDirection: TextDirection.rtl,),
                                             ],
                                           ),
@@ -624,13 +625,59 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                         ),
-
-
-
-
                       ],
                     ),
                     SizedBox(height: size.height * 0.02,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              width: size.width * 0.42,
+              height:  size.height * 0.28,
+            ),
+            Material(
+              color: backGroundClr,
+              borderRadius: BorderRadius.circular(10),
+              elevation: 3,
+              child: InkWell(
+                splashColor: greyClr,
+                onTap:(){
+                  Navigator.push(context, CustomPageRoute(child: Hours()));
+                },
+
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color:Colors.grey[800]! , width: 0.25),
+                    color: greyClr,
+                  ),
+                  width: size.width * 0.42,
+                  height:  size.height * 0.28,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10,),
+                      Center(
+                        child: Text("שעות פתיחה" , style: assistantStyle(greenClr, 16),),
+                      ),
+                      SizedBox(height: 30,),
+                      Image.asset("assets/watch.png",width: 70,height: 70,),
+                      SizedBox(height: 20,),
+                      Center(child: Text("ראשון , שלישי , חמישי" , style: assistantStyle(Colors.white, 14),textDirection: TextDirection.rtl,)),
+                      gymHeroUser.gender ? Column(
+                        children: [
+                          Text("06:00 - 11:00" , style: assistantStyle(Colors.grey[600]!, 12),),
+                          Text("18:30 - 23:30" , style: assistantStyle(Colors.grey[600]!, 12),),
+                        ],
+                      )  :
+                      Text("11:00 - 18:30" , style: assistantStyle(Colors.grey[600]!, 12),),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+          ],
+        ),
 
         SizedBox(height: size.height * 0.02,),
                     SizedBox(height: 50,),

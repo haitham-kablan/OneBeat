@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:onebeat_darkmode/ColorsPallete/ColorsPallete.dart';
 import 'package:onebeat_darkmode/DataBase/GenerealExcerise.dart';
 import 'package:onebeat_darkmode/DataBase/Program.dart';
@@ -12,6 +13,7 @@ import 'package:onebeat_darkmode/Users/User.dart';
 import 'package:onebeat_darkmode/utils/ExceriseTile.dart';
 import 'package:onebeat_darkmode/utils/GeneralExcerises.dart' as utils;
 import 'package:onebeat_darkmode/utils/MemberShip.dart';
+import 'package:onebeat_darkmode/utils/MemberShipClass.dart';
 import 'package:onebeat_darkmode/utils/Porgram.dart' as utils1;
 import 'package:onebeat_darkmode/utils/ProgramDay.dart';
 import 'package:onebeat_darkmode/utils/SpecificMeasure.dart';
@@ -29,6 +31,8 @@ class DataBaseService{
   static String measures = "MEASURES";
   static String goalMeasures = "GOALMEASURES";
   static String memberShip = "MEMBERSHIP";
+  
+ 
 
   static Map<utils.Category , List<utils.GeneralExcerise>> systemExcerises= Map();
   static final Stream<QuerySnapshot> usersStream = usersCollection.snapshots();
@@ -66,12 +70,23 @@ class DataBaseService{
 
   static List<GymHeroUser> allUsers = [];
 
-
+  static Future getUserMemberShip(String email)async{
+    await usersCollection.doc(email).collection(memberShip)
+        .orderBy("time",descending: true).get().then((value){
+          if(value.docs.length == 0){
+            return 0;
+          }
+          GymHeroUser.userMemberShip = MemberShipClass(value.docs[0].data()["endDay"], value.docs[0].data()["endMonth"], value.docs[0].data()["endYear"], value.docs[0].data()["startDay"], value.docs[0].data()["startMonth"], value.docs[0].data()["startYear"]);
+    }
+    );
+  }
   static Future initDb()async{
 
    //await getSystemUsers();
     await getSystemExcerises();
   }
+  
+  
   static Future getSystemUsers() {
 
     allUsers.clear();
@@ -114,12 +129,26 @@ class DataBaseService{
 
               for(int i =0;i<size;i++){
                 List<String> x = (element.data()["exc" + i.toString()] as String).split("-");
+                int day = 0;
+                int sets = 0;
+                String reps = "";
+                String name = "";
+                String category = "";
                 print(x);
-                int day = int.parse(x[0]);
-                int sets = int.parse(x[3]);
-                String reps = x[4];
-                String name = x[2];
-                String category = x[1];
+                if(x[1] == "קרדיו"){
+                  sets = -1;
+                  day = int.parse(x[0]);
+                  reps = x[6];
+                  name = "אירובי - הליכון / סטודיו / אליפטי / אופניים";
+                  category = x[1];
+
+                }else{
+                  day = int.parse(x[0]);
+                  sets = int.parse(x[3]);
+                  reps = x[4];
+                  name = x[2];
+                  category = x[1];
+                }
                 l[day].excerises.add(ExceriseTile(name: name, sets: sets, reps: reps, machineNumber: "-1", category: category));
               }
 
@@ -268,12 +297,27 @@ class DataBaseService{
 
       for(int i =0;i<size;i++){
         List<String> x = (element.data()["exc" + i.toString()] as String).split("-");
+        int day = 0;
+        int sets = 0;
+        String reps = "";
+        String name = "";
+        String category = "";
         print(x);
-        int day = int.parse(x[0]);
-        int sets = int.parse(x[3]);
-        String reps = x[4];
-        String name = x[2];
-        String category = x[1];
+        if(x[1] == "קרדיו"){
+          sets = -1;
+          day = int.parse(x[0]);
+          reps = x[6];
+          name = "אירובי - הליכון / סטודיו / אליפטי / אופניים";
+          category = x[1];
+
+        }else{
+           day = int.parse(x[0]);
+           sets = int.parse(x[3]);
+           reps = x[4];
+           name = x[2];
+           category = x[1];
+        }
+
         l[day].excerises.add(ExceriseTile(name: name, sets: sets, reps: reps, machineNumber: "-1", category: category));
       }
 
@@ -358,6 +402,10 @@ utils.Category stringCategoryToCategoryModified(String category){
     return utils.Category.TRICEPS;
   }
 
+  if(category == utils.Category.CARDIO.toString()){
+    return utils.Category.CARDIO;
+  }
+
   return utils.Category.BICEPS;
 
 }
@@ -386,6 +434,10 @@ utils.Category stringCategoryToCategory(String category){
     return utils.Category.TRICEPS;
   }
 
+  if(category == "קרדיו"){
+    return utils.Category.CARDIO;
+  }
+
   return utils.Category.TRICEPS;
 }
 
@@ -408,6 +460,8 @@ String categoryToString(utils.Category category){
       return "יד אחורית";
     case utils.Category.LEGS:
       return "רגליים";
+    case utils.Category.CARDIO:
+      return "קרדיו";
   }
 }
 

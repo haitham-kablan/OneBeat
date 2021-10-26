@@ -161,6 +161,7 @@ class _ReigesterPageState extends State<ReigesterPage> {
                             CustomPageRoute(child:WelcomePage1()),
                                 (Route<dynamic> route) => false);
                       }else{
+                        await DataBaseService.getUserMemberShip(email);
                         Navigator.of(context).pushAndRemoveUntil(
                             CustomPageRoute(child:Home()),
                                 (Route<dynamic> route) => false);

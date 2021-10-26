@@ -325,7 +325,7 @@ class _WelcomePage3State extends State<WelcomePage3> {
                 setState(() {
                   isLoading = false;
                 });
-
+                await DataBaseService.getUserMemberShip(gymHeroUser.email);
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(

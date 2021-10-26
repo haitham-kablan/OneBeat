@@ -6,7 +6,7 @@ import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
 
-enum Category {CHEST , SHOULDERS,ABS,BACK,BICEPS,TRICEPS,LEGS}
+enum Category {CHEST , SHOULDERS,ABS,BACK,BICEPS,TRICEPS,LEGS,CARDIO}
 
 class GeneralExcerise{
 
@@ -89,6 +89,9 @@ class GeneralExcerise{
 
       case Category.LEGS:
         return "assets/legs.png";
+      case Category.CARDIO:
+        return "assets/cardio.png";
+
     }
   }
 

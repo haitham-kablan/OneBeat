@@ -63,34 +63,49 @@ class ExceriseTile extends StatelessWidget {
             ],
           ),
           SizedBox(height: 20,),
-          Row(
+          sets == -1 ?  Row(
             children: [
               Spacer(flex: 1,),
-              Text("סטים: " + sets.toString(),style: GoogleFonts.assistant(
-                  color: Colors.grey[600]!,
-                  fontSize: 17,
-              ),textDirection: TextDirection.rtl,),
-              SizedBox(width: 30,),
-            ],
-          ),
-          SizedBox(height: 5,),
-          Row(
-
-            children: [
-              SizedBox(width: 30,),
-              machineNumber == "-1" ? Container() : Text("מכונה מספר: " + machineNumber,style: GoogleFonts.assistant(
-                color: Colors.grey[600]!,
-                fontSize: 17,
-              ), textDirection: TextDirection.rtl,),
-              Spacer(flex: 1,),
-              Text("חזרות: " + reps.toString(),style: GoogleFonts.assistant(
+              Text("זמן: " + reps + " דקות",style: GoogleFonts.assistant(
                 color: Colors.grey[600]!,
                 fontSize: 17,
               ),textDirection: TextDirection.rtl,),
-
               SizedBox(width: 30,),
             ],
-          ),
+          ) :
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Spacer(flex: 1,),
+                      Text("סטים: " + sets.toString(),style: GoogleFonts.assistant(
+                        color: Colors.grey[600]!,
+                        fontSize: 17,
+                      ),textDirection: TextDirection.rtl,),
+                      SizedBox(width: 30,),
+                    ],
+                  ),
+                  SizedBox(height: 5,),
+                  Row(
+
+                    children: [
+                      SizedBox(width: 30,),
+                      machineNumber == "-1" ? Container() : Text("מכונה מספר: " + machineNumber,style: GoogleFonts.assistant(
+                        color: Colors.grey[600]!,
+                        fontSize: 17,
+                      ), textDirection: TextDirection.rtl,),
+                      Spacer(flex: 1,),
+                      Text("חזרות: " + reps.toString(),style: GoogleFonts.assistant(
+                        color: Colors.grey[600]!,
+                        fontSize: 17,
+                      ),textDirection: TextDirection.rtl,),
+
+                      SizedBox(width: 30,),
+                    ],
+                  ),
+                ],
+              ),
+
           SizedBox(height: 20,),
         ],
       ),
