@@ -33,6 +33,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212666811647:android:406cf7dc63ba03c22438ca",
+        "android_client_info": {
+          "package_name": "com.gymhero.b2buisness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212666811647-5v7v5ll9uujc237dudgere4e43r1d19j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBatm3vX1fyuuvz8ZqE99eRuole-5RiQmY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212666811647-5v7v5ll9uujc237dudgere4e43r1d19j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

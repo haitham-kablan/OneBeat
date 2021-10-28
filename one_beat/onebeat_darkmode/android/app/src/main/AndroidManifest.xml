@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.onebeat_darkmode">
    <application
-        android:label="onebeat_darkmode"
+        android:label="Gym Hero"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

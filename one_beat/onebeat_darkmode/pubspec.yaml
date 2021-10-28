@@ -32,6 +32,12 @@ dependencies:
   carousel_slider: ^4.0.0
   url_launcher: ^6.0.12
   flutter_native_splash: ^1.2.4
+  flutter_launcher_icons: "^0.9.2"
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/app_logo/app_logo.png"
 
 
 flutter_native_splash:
