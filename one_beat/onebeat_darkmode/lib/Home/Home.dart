@@ -517,18 +517,28 @@ class _HomeState extends State<Home> {
                                   SizedBox(height: 10,),
                                   Image.asset("assets/ticket.png",width: 70,height: 70,),
                                   SizedBox(height: 20,),
-                                  Center(
-                                    child: Text("החל מ",style:  assistantStyle(Colors.white, 14),),
+                                  GymHeroUser.userMemberShip.startDay == "-" ? Center(
+                                    child: Container(
+                                        width:size.width * 0.30,
+                                        child: Text("נא לגשת למתאמן כדי לעדכן פרטי מנויי",style: TextStyle(color: Colors.grey,fontSize: 13),textAlign: TextAlign.center,)),
+                                  ) : Column(
+                                    children: [
+                                      Center(
+                                        child: Text("החל מ",style:  assistantStyle(Colors.white, 14),),
+                                      ),
+                                      Center(child:
+                                      Text(GymHeroUser.userMemberShip.startDay == "-" ? "_": GymHeroUser.userMemberShip.startDay +" / " + GymHeroUser.userMemberShip.startMonth + " / " + GymHeroUser.userMemberShip.startYaer,style: assistantStyle(Colors.grey[600]!, 14),),
+                                      ),
+                                      Center(
+                                        child: Text("עד",style:  assistantStyle(Colors.white, 14),),
+                                      ),
+
+                                      Center(child:
+                                      Text(GymHeroUser.userMemberShip.startDay == "-" ? "_":  GymHeroUser.userMemberShip.endDay +" / " + GymHeroUser.userMemberShip.endMonth + " / " + GymHeroUser.userMemberShip.endYaer,style: assistantStyle(Colors.grey[600]!, 14),),
+                                      ),
+                                    ],
                                   ),
-                                  Center(child:
-                                  Text(GymHeroUser.userMemberShip.startDay == "-" ? "_": GymHeroUser.userMemberShip.startDay +" / " + GymHeroUser.userMemberShip.startMonth + " / " + GymHeroUser.userMemberShip.startYaer,style: assistantStyle(Colors.grey[600]!, 14),),
-                                  ),
-                                  Center(
-                                    child: Text("עד",style:  assistantStyle(Colors.white, 14),),
-                                  ),
-                                  Center(child:
-                                  Text(GymHeroUser.userMemberShip.startDay == "-" ? "":  GymHeroUser.userMemberShip.endDay +" / " + GymHeroUser.userMemberShip.endMonth + " / " + GymHeroUser.userMemberShip.endYaer,style: assistantStyle(Colors.grey[600]!, 14),),
-                                  ),
+
                                 ],
                               ),
                             ),
@@ -596,7 +606,7 @@ class _HomeState extends State<Home> {
                                           Column(
                                             children: [
                                               SizedBox(height: 15,),
-                                              Text((gymHeroUser.programs[plansCurrent].name.length > 4 ? gymHeroUser.programs[plansCurrent].name.substring(0,3) + "..": gymHeroUser.programs[plansCurrent].name),style: assistantStyle(Colors.white, 18),),
+                                              Text((gymHeroUser.programs[plansCurrent].name.length > 5 ? ".." + gymHeroUser.programs[plansCurrent].name.substring(0,3): gymHeroUser.programs[plansCurrent].name),style: assistantStyle(Colors.white, 18),),
                                               Text(gymHeroUser.programs[plansCurrent].days.length.toString() + "  אימונים",style: assistantStyle(Colors.grey[600]!, 14),textDirection: TextDirection.rtl,),
                                             ],
                                           ),

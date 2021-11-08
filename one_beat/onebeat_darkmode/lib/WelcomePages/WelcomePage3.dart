@@ -24,6 +24,7 @@ class _WelcomePage3State extends State<WelcomePage3> {
 
   bool male = true;
   bool isLoading = false;
+  bool accepted = false;
   TextEditingController age = TextEditingController();
   TextEditingController weight = TextEditingController();
   TextEditingController height = TextEditingController();
@@ -285,8 +286,6 @@ class _WelcomePage3State extends State<WelcomePage3> {
                     return;
                   }
 
-
-
                   try{
                     gymHeroUser.age = double.parse(age.text);
                     if(gymHeroUser.age < 5 || gymHeroUser.age > 100){
@@ -298,41 +297,14 @@ class _WelcomePage3State extends State<WelcomePage3> {
                     return;
                   }
 
+                showDialog(context: context,
+                    builder: (context){
+                  return acceptDialouge(size: size,weight: weight.text,male: male,);
+                    });
 
 
-                gymHeroUser.fristTime = false;
 
-                Map<String,dynamic> map =  Map();
 
-                gymHeroUser.Measures.insert(0,SpecificMeasure(weight.text, "-", "-", "-", DateTime.now()));
-                gymHeroUser.goalMeasures.insert(0,SpecificMeasure("-", "-", "-", "-", DateTime.now()));
-
-                map["age"] = gymHeroUser.age;
-                //map["weight"] = gymHeroUser.weight;
-                map["height"] = gymHeroUser.height;
-                map["gender"] = male;
-                map["fristTime"] = gymHeroUser.fristTime;
-                gymHeroUser.gender = male;
-
-                setState(() {
-                  isLoading = true;
-                });
-
-                await DataBaseService.updateUser(map);
-                await DataBaseService.addMeasureForUser(gymHeroUser.email, SpecificMeasure(weight.text, "-", "-", "-", DateTime.now()));
-                await DataBaseService.addGoalMeasureForUser(gymHeroUser.email, SpecificMeasure("-", "-", "-", "-", DateTime.now()));
-
-                setState(() {
-                  isLoading = false;
-                });
-                await DataBaseService.getUserMemberShip(gymHeroUser.email);
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => Home(),
-                  ),
-                      (route) => false,
-                );
               }),
               SizedBox(height: size.height * 0.05,),
               Dots(2),
@@ -344,4 +316,442 @@ class _WelcomePage3State extends State<WelcomePage3> {
       ),
     );
   }
+
+
 }
+
+
+
+class acceptDialouge extends StatefulWidget {
+  final Size size;
+  final bool male;
+  final String weight;
+  const acceptDialouge({Key? key, required this.size, required this.male, required this.weight}) : super(key: key);
+
+  @override
+  _acceptDialougeState createState() => _acceptDialougeState(size,male,weight);
+}
+
+class _acceptDialougeState extends State<acceptDialouge> {
+  final Size size;
+  final bool male;
+  final String weight;
+
+  _acceptDialougeState(this.size, this.male, this.weight);
+  Color getColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+    };
+    if (states.any(interactiveStates.contains)) {
+      return greenClr;
+    }
+    return greenClr;
+  }
+  bool accepted = false;
+  bool isLoading = false;
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child:Material(
+          color: Colors.transparent,
+          child: Container(
+            width: size.width * 0.8,
+            height: size.height * 0.8,
+            decoration: BoxDecoration(
+                color: backGroundClr,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(width: 0.25,color: Colors.white)
+            ),
+            child: Scrollbar(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: 20,),
+                    Center(
+                      child: Material(
+                          color:Colors.transparent,
+                          child: Container(
+                              width: size.width * 0.7,
+                              child: Text("טופס קבלת מתאמן חדש",style: assistantStyle(greenClr, 23),textAlign: TextAlign.center,))),
+                    ),
+                    SizedBox(height: 20,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("1.  הסבר על שעות הפעילות ועל זמני החוגים",style: assistantStyle(greenClr, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 20,),
+
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("2.  הסבר על הוראות התנהגות בתוך המועדון:",style: assistantStyle(greenClr, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 20,),
+
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  יש לשמור על שקט",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  חובה להשתמש במגבת",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  אין להיכנס לשטח הקבלה ומאחורי הדלפק",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("חניה:",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  אין לחנות בכניסה למאפייה",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  אין חנייה בבניין רפיק חמזה",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  כל בעיית חנייה יש לפנות למדריך/ה שבמשמרת",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("3.  הקפאות:",style: assistantStyle(greenClr, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 20,),
+
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  מנוי שנתי עד חודש הקפאה",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  מנוי חצי שנתי עד שבועיים הקפאה",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  מנוי 3 חודשים עד שבוע הקפאה",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  מנוי חודשי וכרטיסיות לא ניתן להקפיא",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("* דגשים להקפאת המנוי:",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  ההקפאה היא לתקופת המנוי ולא לכסף",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  ניתן להקפיא רק עקב מחלה , מילואים, היריון, חופשה בת יותר משבוע",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("3.  ביטול מנוי:",style: assistantStyle(greenClr, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 20,),
+
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  מנוי שנתי, הודעה חודש מראש, חיוב 10% מסה\"כ היתרה עד סוף תקופת המנוי",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  מנוי חצי שנתי הודעה שבועיים מראש, חיוב 10% מסה\"כ היתרה עד סוף תקופת המנוי",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  מנוי 3 חודשים לא ניתן לבטל",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  מנוי חודשי לא ניתן לבטל",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("-  כרטיסיות לא ניתן לבטל",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("5.  תוספי תזונה",style: assistantStyle(greenClr, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 20,),
+
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("6.  החתמת תצהיר בריאות",style: assistantStyle(greenClr, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 20,),
+
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("7.  הזנת נתונים אישיים,טבלת מדידות",style: assistantStyle(greenClr, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 20,),
+
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("8.  מתן תוכנית כללית",style: assistantStyle(greenClr, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.65,),
+                        SizedBox(width: 20,),
+
+                      ],
+                    ),
+                    SizedBox(height: 20,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Text("אני מצהיר/ה בזאת כי קיבלתי הסבר מפורט על כל הנזכר לעיל וכי כל הסעיפים מקובלים עלי",style: assistantStyle(Colors.white, 15),textAlign: TextAlign.start,textDirection: TextDirection.rtl,),
+                          width: size.width * 0.58,),
+                        Checkbox(
+                          checkColor: Colors.white,
+                          fillColor: MaterialStateProperty.resolveWith(getColor),
+                          value: accepted,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              accepted = value!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 40,),
+                    isLoading ? CircularProgressIndicator(
+                      backgroundColor: navBarClr,
+                      color: greenClr,
+                    )
+                        :button(greenClr , "התחל" , Colors.white , BorderRadius.circular(30),size.width * 0.37,size.height * 0.037,() async {
+
+                          if(accepted == false){
+                            ShowError(context, "אתה חייב לאשר את תנאי השימוש באפליקציה");
+                            return;
+                          }
+
+
+
+                          gymHeroUser.fristTime = false;
+
+                          Map<String,dynamic> map =  Map();
+
+                          gymHeroUser.Measures.insert(0,SpecificMeasure(weight, "-", "-", "-", DateTime.now()));
+                          gymHeroUser.goalMeasures.insert(0,SpecificMeasure("-", "-", "-", "-", DateTime.now()));
+
+                          map["age"] = gymHeroUser.age;
+//map["weight"] = gymHeroUser.weight;
+                      map["height"] = gymHeroUser.height;
+                      map["gender"] = male;
+                      map["fristTime"] = gymHeroUser.fristTime;
+                      gymHeroUser.gender = male;
+
+                      setState(() {
+                        isLoading = true;
+                      });
+
+                      await DataBaseService.updateUser(map);
+                      await DataBaseService.addMeasureForUser(gymHeroUser.email, SpecificMeasure(weight, "-", "-", "-", DateTime.now()));
+                      await DataBaseService.addGoalMeasureForUser(gymHeroUser.email, SpecificMeasure("-", "-", "-", "-", DateTime.now()));
+
+                      setState(() {
+                        isLoading = false;
+                      });
+                      await DataBaseService.getUserMemberShip(gymHeroUser.email);
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => Home(),
+                        ),
+                            (route) => false,
+                      );
+                    }),
+                    SizedBox(height: 40,),
+
+                  ],
+                ),
+              ),
+            ),
+          ),
+        )
+    );
+  }
+}
+
