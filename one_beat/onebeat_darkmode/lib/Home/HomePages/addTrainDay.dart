@@ -109,13 +109,13 @@ class _addTrainDayState extends State<addTrainDay> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    GeneralExcerise(Category.CHEST,"").getPicTile((){
+                    GeneralExcerise(Category.CHEST,"",null).getPicTile((){
                       ExceriseListDialouge(context, size, widgets[0]);
                     }),
-                    GeneralExcerise(Category.BACK,"").getPicTile((){
+                    GeneralExcerise(Category.BACK,"",null).getPicTile((){
                       ExceriseListDialouge(context, size, widgets[1]);
                     }),
-                    GeneralExcerise(Category.SHOULDERS,"").getPicTile((){
+                    GeneralExcerise(Category.SHOULDERS,"",null).getPicTile((){
                       ExceriseListDialouge(context, size, widgets[4]);
                     }),
 
@@ -125,13 +125,13 @@ class _addTrainDayState extends State<addTrainDay> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    GeneralExcerise(Category.LEGS,"").getPicTile((){
+                    GeneralExcerise(Category.LEGS,"",null).getPicTile((){
                       ExceriseListDialouge(context, size, widgets[6]);
                     }),
-                    GeneralExcerise(Category.BICEPS,"").getPicTile((){
+                    GeneralExcerise(Category.BICEPS,"",null).getPicTile((){
                       ExceriseListDialouge(context, size, widgets[2]);
                     }),
-                    GeneralExcerise(Category.TRICEPS,"").getPicTile((){
+                    GeneralExcerise(Category.TRICEPS,"",null).getPicTile((){
                       ExceriseListDialouge(context, size, widgets[3]);
                     }),
                   ],
@@ -143,10 +143,10 @@ class _addTrainDayState extends State<addTrainDay> {
                     Container(
                       width: size.width * 0.29,
                     ),
-                    GeneralExcerise(Category.CARDIO,"").getPicTile((){
+                    GeneralExcerise(Category.CARDIO,"",null).getPicTile((){
                       ExceriseListDialouge(context, size, widgets[7]);
                     }),
-                    GeneralExcerise(Category.ABS,"").getPicTile((){
+                    GeneralExcerise(Category.ABS,"",null).getPicTile((){
                       ExceriseListDialouge(context, size, widgets[5]);
                     }),
 
@@ -188,6 +188,8 @@ class _ExceriseTileState extends State<ExceriseTile> {
   _ExceriseTileState(this.name, this.category , this.isChecked , this.sets , this.reps, this.day);
   @override
   Widget build(BuildContext context) {
+
+
     Size size = MediaQuery.of(context).size;
     return Material(
       color: Colors.transparent,
@@ -419,7 +421,7 @@ class _ExcerisesWidgetState extends State<ExcerisesWidget> {
                 Spacer(flex: 1,),
               ],
             ),
-            Image.asset(GeneralExcerise(category,"").getCategoryPic() , height: 100,width: 100,),
+            Image.asset(GeneralExcerise(category,"",null).getCategoryPic() , height: 100,width: 100,),
             SizedBox(height: 10,),
             Material(
               color: Colors.transparent,

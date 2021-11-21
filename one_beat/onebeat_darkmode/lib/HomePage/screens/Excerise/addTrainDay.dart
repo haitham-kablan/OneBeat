@@ -143,7 +143,7 @@ class _CategoriesExceriseListState extends State<CategoriesExceriseList> {
             ),
             Padding(
               padding: const EdgeInsets.only(right:15),
-              child: Image.asset(utils.GeneralExcerise(stringCategoryToCategory(muscles[index]),"").getCategoryPic() , width: 80,height: 70,),
+              child: Image.asset(utils.GeneralExcerise(stringCategoryToCategory(muscles[index]),"",null).getCategoryPic() , width: 80,height: 70,),
             )
           ],
         ),

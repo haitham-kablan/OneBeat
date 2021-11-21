@@ -1,4 +1,5 @@
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -134,7 +135,7 @@ class _ReigesterPageState extends State<ReigesterPage> {
                         return;
                       }
 
-                      if(!isEmail(email)){
+                      if(!EmailValidator.validate(email)){
                         setState(()  {
                           isLoading = false;
                         });
@@ -228,17 +229,3 @@ class _ReigesterPageState extends State<ReigesterPage> {
 //
 // }
 
-bool isEmail(String string) {
-  // Null or empty string is invalid
-  if (string == null || string.isEmpty) {
-    return false;
-  }
-
-  const pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
-  final regExp = RegExp(pattern);
-
-  if (!regExp.hasMatch(string)) {
-    return false;
-  }
-  return true;
-}

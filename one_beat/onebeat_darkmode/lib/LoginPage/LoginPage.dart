@@ -3,6 +3,7 @@
 
 
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:onebeat_darkmode/DataBase/Authentication/Authentication.dart';
@@ -62,7 +63,13 @@ class _LogInPageState extends State<LogInPage> {
                       Colors.white,EdgeInsets.only(left: 50,right: 50),passwordControler,obsecure: true),
                 ),
                 //Spacer(flex: 1,),
-                SizedBox(height: 170,),
+                SizedBox(height: 130,),
+                // IconButton(
+                //   icon: Icon(Icons.account_circle_outlined,color: Colors.white,),
+                //   onPressed: () async{
+                //     await DataBaseService.updateExceriseVideo("בקרוס אובר face pull","כתף-אחורי-חתירה-לפנים-בקרוס-אובר.gif");
+                //   },
+                // ),
                 isLoading ? CircularProgressIndicator(
                   backgroundColor: navBarClr,
                   color: greenClr,
@@ -89,8 +96,7 @@ class _LogInPageState extends State<LogInPage> {
                             await ShowError(context, "אחד או יותר מהשדות שלך הם ריקים , נא מלא אותם");
                             return;
                           }
-
-                          if (!isEmail(emailControler.text)){
+                          if(!EmailValidator.validate(emailControler.text)){
                             setState(()  {
                               isLoading = false;
                             });

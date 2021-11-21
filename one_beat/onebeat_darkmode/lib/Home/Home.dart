@@ -143,7 +143,8 @@ class _HomeState extends State<Home> {
                         child: InkWell(
                           splashColor: greyClr,
                           onTap: () async{
-                            await DataBaseService.getSystemUsers();
+
+                            AllUsers.pickedUser = null;
                             Navigator.push(context, CustomPageRoute(child: AllUsers(onClick: refresh,)));
                           },
                           child: Container(
@@ -341,8 +342,10 @@ class _HomeState extends State<Home> {
                           elevation: 3,
                           child: InkWell(
                             splashColor: greyClr,
-                            onTap: (){
-                             ShowError(context,"נא גש למאמן כדי לעדכן את היעדים שלך");
+                            onTap:(){
+                              AllUsers.pickedUser = gymHeroUser;
+                              Navigator.push(context,CustomPageRoute(child:goals(refresh:refresh)));
+
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -415,8 +418,11 @@ class _HomeState extends State<Home> {
           elevation: 3,
           child: InkWell(
             splashColor: greyClr,
+
             onTap:(){
-              ShowError(context,"נא גש למאמן כדי לעדכן את המדידות שלך");
+              AllUsers.pickedUser = gymHeroUser;
+              Navigator.push(context,CustomPageRoute(child:Measure(onClick: refresh,refresh:refresh)));
+
             },
 
             child: Container(

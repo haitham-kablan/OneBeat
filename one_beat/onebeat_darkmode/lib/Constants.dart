@@ -6,16 +6,16 @@ import 'package:onebeat_darkmode/utils/ExceriseTile.dart';
 final List<ExceriseTile> WeightReduce = List.of(
     {
 
-          ExceriseTile(name: "אירובי - הליכון / סטודיו / אליפטי / אופניים", sets: -1, reps: "20-60", machineNumber: "-1",category: "קרדיו",),
-          ExceriseTile(name: "לחיצת חזה במכונה ", sets: 2, reps: "10", machineNumber: "17",category: "חזה",),
-          ExceriseTile(name: "פרפר במכונה ", sets: 2, reps: "10", machineNumber: "18",category: "חזה",),
-          ExceriseTile(name: "משיכת פולי עליון רחב לחזה ", sets: 2, reps: "10", machineNumber: "4",category: "גב",),
-          ExceriseTile(name: "חתירה במכונה אחיזה צרה ", sets: 2, reps: "10", machineNumber: "19",category: "גב",),
-          ExceriseTile(name: "לחיצת כתפיים במכונה ", sets: 3, reps: "10", machineNumber: "-1",category: "כתפיים",),
-          ExceriseTile(name: "לחיצת רגליים במכונה ", sets: 2, reps: "10", machineNumber: "10",category: "רגליים",),
-          ExceriseTile(name: "פשיטת ברכיים במכונה  ", sets: 2, reps: "10", machineNumber: "20",category: "רגליים",),
+          ExceriseTile(name: "אירובי - הליכון / סטודיו / אליפטי / אופניים", sets: -1, reps: "20-60", machineNumber: "-1",category: "קרדיו"),
+          ExceriseTile(name: "לחיצת חזה במכונה", sets: 2, reps: "10", machineNumber: "17",category: "חזה",),
+          ExceriseTile(name: "פרפר במכונה", sets: 2, reps: "10", machineNumber: "18",category: "חזה",),
+          ExceriseTile(name: "משיכת פולי עליון רחב לחזה", sets: 2, reps: "10", machineNumber: "4",category: "גב",),
+          ExceriseTile(name: "חתירה במכונה אחיזה צרה", sets: 2, reps: "10", machineNumber: "19",category: "גב",),
+          ExceriseTile(name: "לחיצת כתפיים במכונה", sets: 3, reps: "10", machineNumber: "-1",category: "כתפיים",),
+          ExceriseTile(name: "לחיצת רגליים במכונה", sets: 2, reps: "10", machineNumber: "10",category: "רגליים",),
+          ExceriseTile(name: "פשיטת ברכיים במכונה ", sets: 2, reps: "10", machineNumber: "20",category: "רגליים",),
           ExceriseTile(name: "כפיפת מרפקים כנגד מוט בקרוס אובר", sets: 2, reps: "10", machineNumber: "1",category: "קדמית",),
-          ExceriseTile(name: "פשיטת מרפקים כנגד חבל בקרוס אובר ", sets: 2, reps: "10", machineNumber: "1",category: "אחורית",),
+          ExceriseTile(name: "פשיטת מרפקים כנגד חבל בקרוס אובר", sets: 2, reps: "10", machineNumber: "1",category: "אחורית",),
           ExceriseTile(name: "בטן חופשי", sets: 3, reps: "10", machineNumber: "-1",category: "בטן",),
     }
 );
@@ -23,15 +23,15 @@ final List<ExceriseTile> WeightReduce = List.of(
 
 final List<ExceriseTile> gainMuscle = List.of(
     {
-          ExceriseTile(name: "לחיצת חזה במכונה ", sets: 2, reps: "10", machineNumber: "17",category: "חזה",),
-          ExceriseTile(name: "פרפר במכונה ", sets: 2, reps: "10", machineNumber: "18",category: "חזה",),
-          ExceriseTile(name: "משיכת פולי עליון רחב לחזה ", sets: 2, reps: "10", machineNumber: "4",category: "גב",),
-          ExceriseTile(name: "חתירה במכונה אחיזה צרה ", sets: 2, reps: "10", machineNumber: "19",category: "גב",),
-          ExceriseTile(name: "לחיצת כתפיים במכונה ", sets: 3, reps: "10", machineNumber: "-1",category: "כתפיים",),
-          ExceriseTile(name: "לחיצת רגליים במכונה ", sets: 2, reps: "10", machineNumber: "10",category: "רגליים",),
-          ExceriseTile(name: "פשיטת ברכיים במכונה  ", sets: 2, reps: "10", machineNumber: "20",category: "רגליים",),
+          ExceriseTile(name: "לחיצת חזה במכונה", sets: 2, reps: "10", machineNumber: "17",category: "חזה",),
+          ExceriseTile(name: "פרפר במכונה", sets: 2, reps: "10", machineNumber: "18",category: "חזה",),
+          ExceriseTile(name: "משיכת פולי עליון רחב לחזה", sets: 2, reps: "10", machineNumber: "4",category: "גב",),
+          ExceriseTile(name: "חתירה במכונה אחיזה צרה", sets: 2, reps: "10", machineNumber: "19",category: "גב",),
+          ExceriseTile(name: "לחיצת כתפיים במכונה", sets: 3, reps: "10", machineNumber: "-1",category: "כתפיים",),
+          ExceriseTile(name: "לחיצת רגליים במכונה", sets: 2, reps: "10", machineNumber: "10",category: "רגליים",),
+          ExceriseTile(name: "פשיטת ברכיים במכונה", sets: 2, reps: "10", machineNumber: "20",category: "רגליים",),
           ExceriseTile(name: "כפיפת מרפקים כנגד מוט בקרוס אובר", sets: 2, reps: "10", machineNumber: "1",category: "קדמית",),
-          ExceriseTile(name: "פשיטת מרפקים כנגד חבל בקרוס אובר ", sets: 2, reps: "10", machineNumber: "1",category: "אחורית",),
+          ExceriseTile(name: "פשיטת מרפקים כנגד חבל בקרוס אובר", sets: 2, reps: "10", machineNumber: "1",category: "אחורית",),
           ExceriseTile(name: "בטן חופשי", sets: 3, reps: "10", machineNumber: "-1",category: "בטן",),
     }
 );

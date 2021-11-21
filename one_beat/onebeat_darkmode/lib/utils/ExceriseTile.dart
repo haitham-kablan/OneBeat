@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,10 +19,24 @@ class ExceriseTile extends StatelessWidget {
 
 
 
-  const ExceriseTile({Key? key,  required this.name,  required this.sets,  required this.reps,  required this.machineNumber, required this.category}) : super(key: key);
+
+  ExceriseTile({Key? key,  required this.name,  required this.sets,  required this.reps,  required this.machineNumber, required this.category}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String? link = null;
+
+    if (! DataBaseService.systemExcerises.containsKey(stringCategoryToCategory(category))){
+      link = null;
+    }else{
+      if (DataBaseService.systemExcerises[stringCategoryToCategory(category)]!.isEmpty){
+        link = null;
+      }else{
+        link = DataBaseService.systemExcerises[stringCategoryToCategory(category)]!.where((element) => element.name == name).isEmpty ? null :
+        DataBaseService.systemExcerises[stringCategoryToCategory(category)]!.where((element) => element.name == name).first.link;
+      }
+    }
+
 
     return Container(
     //  margin: EdgeInsets.only(left: 10,right: 10),
@@ -37,7 +52,7 @@ class ExceriseTile extends StatelessWidget {
           Row(
             children: [
               SizedBox(width: 25,),
-              Image.asset(GeneralExcerise(stringCategoryToCategory(category),name).getCategoryPic(),height: 60,width: 60,),
+              Image.asset(GeneralExcerise(stringCategoryToCategory(category),name,null).getCategoryPic(),height: 60,width: 60,),
 
               Spacer(flex: 1,),
 
@@ -90,6 +105,7 @@ class ExceriseTile extends StatelessWidget {
 
                     children: [
                       SizedBox(width: 30,),
+
                       machineNumber == "-1" ? Container() : Text("מכונה מספר: " + machineNumber,style: GoogleFonts.assistant(
                         color: Colors.grey[600]!,
                         fontSize: 17,
@@ -101,6 +117,36 @@ class ExceriseTile extends StatelessWidget {
                       ),textDirection: TextDirection.rtl,),
 
                       SizedBox(width: 30,),
+                    ],
+                  ),
+                  machineNumber != -1 ? SizedBox(height: 10,):Container() ,
+                  Row(
+                    children: [
+                      machineNumber != -1 ? SizedBox(width: 30,):SizedBox(width: 25,) ,
+                      link == null ? Container() :
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: (){
+                            showDialog(context: context,
+                                builder: (c){
+                              return Center(
+                                child: Stack(
+                                  children: [
+                                    Center(
+                                      child: Container(
+                                        color: Colors.transparent, child: CircularProgressIndicator(
+                                        color: greenClr,),
+                                      ),
+                                    ),
+                                    Center(child: Image.network(link!,width: 275,height: 275,)),
+                                  ],
+                                ),
+                              );});
+                          },
+                          child: Text("צפייה בתרגיל",style: assistantStyle(greenClr, 14),),
+                        ),
+                      ),
                     ],
                   ),
                 ],

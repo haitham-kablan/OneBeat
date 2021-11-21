@@ -99,7 +99,7 @@ class _AllExcerisesState extends State<AllExcerises> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Image.asset(GeneralExcerise(stringCategoryToCategory(i),"").getCategoryPic() , width: 100,height: 90,),
+                                  Image.asset(GeneralExcerise(stringCategoryToCategory(i), "",null).getCategoryPic() , width: 100,height: 90,),
                                   Text(i , style: greenText(25),),
                                   Text( DataBaseService.systemExcerises[stringCategoryToCategory(i)]!.length.toString() + "  תרגיל" , style: explaintion(13),textDirection: TextDirection.rtl,),
 

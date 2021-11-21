@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -67,7 +68,26 @@ class DataBaseService{
   //     return Container();
   //   },
   // );
+  
+  static updateExceriseVideo(String systemname,String storageName) async{
 
+    QuerySnapshot cr = await exceriseCollection.where("name",isEqualTo: systemname).get();
+    String docName = cr.docs[0].id;
+    print("got doc name: " + docName);
+
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+    String url = await firebaseStorage.ref()
+        .child('shoulders').child(storageName).getDownloadURL();
+
+    print("url is : " + url);
+
+    Map<String,dynamic> map = Map();
+    map["link"] = url;
+    await exceriseCollection.doc(docName).update(map);
+
+
+
+  }
   static List<GymHeroUser> allUsers = [];
 
   static Future getUserMemberShip(String email)async{
@@ -81,8 +101,6 @@ class DataBaseService{
     );
   }
   static Future initDb()async{
-
-   //await getSystemUsers();
     await getSystemExcerises();
   }
   
@@ -219,10 +237,13 @@ class DataBaseService{
     await exceriseCollection.get().then(
             (value) {
               value.docs.forEach((element) {
+                String? link = ((element.data()!) as Map<String,dynamic>).containsKey("link") ?
+                ((element.data()!) as Map<String,dynamic>)["link"] : null;
                 systemExcerises[stringCategoryToCategory(((element.data()!) as Map<String,dynamic>)["category"])]!
                     .add(utils.GeneralExcerise(
                     stringCategoryToCategory(((element.data()!) as Map<String,dynamic>)["category"]),
-                    ((element.data()!) as Map<String,dynamic>)["name"]));
+                    ((element.data()!) as Map<String,dynamic>)["name"],
+                    link));
               });
             });
   }

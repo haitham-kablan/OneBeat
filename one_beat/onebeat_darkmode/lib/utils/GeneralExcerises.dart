@@ -12,8 +12,9 @@ class GeneralExcerise{
 
   final Category category;
   final String name;
+  final String? link;
 
-  GeneralExcerise(this.category, this.name);
+  GeneralExcerise(this.category, this.name,this.link);
 
   StatefulWidget getSpecifcTile(){
     return getSpecificExceriseTile(name:name);
