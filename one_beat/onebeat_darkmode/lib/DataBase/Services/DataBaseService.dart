@@ -77,7 +77,7 @@ class DataBaseService{
 
     FirebaseStorage firebaseStorage = FirebaseStorage.instance;
     String url = await firebaseStorage.ref()
-        .child('shoulders').child(storageName).getDownloadURL();
+        .child('others').child(storageName).getDownloadURL();
 
     print("url is : " + url);
 

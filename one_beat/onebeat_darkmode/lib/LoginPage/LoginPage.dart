@@ -67,7 +67,7 @@ class _LogInPageState extends State<LogInPage> {
                 // IconButton(
                 //   icon: Icon(Icons.account_circle_outlined,color: Colors.white,),
                 //   onPressed: () async{
-                //     await DataBaseService.updateExceriseVideo("בקרוס אובר face pull","כתף-אחורי-חתירה-לפנים-בקרוס-אובר.gif");
+                //    await DataBaseService.updateExceriseVideo("תאומים בסמית משין","תאומים בסמית משין - רגליים.gif");
                 //   },
                 // ),
                 isLoading ? CircularProgressIndicator(
