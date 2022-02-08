@@ -9,6 +9,7 @@ import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
 import 'package:onebeat_darkmode/Home/HomePages/goals.dart';
 
+import '../GreetingHome.dart';
 import '../Home.dart';
 import 'AdminMeasure.dart';
 import 'allUsers.dart';

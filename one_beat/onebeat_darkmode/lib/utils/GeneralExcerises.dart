@@ -23,7 +23,7 @@ class GeneralExcerise{
     return Container(
       decoration: BoxDecoration(
         color: backGroundClr,
-       // border: Border.all(color:Colors.grey[800]! , width: 0.25),
+        border: Border.all(color:Colors.grey[800]! , width: 0.25),
 
       ),
       child: Column(

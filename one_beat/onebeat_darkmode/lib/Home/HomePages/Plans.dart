@@ -68,9 +68,9 @@ class _PlansState extends State<Plans> {
             "תוכניות אימון" , style: whiteText(20),
           ),
           centerTitle: true,
-          leading:  IconButton(onPressed: (){
-            Navigator.pop(context);
-          }, icon: Icon(Icons.chevron_left , color: Colors.white, size: 35,)),
+          // leading:  IconButton(onPressed: (){
+          //   Navigator.pop(context);
+          // }, icon: Icon(Icons.chevron_left , color: Colors.white, size: 35,)),
         ),
         body: Stack(
           children: [

@@ -8,6 +8,7 @@ import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
 import 'package:onebeat_darkmode/Design/Accesories/HorizontalList.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
+import 'package:onebeat_darkmode/Home/adminHomePages/addNewExcerise.dart';
 import 'package:onebeat_darkmode/utils/GeneralExcerises.dart';
 
 class AllExcerises extends StatefulWidget {
@@ -35,6 +36,16 @@ class _AllExcerisesState extends State<AllExcerises> {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            addNewExcerise(context,size);
+          },
+          backgroundColor: greenClr,
+          label: Text("הוספת תרגיל למערכת"),
+          icon: Icon(Icons.add,color: Colors.white,),
+
+
+        ),
         backgroundColor: backGroundClr,
         appBar: AppBar(
 
