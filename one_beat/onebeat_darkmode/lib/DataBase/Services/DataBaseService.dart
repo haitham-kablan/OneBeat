@@ -356,6 +356,16 @@ class DataBaseService{
 
   }
 
+  static Future checkIfUserExsist(String email)async{
+    DocumentReference documentReference = await usersCollection.doc(email);
+    DocumentSnapshot x = await documentReference.get();
+    if (!x.exists){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
   static Future updateFeild(String email,String fname,dynamic fvalue)async{
 
     Map<String,dynamic> map = Map();

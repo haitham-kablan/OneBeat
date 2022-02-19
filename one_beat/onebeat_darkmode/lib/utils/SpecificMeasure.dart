@@ -14,6 +14,7 @@ class SpecificMeasure{
   Map<String,dynamic> toMap(){
     Map<String,dynamic> map = Map();
     map["weight"] = weight;
+    map["height"] = height;
     map["arm"] = arm;
     map["stomach"] = stomach;
     map["bodyfat"] = bodyfat;

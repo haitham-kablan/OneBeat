@@ -18,6 +18,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   await DataBaseService.getSystemExcerises();
   await DataBaseService.getSystemUsers();
+  await FirebaseAuth.instance.currentUser;
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -31,6 +32,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (FirebaseAuth.instance.currentUser == null){
+      print("************************************************************");
+    }else{
+      print("sssssssssssss");
+    }
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home:

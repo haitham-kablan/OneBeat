@@ -57,7 +57,11 @@ class AuthenticationService{
 
      User? usr = await FirebaseAuth.instance.currentUser;
      if(usr == null){
-
+       return GymHeroUser.emptyUser("", "");
+     }
+     bool exsists = await DataBaseService.checkIfUserExsist(usr.email!);
+     if (!exsists){
+       await FirebaseAuth.instance.signOut();
        return GymHeroUser.emptyUser("", "");
      }
      await DataBaseService.getUserMemberShip(usr.email!);
