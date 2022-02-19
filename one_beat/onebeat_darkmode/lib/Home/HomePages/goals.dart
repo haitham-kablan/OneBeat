@@ -10,256 +10,330 @@ import 'package:onebeat_darkmode/DataBase/Services/DataBaseService.dart';
 import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
 import 'package:onebeat_darkmode/Design/Button/ButtonStyle.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
+import 'package:onebeat_darkmode/Design/ShowError.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
 import 'package:onebeat_darkmode/Home/adminHomePages/allUsers.dart';
 import 'package:onebeat_darkmode/utils/SpecificMeasure.dart';
 
 
 class goals extends StatefulWidget {
-  const goals({Key? key, this.refresh}) : super(key: key);
+  const goals({Key? key, this.refresh, this.onClick}) : super(key: key);
   final refresh;
+  final onClick;
 
   @override
-  _goalsState createState() => _goalsState(refresh);
+  _goalsState createState() => _goalsState(refresh,onClick);
 }
 
 class _goalsState extends State<goals> {
   final refresh;
-  double value = 25;
+  final onClick;
+
+
+  TextEditingController heightc = TextEditingController();
+  TextEditingController bodyfatc = TextEditingController();
+  TextEditingController weightc = TextEditingController();
+  TextEditingController stomachc = TextEditingController();
+  TextEditingController armc = TextEditingController();
+
   String category = "משקל";
   String sizeElm = "ק\"ג";
   double min = 25;
   double max = 170;
   bool isLoading = false;
+  bool x  = true;
 
-  String goalweight = "25";
-  String goalbodyfat = "45";
-  String goalarmSize = "10";
-  String goalstomachSize = "15";
+  String weight = "25";
+  String bodyfat = "45";
+  String arm = "10";
+  String stomach = "15";
+
 
   int counter = 0;
   List<String> program = ["משקל" , "אחוז שומן", "היקף ידיים","היקף בטן"];
 
-  _goalsState(this.refresh);
+  _goalsState(this.refresh, this.onClick);
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-
+          elevation: 10,
           backgroundColor: greyClr,
-          elevation: 3,
-          centerTitle: true,
           title: Text(
             "יעדים" , style: whiteText(20),
           ),
+          centerTitle: true,
+          leading:  IconButton(onPressed: (){
+            Navigator.pop(context);
+          }, icon: Icon(Icons.chevron_left , color: Colors.white, size: 35,)),
         ),
         backgroundColor: backGroundClr,
         body: SingleChildScrollView(
-          child: Container(
-            height: size.height,
-            child: Column(
-              children: [
-                SizedBox(height: size.height * 0.05,),
-                Row(
-                  children: [
-                    Spacer(flex: 1,),
-                    counter != 0 ? IconButton(
-                      icon: Icon(Icons.arrow_left , color: emptyDotClr,size: 33,),
-                      onPressed: (){
-                        setState(() {
-                          counter--;
-                          if(counter == 0){
-                            min = 25;
-                            max = 170;
-
-                            category = "משקל";
-                            sizeElm = "ק\"ג";
-                          }
-                          if(counter == 1){
-                            min = 3;
-
-                            max = 45;
-                            category = program[counter];
-                            sizeElm = "%";
-                          }
-                          if(counter == 2){
-                            min = 10;
-
-                            max = 60;
-                            category = program[counter];
-                            sizeElm = "ס\"מ";
-                          }
-                          if(counter == 3){
-                            min = 15;
-
-                            max = 120;
-                            category = program[counter];
-                            sizeElm = "ס\"מ";
-                          }
-                        });
-                      },
-                    ) : Container(width: 25,height: 25,),
-                    SizedBox(width: 25,),
-                    Text(program[counter], style: GoogleFonts.assistant(
-                      color: Colors.grey[600]!,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 35,
-                    ),),
-                    SizedBox(width: 25,),
-                    counter == program.length - 1 ? Container(width: 25,height: 25,) : IconButton(
-                      icon: Icon(Icons.arrow_right , color: emptyDotClr , size: 33,),
-                      onPressed: (){
-                        setState(() {
-                          counter++;
-                          if(counter == 0){
-                            min = 25;
-                            max = 170;
-
-                            category = "משקל";
-                            sizeElm = "ק\"ג";
-                          }
-                          if(counter == 1){
-                            min = 3;
-
-                            max = 45;
-                            category = program[counter];
-                            sizeElm = "%";
-                          }
-                          if(counter == 2){
-                            min = 10;
-
-                            max = 60;
-                            category = program[counter];
-                            sizeElm = "ס\"מ";
-                          }
-                          if(counter == 3){
-                            min = 15;
-
-                            max = 120;
-                            category = program[counter];
-                            sizeElm = "ס\"מ";
-                          }
-                        });
-                      },
+            child:
+            Container(
+              child: Column(
+                children: [
+                  SizedBox(height: 20,),
+                  Center(
+                    child: Text(
+                      "נא הזן את היעדים החדשים" , style: greenText(20),
                     ),
-                    Spacer(flex: 1,),
-                  ],
-                ),
-                SizedBox(height: 20,),
-                SizedBox(height: 40,),
-                SizedBox(height: 40,),
-                Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text((counter == 0 ? goalweight : (counter == 1 ? goalbodyfat : (counter == 2? goalarmSize:goalstomachSize))) , style: GoogleFonts.rubik(
-                          color: Colors.white,
-                          fontSize: 90,
-                        ),),
-                        Text(sizeElm , style: GoogleFonts.rubik(
-                          color: Colors.white,
-                          fontSize: 30,
-                        ),)
-                      ],
-                    )
-                ),
-                SizedBox(height: 35,),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 37),
-                      child: Row(
-                        children: [
-                          Text("Min  " , style: GoogleFonts.rubik(
-                            color: Color(0xff707070),
-                            fontSize: 15,
-                          ),),
-                          Text(min.toStringAsFixed(0), style: GoogleFonts.rubik(
-                            color: Color(0xff707070),
-                            fontSize: 15,
-                          ),),
-                        ],
-                      ),
-                    ),
-                    Spacer(flex: 1,),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 37),
-                      child: Row(
-                        children: [
-                          Text("Max  " , style: GoogleFonts.rubik(
-                            color: Color(0xff707070),
-                            fontSize: 15,
-                          ),),
-                          Text(max.toStringAsFixed(0), style: GoogleFonts.rubik(
-                            color: Color(0xff707070),
-                            fontSize: 15,
-                          ),),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: size.height * 0.01,),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15 , right: 15),
-                  child: Container(
-                    child: Slider(
-                        activeColor: greenClr,
-                        inactiveColor: Colors.grey[300],
-                        min: min,
-                        max: max,
-                        value: double.parse(counter == 0 ? goalweight : (counter == 1 ? goalbodyfat : (counter == 2? goalarmSize:goalstomachSize))),
-                        onChanged: (val){
-                          setState(() {
-                            if(counter == 0){
-                              goalweight = val.toStringAsFixed(1);
-                            }
-                            if(counter == 1){
-                              goalbodyfat = val.toStringAsFixed(1);
-                            }
-                            if(counter == 2){
-                              goalarmSize = val.toStringAsFixed(1);
-                            }
-                            if(counter == 3){
-                              goalstomachSize = val.toStringAsFixed(1);
-                            }
-
-                          });
-                        }),
                   ),
-                ),
-               // Spacer(flex: 1,),
-               // Image.asset("assets/measureBg.png" , width: 100,height: 100,),
-                SizedBox(height: 120,),
-            //    Spacer(flex: 1,),
-                isLoading ? CircularProgressIndicator(
-                  backgroundColor: navBarClr,
-                  color: greenClr,
-                ): button(greenClr , "עדכן" , Colors.white , BorderRadius.circular(5),size.width * 0.5,size.height * 0.05,() async {
-                  setState(() {
-                    isLoading = true;
-                  });
+                  SizedBox(height: 20,),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40,right: 40),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 40,
+                          child: TextField(
+                            controller: heightc,
+                            style: greenText(17),
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              hintText: "160",
+                              hintStyle: GoogleFonts.assistant(
+                                color: emptyDotClr,
+                                fontSize: 17,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Text("גובה  (ס\"מ)" , style: pageSecondHeader(17),textDirection: TextDirection.rtl,),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: size.height * 0.03,),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40,right: 40),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 40,
+                          child: TextField(
+                            controller: weightc,
+                            style: greenText(17),
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              hintText: "70",
+                              hintStyle:  GoogleFonts.assistant(
+                                color: emptyDotClr,
+                                fontSize: 17,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Text("משקל  (ק\"ג)" , style: pageSecondHeader(17),textDirection: TextDirection.rtl,),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: size.height * 0.03,),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40,right: 40),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 40,
+                          child: TextField(
+                            controller: stomachc,
+                            style: greenText(17),
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              hintText: "40",
+                              hintStyle:  GoogleFonts.assistant(
+                                color: emptyDotClr,
+                                fontSize: 17,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Text("היקף בטן  (ק\"ג)" , style: pageSecondHeader(17),textDirection: TextDirection.rtl,),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: size.height * 0.03,),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40,right: 40),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 40,
+                          child: TextField(
+                            controller: armc,
+                            style: greenText(17),
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              hintText: "20",
+                              hintStyle:  GoogleFonts.assistant(
+                                color: emptyDotClr,
+                                fontSize: 17,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Text("היקף יד  (ק\"ג)" , style: pageSecondHeader(17),textDirection: TextDirection.rtl,),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: size.height * 0.03,),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40,right: 40),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 40,
+                          child: TextField(
+                            controller: bodyfatc,
+                            style: greenText(17),
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              hintText: "20",
+                              hintStyle:  GoogleFonts.assistant(
+                                color: emptyDotClr,
+                                fontSize: 17,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Text("אחוז שומן  (ק\"ג)" , style: pageSecondHeader(17),textDirection: TextDirection.rtl,),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 40,),
+                  isLoading ? CircularProgressIndicator(
+                    backgroundColor: navBarClr,
+                    color: greenClr,
+                  ): button(greenClr , "עדכן" , Colors.white , BorderRadius.circular(5),size.width * 0.5,size.height * 0.05,() async {
+
+
+                    if(heightc.text.isEmpty || weightc.text.isEmpty || armc.text.isEmpty || stomachc.text.isEmpty || bodyfatc.text.isEmpty){
+                      ShowError(context, "נא מלא את כל השדות");
+                      return;
+                    }
+
+
+                    try{
+                      double weightAsDouble = double.parse(weightc.text);
+                      if(weightAsDouble < 25 || weightAsDouble > 170){
+                        ShowError(context, "משקל לא מתאים");
+                        return;
+                      }
+                    }catch(e){
+                      ShowError(context, "משקל לא מתאים");
+                      return;
+                    }
+
+
+                    try{
+                      double heightAsDouble = double.parse(heightc.text);
+                      if(heightAsDouble < 50 || heightAsDouble > 250){
+                        ShowError(context, "גובה לא מתאים");
+                        return;
+                      }
+                    }catch(e){
+                      ShowError(context, "גובה לא מתאים");
+                      return;
+                    }
+
+                    try{
+                      double bodyfatasDouble = double.parse(bodyfatc.text);
+                      if(bodyfatasDouble < 0 || bodyfatasDouble > 100){
+                        ShowError(context, "אחוז שומן לא מתאים");
+                        return;
+                      }
+                    }catch(e){
+                      ShowError(context, "אחוז שומן לא מתאים");
+                      return;
+                    }
+
+                    try{
+                      double armAsDouble = double.parse(armc.text);
+                      if(armAsDouble < 0 || armAsDouble > 100){
+                        ShowError(context, "היקף יד לא מתאים");
+                        return;
+                      }
+                    }catch(e){
+                      ShowError(context, "היקף יד לא מתאים");
+                      return;
+                    }
+
+                    try{
+                      double stmAsDouble = double.parse(stomachc.text);
+                      if(stmAsDouble < 0 || stmAsDouble > 100){
+                        ShowError(context, "היקף בטן לא מתאים");
+                        return;
+                      }
+                    }catch(e){
+                      ShowError(context, "היקף בטן לא מתאים");
+                      return;
+                    }
+
+
+                    setState(() {
+                      isLoading = true;
+                    });
+
+                    weight = weightc.text;
+                    String height = heightc.text;
+                    arm = armc.text;
+                    bodyfat = bodyfatc.text;
+                    stomach = stomachc.text;
+                    await DataBaseService.addGoalMeasureForUser(AllUsers.pickedUser!.email, SpecificMeasure(weight, arm, stomach, bodyfat, DateTime.now(),height));
+                    AllUsers.pickedUser!.goalMeasures.insert(0,SpecificMeasure(weight, arm, stomach, bodyfat, DateTime.now(),height));
+                    if( AllUsers.pickedUser!.email == gymHeroUser.email){
+                      gymHeroUser.goalMeasures.insert(0,SpecificMeasure(weight, arm, stomach, bodyfat, DateTime.now(),height));
+                    }
 
 
 
-                  await DataBaseService.addGoalMeasureForUser(AllUsers.pickedUser!.email, SpecificMeasure(goalweight, goalarmSize, goalstomachSize, goalbodyfat, DateTime.now(),"-"));
-                  AllUsers.pickedUser!.goalMeasures.insert(0,SpecificMeasure(goalweight, goalarmSize, goalstomachSize, goalbodyfat, DateTime.now(),"-"));
-                  if( AllUsers.pickedUser!.email == gymHeroUser.email){
-                    gymHeroUser.goalMeasures.insert(0,SpecificMeasure(goalweight, goalarmSize, goalstomachSize, goalbodyfat, DateTime.now(),"-"));
-                  }
+                    setState(() {
+                      isLoading = false;
+                    });
+                    refresh( );
+                    if(onClick != null){
+                      onClick();
+                    }
 
-                  refresh();
-                  setState(() {
-                    isLoading = false;
-                  });
-                  Navigator.pop(context);
-                }),
-                SizedBox(height: size.height * 0.06,)
-              ],
-            ),
-          ),
+                    Navigator.pop(context);
+                  }),
+                  SizedBox(height: 40,),
+                ],
+              ),
+            )
         ),
       ),
     );

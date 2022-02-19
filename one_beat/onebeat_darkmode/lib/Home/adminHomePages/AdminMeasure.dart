@@ -64,53 +64,22 @@ class _AdminMeasureState extends State<AdminMeasure> {
                   children: [
                     Container(
                       margin:EdgeInsets.only(top: 10),
-                        child: Text(getDate(AllUsers.pickedUser!.Measures[0].dateTime),style: assistantStyle(Colors.grey[500]!, 15),textDirection: TextDirection.rtl,)),
+                        child: Text(getDate(AllUsers.pickedUser!.Measures[0].dateTime,flag : false),style: assistantStyle(Colors.grey[500]!, 15),textDirection: TextDirection.rtl,)),
                     Text("מדידות נוכחיות :",style: assistantStyle(greenClr, 25),textDirection: TextDirection.rtl,)
                   ],
                 ),
               ),
               SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children:[
-                      Text("היקף בטן",style: assistantStyle(Colors.white, 20),),
-                      Text("(ס\"ם)",style: assistantStyle(Colors.grey[300]!, 15),),
-                      SizedBox(height: 10,),
-                      Text(AllUsers.pickedUser!.Measures[0].stomach,style: assistantStyle(Colors.grey[500]!, 17),),
-                    ],
-
-                  ),
-                  Column(
-                    children:[
-                      Text("היקף ידיים",style: assistantStyle(Colors.white, 20),),
-                      Text("(ס\"מ)",style: assistantStyle(Colors.grey[300]!, 15),),
-                      SizedBox(height: 10,),
-                      Text(AllUsers.pickedUser!.Measures[0].arm,style: assistantStyle(Colors.grey[500]!, 17),),
-                    ],
-
-                  ),
-                  Column(
-                    children:[
-                      Text("אחוז שומן",style: assistantStyle(Colors.white, 20),),
-                      Text("(%)",style: assistantStyle(Colors.grey[300]!, 15),),
-                      SizedBox(height: 10,),
-                      Text(AllUsers.pickedUser!.Measures[0].bodyfat,style: assistantStyle(Colors.grey[500]!, 17),),
-                    ],
-
-                  ),
-                  Column(
-                    children:[
-                      Text("משקל",style: assistantStyle(Colors.white, 20),),
-                      Text("(ק\"ג)",style: assistantStyle(Colors.grey[300]!, 15),),
-                      SizedBox(height: 10,),
-                      Text(AllUsers.pickedUser!.Measures[0].weight,style: assistantStyle(Colors.grey[500]!, 17),),
-                    ],
-
-                  ),
-                ],
-              ),
+              SingleRow("משקל", "(ק\"ג)", AllUsers.pickedUser!.Measures[0].weight),
+              SizedBox(height: 10,),
+              SingleRow("אחוז שומן", "(%)", AllUsers.pickedUser!.Measures[0].bodyfat),
+              SizedBox(height: 10,),
+              SingleRow("היקף ידיים", "(ס\"מ)", AllUsers.pickedUser!.Measures[0].arm),
+              SizedBox(height: 10,),
+              SingleRow("היקף בטן", "(ס\"מ)", AllUsers.pickedUser!.Measures[0].stomach),
+              SizedBox(height: 10,),
+              SingleRow("גובה", "(ס\"מ)", AllUsers.pickedUser!.Measures[0].height),
+              SizedBox(height: 30,),
               SizedBox(height: 40,),
               Padding(
                 padding: const EdgeInsets.only(right: 20),
@@ -146,7 +115,7 @@ class _AdminMeasureState extends State<AdminMeasure> {
                     child: ListView(
                       children: snapshot.data!.docs.map((DocumentSnapshot document) {
                         Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-                        return CertainMeasure(wegiht: data["weight"], armSize: data["arm"], stomachSize: data["stomach"], bodyFat: data["bodyfat"], date: DateTime.parse(data["dateTime"]));
+                        return CertainMeasure(wegiht: data["weight"], armSize: data["arm"], stomachSize: data["stomach"], bodyFat: data["bodyfat"], date: DateTime.parse(data["dateTime"]),height:data["height"]);
                       }).toList(),
                     ),
                   );
@@ -164,15 +133,16 @@ class _AdminMeasureState extends State<AdminMeasure> {
 
 
 class CertainMeasure extends StatefulWidget {
-  const CertainMeasure({Key? key,  required this.wegiht, required this.armSize, required this.stomachSize, required this.bodyFat, required this.date}) : super(key: key);
+  const CertainMeasure({Key? key,  required this.wegiht, required this.armSize, required this.stomachSize, required this.bodyFat, required this.date, required this.height}) : super(key: key);
   final String wegiht;
   final String armSize;
   final String stomachSize;
   final String bodyFat;
+  final String height;
   final DateTime date;
 
   @override
-  _CertainMeasureState createState() => _CertainMeasureState(this.wegiht,this.armSize,this.stomachSize,this.bodyFat,this.date);
+  _CertainMeasureState createState() => _CertainMeasureState(this.wegiht,this.armSize,this.stomachSize,this.bodyFat,this.date,this.height);
 }
 
 class _CertainMeasureState extends State<CertainMeasure> {
@@ -181,10 +151,11 @@ class _CertainMeasureState extends State<CertainMeasure> {
   final String armSize;
   final String stomachSize;
   final String bodyFat;
+  final String height;
   final DateTime date;
   bool isClicked = false;
 
-  _CertainMeasureState(this.wegiht, this.armSize, this.stomachSize, this.bodyFat,this.date);
+  _CertainMeasureState(this.wegiht, this.armSize, this.stomachSize, this.bodyFat,this.date, this.height);
 
   @override
   Widget build(BuildContext context) {
@@ -212,53 +183,27 @@ class _CertainMeasureState extends State<CertainMeasure> {
                     isClicked ? Icons.arrow_drop_up : Icons.arrow_drop_down , color: greenClr,
                   )),
               Spacer(flex: 1,),
-              Text(getDate(date),style: assistantStyle(Colors.grey[500]!, 17),),
+              Text(getDate(date,flag:true),style: assistantStyle(Colors.grey[500]!, 17),),
               SizedBox(width: 20,),
             ],
           ),
           isClicked ? SizedBox(height: 15,) : Container(),
           isClicked ?
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
               Column(
-                children:[
-                  Text("היקף בטן",style: assistantStyle(Colors.grey[200]!, 20),),
-                  Text("(ס\"ם)",style: assistantStyle(Colors.grey[300]!, 15),),
+                children: [
+                  SizedBox(height: 20,),
+                  SingleRow("משקל", "(ק\"ג)", wegiht),
                   SizedBox(height: 10,),
-                  Text(stomachSize,style: assistantStyle(Colors.grey[500]!, 17),),
-                ],
-
-              ),
-              Column(
-                children:[
-                  Text("היקף ידיים",style: assistantStyle(Colors.white, 20),),
-                  Text("(ס\"מ)",style: assistantStyle(Colors.grey[300]!, 15),),
+                  SingleRow("אחוז שומן", "(%)", bodyFat),
                   SizedBox(height: 10,),
-                  Text(armSize,style: assistantStyle(Colors.grey[500]!, 17),),
-                ],
-
-              ),
-              Column(
-                children:[
-                  Text("אחוז שומן",style: assistantStyle(Colors.white, 20),),
-                  Text("(%)",style: assistantStyle(Colors.grey[300]!, 15),),
+                  SingleRow("היקף ידיים", "(ס\"מ)",armSize),
                   SizedBox(height: 10,),
-                  Text(bodyFat,style: assistantStyle(Colors.grey[500]!, 17),),
-                ],
-
-              ),
-              Column(
-                children:[
-                  Text("משקל",style: assistantStyle(Colors.white, 20),),
-                  Text("(ק\"ג)",style: assistantStyle(Colors.grey[300]!, 15),),
+                  SingleRow("היקף בטן", "(ס\"מ)", stomachSize),
                   SizedBox(height: 10,),
-                  Text(wegiht,style: assistantStyle(Colors.grey[500]!, 17),),
+                  SingleRow("גובה", "(ס\"מ)", height),
+                  SizedBox(height: 30,),
                 ],
-
-              ),
-            ],
-          )
+              )
               :
           Container(),
 
@@ -267,4 +212,19 @@ class _CertainMeasureState extends State<CertainMeasure> {
       ),
     );
   }
+}
+
+Widget SingleRow(String name,String Unit,String val){
+  return  Padding(
+    padding: const EdgeInsets.only(left: 35.0,right: 35),
+    child: Row(
+      children: [
+        Text(val,style: assistantStyle(Colors.grey[500]!, 17),),
+        Spacer(flex: 1,),
+        Text(Unit,style: assistantStyle(Colors.grey[300]!, 15),),
+        SizedBox(width: 10,),
+        Text(name,style: assistantStyle(Colors.white, 20),),
+      ],
+    ),
+  );
 }

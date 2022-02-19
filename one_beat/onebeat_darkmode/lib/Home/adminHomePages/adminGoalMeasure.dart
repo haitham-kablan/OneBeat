@@ -69,47 +69,16 @@ class _AdminGoalMeasureState extends State<AdminGoalMeasure> {
                   ),
                 ),
                 SizedBox(height: 20,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      children:[
-                        Text("היקף בטן",style: assistantStyle(Colors.white, 20),),
-                        Text("(ס\"ם)",style: assistantStyle(Colors.grey[300]!, 15),),
-                        SizedBox(height: 10,),
-                        Text(AllUsers.pickedUser!.goalMeasures[0].stomach,style: assistantStyle(Colors.grey[500]!, 17),),
-                      ],
-
-                    ),
-                    Column(
-                      children:[
-                        Text("היקף ידיים",style: assistantStyle(Colors.white, 20),),
-                        Text("(ס\"מ)",style: assistantStyle(Colors.grey[300]!, 15),),
-                        SizedBox(height: 10,),
-                        Text(AllUsers.pickedUser!.goalMeasures[0].arm,style: assistantStyle(Colors.grey[500]!, 17),),
-                      ],
-
-                    ),
-                    Column(
-                      children:[
-                        Text("אחוז שומן",style: assistantStyle(Colors.white, 20),),
-                        Text("(%)",style: assistantStyle(Colors.grey[300]!, 15),),
-                        SizedBox(height: 10,),
-                        Text(AllUsers.pickedUser!.goalMeasures[0].bodyfat,style: assistantStyle(Colors.grey[500]!, 17),),
-                      ],
-
-                    ),
-                    Column(
-                      children:[
-                        Text("משקל",style: assistantStyle(Colors.white, 20),),
-                        Text("(ק\"ג)",style: assistantStyle(Colors.grey[300]!, 15),),
-                        SizedBox(height: 10,),
-                        Text(AllUsers.pickedUser!.goalMeasures[0].weight,style: assistantStyle(Colors.grey[500]!, 17),),
-                      ],
-
-                    ),
-                  ],
-                ),
+                SingleRow("משקל", "(ק\"ג)", AllUsers.pickedUser!.goalMeasures[0].weight),
+                SizedBox(height: 10,),
+                SingleRow("אחוז שומן", "(%)", AllUsers.pickedUser!.goalMeasures[0].bodyfat),
+                SizedBox(height: 10,),
+                SingleRow("היקף ידיים", "(ס\"מ)", AllUsers.pickedUser!.goalMeasures[0].arm),
+                SizedBox(height: 10,),
+                SingleRow("היקף בטן", "(ס\"מ)", AllUsers.pickedUser!.goalMeasures[0].stomach),
+                SizedBox(height: 10,),
+                SingleRow("גובה", "(ס\"מ)", AllUsers.pickedUser!.goalMeasures[0].height),
+                SizedBox(height: 30,),
                 SizedBox(height: 40,),
                 Padding(
                   padding: const EdgeInsets.only(right: 20),
@@ -145,7 +114,7 @@ class _AdminGoalMeasureState extends State<AdminGoalMeasure> {
                       child: ListView(
                         children: snapshot.data!.docs.map((DocumentSnapshot document) {
                           Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-                          return CertainMeasure(wegiht: data["weight"], armSize: data["arm"], stomachSize: data["stomach"], bodyFat: data["bodyfat"], date: DateTime.parse(data["dateTime"]));
+                          return CertainMeasure(wegiht: data["weight"], armSize: data["arm"], stomachSize: data["stomach"], bodyFat: data["bodyfat"], date: DateTime.parse(data["dateTime"]),height:data["height"]);
                         }).toList(),
                       ),
                     );

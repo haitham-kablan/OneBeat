@@ -146,9 +146,14 @@ String getDayFromEngDay(){
   return "ראשון";
 }
 
-String getDate(DateTime dateTime){
+
+String getDate(DateTime dateTime , {flag = false}){
 
   List<String> x = dateTime.toString().split("-");
-  return x[0] + " / " + x[1] +" / " + x[2].split(" ")[0];
+  if (flag){
+    return x[2].split(" ")[0] +" / " + x[1] + " / " +x[0];
+  }
+  return (x[0] + " / " + x[1] +" / " + x[2].split(" ")[0]);
+
 
 }
