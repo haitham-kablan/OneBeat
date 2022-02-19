@@ -24,6 +24,13 @@ class _MeasureState extends State<Measure> {
   final refresh;
   final onClick;
 
+
+  TextEditingController height = TextEditingController();
+  TextEditingController bodyfat = TextEditingController();
+  TextEditingController weight = TextEditingController();
+  TextEditingController stomach = TextEditingController();
+  TextEditingController arm = TextEditingController();
+
   String category = "משקל";
   String sizeElm = "ק\"ג";
   double min = 25;
@@ -48,7 +55,6 @@ class _MeasureState extends State<Measure> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-
           elevation: 10,
           backgroundColor: greyClr,
           title: Text(

@@ -78,6 +78,8 @@ class MeasureHome extends StatelessWidget {
             MeasureUnit(size: size, name: "היקף יד", curr: gymHeroUser.Measures[0].arm, dist: gymHeroUser.goalMeasures[0].arm),
             SizedBox(height: 30,),
             MeasureUnit(size: size, name: "היקף בטן", curr: gymHeroUser.Measures[0].stomach, dist: gymHeroUser.goalMeasures[0].stomach),
+            SizedBox(height: 30,),
+            MeasureUnit(size: size, name: "גובה", curr: gymHeroUser.Measures[0].height, dist: gymHeroUser.goalMeasures[0].height),
             SizedBox(height: 100,),
 
 
