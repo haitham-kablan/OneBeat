@@ -2,6 +2,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
 import 'package:onebeat_darkmode/Design/Animation/PageTransition.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
@@ -9,6 +10,7 @@ import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
 import 'package:onebeat_darkmode/Home/HomePages/BuildPlan.dart';
 import 'package:onebeat_darkmode/Home/HomePages/SpecificPlan.dart';
 import 'package:onebeat_darkmode/Home/adminHomePages/allUsers.dart';
+import 'package:onebeat_darkmode/LoginPage/LoginPage.dart';
 import 'package:onebeat_darkmode/utils/Porgram.dart';
 import 'package:onebeat_darkmode/utils/ProgramDay.dart';
 
@@ -60,7 +62,7 @@ class _PlansState extends State<Plans> {
         //   backgroundColor: greenClr,
         // ),
 
-        appBar: AppBar(
+        appBar: gymHeroUser.email.isEmpty ? null : AppBar(
 
           elevation: 3,
           backgroundColor: greyClr,
@@ -72,7 +74,40 @@ class _PlansState extends State<Plans> {
           //   Navigator.pop(context);
           // }, icon: Icon(Icons.chevron_left , color: Colors.white, size: 35,)),
         ),
-        body: Stack(
+        body: gymHeroUser.email.isEmpty ? Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(
+                child:Icon(
+                  Icons.admin_panel_settings_outlined,
+                  color: Colors.grey[700]!,
+                  size: 100,
+                )
+            ),
+            SizedBox(height: 20,),
+            Center(
+              child: Container(
+                width: size.width * 0.8,
+                child: Text("נא היכנס למערכת כדי לקבל את תוכניות האימון שלך" , textAlign: TextAlign.center,style: GoogleFonts.assistant(
+                  color: Colors.grey[600]!,
+                  fontSize: 18,
+                )),
+              ),
+            ),
+            SizedBox(height: 10,),
+            InkWell(
+              onTap: (){
+                Navigator.pop(context);
+                Navigator.push(context, CustomPageRoute(child: LogInPage()));
+              },
+              child: Text("לחץ לכניסה" , textAlign: TextAlign.center,style: GoogleFonts.assistant(
+                color: greenClr,
+                fontSize: 20,
+              )),
+            ),
+          ],
+        ):Stack(
           children: [
             Column(
               children: [

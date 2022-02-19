@@ -46,10 +46,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  int index = 1;
+  int index = 0;
   List<Widget> homeBody = [
-    MeasureHome(),
     GreetingHome(),
+    MeasureHome(),
+
     Plans(),
 
   ];
@@ -70,8 +71,8 @@ class _HomeState extends State<Home> {
           backgroundColor: Colors.transparent,
           color: greenClr,
           items: <Widget>[
-            Icon(Icons.accessibility_new_sharp, size: 25,color:Colors.white),
             Icon(Icons.home_filled, size: 25,color:Colors.white),
+            Icon(Icons.accessibility_new_sharp, size: 25,color:Colors.white),
             Icon(Icons.dashboard, size: 25,color:Colors.white),
 
 

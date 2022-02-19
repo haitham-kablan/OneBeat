@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
+import 'package:onebeat_darkmode/Design/Animation/PageTransition.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/ShowError.dart';
+import 'package:onebeat_darkmode/LoginPage/LoginPage.dart';
 
 class MeasureHome extends StatelessWidget {
   const MeasureHome({Key? key}) : super(key: key);
@@ -13,8 +15,41 @@ class MeasureHome extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: backGroundClr,
-      body: SingleChildScrollView(
-        child: Column(
+      body: gymHeroUser.email.isEmpty ? Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Center(
+            child:Icon(
+              Icons.admin_panel_settings_outlined,
+              color: Colors.grey[700]!,
+              size: 100,
+            )
+          ),
+          SizedBox(height: 20,),
+          Center(
+            child: Container(
+              width: size.width * 0.8,
+              child: Text("נא היכנס למערכת כדי לקבל את המדידות שלך" , textAlign: TextAlign.center,style: GoogleFonts.assistant(
+                color: Colors.grey[600]!,
+                fontSize: 18,
+              )),
+            ),
+          ),
+          SizedBox(height: 10,),
+          InkWell(
+            onTap: (){
+              Navigator.pop(context);
+              Navigator.push(context, CustomPageRoute(child: LogInPage()));
+            },
+            child: Text("לחץ לכניסה" , textAlign: TextAlign.center,style: GoogleFonts.assistant(
+              color: greenClr,
+              fontSize: 20,
+            )),
+          ),
+        ],
+      ) : SingleChildScrollView(
+        child:Column(
           children: [
             SizedBox(height: 30,),
             Center(

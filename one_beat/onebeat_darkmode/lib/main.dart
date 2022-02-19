@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.done) {
               gymHeroUser = snapshot.data!;
 
-              return (gymHeroUser.email.isEmpty ? LogInPage() : (gymHeroUser.fristTime ? WelcomePage1() : Home()));
+              return (gymHeroUser.email.isEmpty ? Home() : (gymHeroUser.fristTime ? WelcomePage1() : Home()));
             }
 
             return Scaffold(

@@ -244,10 +244,10 @@ class _goalsState extends State<goals> {
 
 
 
-                  await DataBaseService.addGoalMeasureForUser(AllUsers.pickedUser!.email, SpecificMeasure(goalweight, goalarmSize, goalstomachSize, goalbodyfat, DateTime.now()));
-                  AllUsers.pickedUser!.goalMeasures.insert(0,SpecificMeasure(goalweight, goalarmSize, goalstomachSize, goalbodyfat, DateTime.now()));
+                  await DataBaseService.addGoalMeasureForUser(AllUsers.pickedUser!.email, SpecificMeasure(goalweight, goalarmSize, goalstomachSize, goalbodyfat, DateTime.now(),"-"));
+                  AllUsers.pickedUser!.goalMeasures.insert(0,SpecificMeasure(goalweight, goalarmSize, goalstomachSize, goalbodyfat, DateTime.now(),"-"));
                   if( AllUsers.pickedUser!.email == gymHeroUser.email){
-                    gymHeroUser.goalMeasures.insert(0,SpecificMeasure(goalweight, goalarmSize, goalstomachSize, goalbodyfat, DateTime.now()));
+                    gymHeroUser.goalMeasures.insert(0,SpecificMeasure(goalweight, goalarmSize, goalstomachSize, goalbodyfat, DateTime.now(),"-"));
                   }
 
                   refresh();

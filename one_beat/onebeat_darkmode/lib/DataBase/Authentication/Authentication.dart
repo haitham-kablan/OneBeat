@@ -57,6 +57,7 @@ class AuthenticationService{
 
      User? usr = await FirebaseAuth.instance.currentUser;
      if(usr == null){
+
        return GymHeroUser.emptyUser("", "");
      }
      await DataBaseService.getUserMemberShip(usr.email!);

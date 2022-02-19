@@ -119,7 +119,7 @@ class DataBaseService{
               gymHeroUser.Measures.add(SpecificMeasure.mapToSpecificMeasure(
                   element.data()["weight"], element.data()["arm"],
                   element.data()["stomach"], element.data()["bodyfat"],
-                  element.data()["dateTime"]));
+                  element.data()["dateTime"],element.data()["height"]));
             }));
 
             await usersCollection.doc(gymHeroUser.email).collection(goalMeasures).orderBy("time",descending: true)
@@ -128,7 +128,7 @@ class DataBaseService{
               gymHeroUser.goalMeasures.add(SpecificMeasure.mapToSpecificMeasure(
                   element.data()["weight"], element.data()["arm"],
                   element.data()["stomach"], element.data()["bodyfat"],
-                  element.data()["dateTime"]));
+                  element.data()["dateTime"],element.data()["height"]));
             }));
 
 
@@ -199,7 +199,7 @@ class DataBaseService{
             user.Measures.add(SpecificMeasure.mapToSpecificMeasure(
                 element.data()["weight"], element.data()["arm"],
                 element.data()["stomach"], element.data()["bodyfat"],
-                element.data()["dateTime"]));
+                element.data()["dateTime"],element.data()["height"]));
       }));
     });
 
@@ -214,7 +214,7 @@ class DataBaseService{
         user.goalMeasures.add(SpecificMeasure.mapToSpecificMeasure(
             element.data()["weight"], element.data()["arm"],
             element.data()["stomach"], element.data()["bodyfat"],
-            element.data()["dateTime"]));
+            element.data()["dateTime"],element.data()["height"]));
       }));
     });
 
@@ -290,7 +290,7 @@ class DataBaseService{
           SpecificMeasure.mapToSpecificMeasure(
               element.data()["weight"], element.data()["arm"],
               element.data()["stomach"], element.data()["bodyfat"],
-              element.data()["dateTime"]));
+              element.data()["dateTime"],element.data()["height"]));
     }));
 
     await usersCollection.doc(email).collection(goalMeasures).orderBy("time",descending: true).get()
@@ -299,7 +299,7 @@ class DataBaseService{
           SpecificMeasure.mapToSpecificMeasure(
               element.data()["weight"], element.data()["arm"],
               element.data()["stomach"], element.data()["bodyfat"],
-              element.data()["dateTime"]));
+              element.data()["dateTime"],element.data()["height"]));
     }));
 
 

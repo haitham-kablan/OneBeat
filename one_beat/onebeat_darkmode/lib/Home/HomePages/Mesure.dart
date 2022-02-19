@@ -245,10 +245,10 @@ class _MeasureState extends State<Measure> {
                 });
 
 
-                await DataBaseService.addMeasureForUser(AllUsers.pickedUser!.email, SpecificMeasure(weight, arm, stomach, bodyfat, DateTime.now()));
-                AllUsers.pickedUser!.Measures.insert(0,SpecificMeasure(weight, arm, stomach, bodyfat, DateTime.now()));
+                await DataBaseService.addMeasureForUser(AllUsers.pickedUser!.email, SpecificMeasure(weight, arm, stomach, bodyfat, DateTime.now(),"-"));
+                AllUsers.pickedUser!.Measures.insert(0,SpecificMeasure(weight, arm, stomach, bodyfat, DateTime.now(),"-"));
                 if( AllUsers.pickedUser!.email == gymHeroUser.email){
-                  gymHeroUser.Measures.insert(0,SpecificMeasure(weight, arm, stomach, bodyfat, DateTime.now()));
+                  gymHeroUser.Measures.insert(0,SpecificMeasure(weight, arm, stomach, bodyfat, DateTime.now(),"-"));
                 }
 
 

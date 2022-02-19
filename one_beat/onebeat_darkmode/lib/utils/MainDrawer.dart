@@ -5,8 +5,10 @@ import 'package:onebeat_darkmode/DataBase/User/GymHeroUser.dart';
 import 'package:onebeat_darkmode/Design/Animation/PageTransition.dart';
 import 'package:onebeat_darkmode/Design/ColorsPallete/Pallete.dart';
 import 'package:onebeat_darkmode/Design/TextStyle/TextStyle.dart';
+import 'package:onebeat_darkmode/Home/HomePages/About.dart';
 import 'package:onebeat_darkmode/Home/HomePages/GeneralPlans.dart';
 import 'package:onebeat_darkmode/Home/HomePages/Hours.dart';
+import 'package:onebeat_darkmode/Home/HomePages/Location.dart';
 import 'package:onebeat_darkmode/Home/HomePages/Mesure.dart';
 import 'package:onebeat_darkmode/Home/HomePages/Plans.dart';
 import 'package:onebeat_darkmode/Home/HomePages/goals.dart';
@@ -114,7 +116,7 @@ Drawer mainDr(Size size,context,action){
             child: InkWell(
               onTap:(){
                 Navigator.pop(context);
-                Navigator.push(context, CustomPageRoute(child: GeneralPlans()));
+                Navigator.push(context, CustomPageRoute(child: AboutPage()));
 
               },
               child: Row(
@@ -122,10 +124,10 @@ Drawer mainDr(Size size,context,action){
                   Spacer(flex: 1,),
                   Container(
                       margin: EdgeInsets.only(bottom: 3),
-                      child: Text("תוכניות אימון למתחילים" , style: assistantStyle(Colors.grey[600]!, 20),)),
+                      child: Text("מי אנחנו" , style: assistantStyle(Colors.grey[600]!, 20),)),
                   SizedBox(width: 15,),
                   Icon(
-                    Icons.dashboard,
+                    Icons.info_outline,
                     color: Colors.grey[600]!,
                     size: 20,
                   ),
@@ -140,7 +142,7 @@ Drawer mainDr(Size size,context,action){
             child: InkWell(
               onTap:(){
                 Navigator.pop(context);
-                Navigator.push(context, CustomPageRoute(child: Plans()));
+                Navigator.push(context, CustomPageRoute(child: LocationWaze()));
 
               },
               child: Row(
@@ -148,10 +150,10 @@ Drawer mainDr(Size size,context,action){
                   Spacer(flex: 1,),
                   Container(
                       margin: EdgeInsets.only(bottom: 3),
-                      child: Text("תוכניות אימון אישיות" , style: assistantStyle(Colors.grey[600]!, 20),)),
+                      child: Text("הגעה ויצירת קשר" , style: assistantStyle(Colors.grey[600]!, 20),)),
                   SizedBox(width: 15,),
                   Icon(
-                    Icons.accessibility_new_sharp,
+                    Icons.location_on,
                     color: Colors.grey[600]!,
                     size: 20,
                   ),
@@ -187,7 +189,7 @@ Drawer mainDr(Size size,context,action){
             ),
           ),
           SizedBox(height: 30,),
-          Material(
+          gymHeroUser.email.isEmpty ? Container() : Material(
             color: Colors.transparent,
             child: InkWell(
               onTap:(){

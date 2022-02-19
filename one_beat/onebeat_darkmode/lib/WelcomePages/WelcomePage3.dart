@@ -299,7 +299,7 @@ class _WelcomePage3State extends State<WelcomePage3> {
 
                 showDialog(context: context,
                     builder: (context){
-                  return acceptDialouge(size: size,weight: weight.text,male: male,);
+                  return acceptDialouge(size: size,weight: weight.text,male: male,height: height.text,);
                     });
 
 
@@ -326,18 +326,20 @@ class acceptDialouge extends StatefulWidget {
   final Size size;
   final bool male;
   final String weight;
-  const acceptDialouge({Key? key, required this.size, required this.male, required this.weight}) : super(key: key);
+  final String height;
+  const acceptDialouge({Key? key, required this.size, required this.male, required this.weight, required this.height}) : super(key: key);
 
   @override
-  _acceptDialougeState createState() => _acceptDialougeState(size,male,weight);
+  _acceptDialougeState createState() => _acceptDialougeState(size,male,weight,height);
 }
 
 class _acceptDialougeState extends State<acceptDialouge> {
   final Size size;
   final bool male;
   final String weight;
+  final String height;
 
-  _acceptDialougeState(this.size, this.male, this.weight);
+  _acceptDialougeState(this.size, this.male, this.weight, this.height);
   Color getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
       MaterialState.pressed,
@@ -713,8 +715,8 @@ class _acceptDialougeState extends State<acceptDialouge> {
 
                           Map<String,dynamic> map =  Map();
 
-                          gymHeroUser.Measures.insert(0,SpecificMeasure(weight, "-", "-", "-", DateTime.now()));
-                          gymHeroUser.goalMeasures.insert(0,SpecificMeasure("-", "-", "-", "-", DateTime.now()));
+                          gymHeroUser.Measures.insert(0,SpecificMeasure(weight, "-", "-", "-", DateTime.now(),height));
+                          gymHeroUser.goalMeasures.insert(0,SpecificMeasure("-", "-", "-", "-", DateTime.now(),"-"));
 
                           map["age"] = gymHeroUser.age;
 //map["weight"] = gymHeroUser.weight;
@@ -728,8 +730,8 @@ class _acceptDialougeState extends State<acceptDialouge> {
                       });
 
                       await DataBaseService.updateUser(map);
-                      await DataBaseService.addMeasureForUser(gymHeroUser.email, SpecificMeasure(weight, "-", "-", "-", DateTime.now()));
-                      await DataBaseService.addGoalMeasureForUser(gymHeroUser.email, SpecificMeasure("-", "-", "-", "-", DateTime.now()));
+                      await DataBaseService.addMeasureForUser(gymHeroUser.email, SpecificMeasure(weight, "-", "-", "-", DateTime.now(),height));
+                      await DataBaseService.addGoalMeasureForUser(gymHeroUser.email, SpecificMeasure("-", "-", "-", "-", DateTime.now(),"-"));
 
                       setState(() {
                         isLoading = false;
